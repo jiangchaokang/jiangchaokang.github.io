@@ -31,20 +31,6 @@
   </url>
   
   <url>
-    <loc>https://LZDSJTU.github.io/zh/</loc>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://LZDSJTU.github.io/en/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://LZDSJTU.github.io/zh/"
-                />
-  </url>
-  
-  <url>
     <loc>https://LZDSJTU.github.io/zh/publication_types/</loc>
     <xhtml:link
                 rel="alternate"
@@ -69,6 +55,34 @@
                 rel="alternate"
                 hreflang="zh"
                 href="https://LZDSJTU.github.io/zh/tags/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://LZDSJTU.github.io/zh/author/zhidong-liang/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://LZDSJTU.github.io/en/author/zhidong-liang/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://LZDSJTU.github.io/zh/author/zhidong-liang/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://LZDSJTU.github.io/zh/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://LZDSJTU.github.io/en/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://LZDSJTU.github.io/zh/"
                 />
   </url>
   
