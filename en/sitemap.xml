@@ -31,10 +31,6 @@
   </url>
   
   <url>
-    <loc>https://LZDSJTU.github.io/en/author/nelson-bighetti/</loc>
-  </url>
-  
-  <url>
     <loc>https://LZDSJTU.github.io/en/post/</loc>
   </url>
   
@@ -72,6 +68,10 @@
                 hreflang="en"
                 href="https://LZDSJTU.github.io/en/tags/"
                 />
+  </url>
+  
+  <url>
+    <loc>https://LZDSJTU.github.io/en/author/zhidong-liang/</loc>
   </url>
   
   <url>
