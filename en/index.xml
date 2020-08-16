@@ -1,16 +1,64 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Zhidong Liang (梁志栋)</title>
+    <title>Zhidong Liang&#39;s Homepage</title>
     <link>https://LZDSJTU.github.io/en/</link>
       <atom:link href="https://LZDSJTU.github.io/en/index.xml" rel="self" type="application/rss+xml" />
-    <description>Zhidong Liang (梁志栋)</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language>
+    <description>Zhidong Liang&#39;s Homepage</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Thu, 25 Jun 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://LZDSJTU.github.io/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
-      <title>Zhidong Liang (梁志栋)</title>
+      <title>Zhidong Liang&#39;s Homepage</title>
       <link>https://LZDSJTU.github.io/en/</link>
     </image>
+    
+    <item>
+      <title>3D Instance Embedding Learning With a Structure Aware Loss Function for Point Cloud Segmentation</title>
+      <link>https://LZDSJTU.github.io/en/publication/3d-instance-embedding-learning-with-a-structure-aware-loss-function-for-point-cloud-segmentation/</link>
+      <pubDate>Thu, 25 Jun 2020 00:00:00 +0000</pubDate>
+      <guid>https://LZDSJTU.github.io/en/publication/3d-instance-embedding-learning-with-a-structure-aware-loss-function-for-point-cloud-segmentation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Hierarchical Depthwise Graph Convolutional Neural Network for 3D Semantic Segmentation of Point Clouds</title>
+      <link>https://LZDSJTU.github.io/en/publication/hierarchical-depthwise-graph-convolutional-neural-network-for-3d-semantic-segmentation-of-point-clouds/</link>
+      <pubDate>Wed, 21 Aug 2019 00:00:00 +0000</pubDate>
+      <guid>https://LZDSJTU.github.io/en/publication/hierarchical-depthwise-graph-convolutional-neural-network-for-3d-semantic-segmentation-of-point-clouds/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Fusing Geometrical and Visual Information via Superpoints for the Semantic Segmentation of 3D Road Scenes</title>
+      <link>https://LZDSJTU.github.io/en/publication/fusing-geometrical-and-visual-information-via-superpoints-for-the-semantic-segmentation-of-3d-road-scenes/</link>
+      <pubDate>Tue, 20 Aug 2019 00:00:00 +0000</pubDate>
+      <guid>https://LZDSJTU.github.io/en/publication/fusing-geometrical-and-visual-information-via-superpoints-for-the-semantic-segmentation-of-3d-road-scenes/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>News</title>
+      <link>https://LZDSJTU.github.io/en/news/</link>
+      <pubDate>Fri, 01 Dec 2017 00:00:00 +0800</pubDate>
+      <guid>https://LZDSJTU.github.io/en/news/</guid>
+      <description>
+
+
+
+
+
+
+
+
+&lt;p&gt;&lt;strong&gt;[2020.07]&lt;/strong&gt; Our method &lt;strong&gt;HRI-MSP-L&lt;/strong&gt; ranked first on the &lt;a href=&#34;http://www.cvlibs.net/datasets/kitti/eval_3dobject.php&#34;&gt;KITTI cyclist detection benchmark&lt;/a&gt; for all four tasks (2D, 3D, BEV, Orientation).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;[2020.06]&lt;/strong&gt; &lt;a href=&#34;https://LZDSJTU.github.io/en/publication/3d-instance-embedding-learning-with-a-structure-aware-loss-function-for-point-cloud-segmentation&#34;&gt;One paper&lt;/a&gt; accepted to IEEE Robotics and Automation Letters with joint IROS 2020 option.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;[2020.01]&lt;/strong&gt; &lt;a href=&#34;https://LZDSJTU.github.io/en/publication/fusing-geometrical-and-visual-information-via-superpoints-for-the-semantic-segmentation-of-3d-road-scenes/&#34;&gt;One paper&lt;/a&gt; accepted to Tsinghua Science and Technology.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;[2019.02]&lt;/strong&gt; Our method &lt;a href=&#34;https://LZDSJTU.github.io/en/publication/3d-instance-embedding-learning-with-a-structure-aware-loss-function-for-point-cloud-segmentation&#34;&gt;SALoss&lt;/a&gt; ranked first on the &lt;a href=&#34;http://kaldir.vc.in.tum.de/scannet_benchmark&#34;&gt;ScanNet benchmark&lt;/a&gt; (3D instance segmentation).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;[2019.01]&lt;/strong&gt; &lt;a href=&#34;https://LZDSJTU.github.io/en/publication/hierarchical-depthwise-graph-convolutional-neural-network-for-3d-semantic-segmentation-of-point-clouds&#34;&gt;One paper&lt;/a&gt; accepted to ICRA 2019.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;[2018.09]&lt;/strong&gt; Our method &lt;a href=&#34;https://LZDSJTU.github.io/en/publication/hierarchical-depthwise-graph-convolutional-neural-network-for-3d-semantic-segmentation-of-point-clouds&#34;&gt;HDGCN&lt;/a&gt; ranked first on the &lt;a href=&#34;https://npm3d.fr/paris-lille-3d&#34;&gt;Paris-Lille-3D benchmark&lt;/a&gt; (3D semantic segmentation).&lt;/p&gt;
+
+</description>
+    </item>
     
   </channel>
 </rss>
