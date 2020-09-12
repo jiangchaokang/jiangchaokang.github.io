@@ -5,7 +5,7 @@
     <link>https://LZDSJTU.github.io/zh/</link>
       <atom:link href="https://LZDSJTU.github.io/zh/index.xml" rel="self" type="application/rss+xml" />
     <description>梁志栋的个人主页</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>zh-Hans</language><lastBuildDate>Thu, 25 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>zh-Hans</language><lastBuildDate>Sat, 12 Sep 2020 16:37:02 +0800</lastBuildDate>
     <image>
       <url>https://LZDSJTU.github.io/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
       <title>梁志栋的个人主页</title>
@@ -13,11 +13,33 @@
     </image>
     
     <item>
+      <title>RangeRCNN: Towards Fast and Accurate 3D Object Detection With Range Image Representation</title>
+      <link>https://LZDSJTU.github.io/zh/publication/rangercnn-towards-fast-and-accurate-3d-object-detection-with-range-image-representation/</link>
+      <pubDate>Sat, 12 Sep 2020 16:37:02 +0800</pubDate>
+      <guid>https://LZDSJTU.github.io/zh/publication/rangercnn-towards-fast-and-accurate-3d-object-detection-with-range-image-representation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>3D Instance Embedding Learning With a Structure Aware Loss Function for Point Cloud Segmentation</title>
       <link>https://LZDSJTU.github.io/zh/publication/3d-instance-embedding-learning-with-a-structure-aware-loss-function-for-point-cloud-segmentation/</link>
       <pubDate>Thu, 25 Jun 2020 00:00:00 +0000</pubDate>
       <guid>https://LZDSJTU.github.io/zh/publication/3d-instance-embedding-learning-with-a-structure-aware-loss-function-for-point-cloud-segmentation/</guid>
       <description></description>
+    </item>
+    
+    <item>
+      <title>国家自然科学基金 “基于语义点云的智能汽车环境感知与建模”</title>
+      <link>https://LZDSJTU.github.io/zh/project/semantic_point_cloud/</link>
+      <pubDate>Mon, 30 Mar 2020 00:00:00 +0000</pubDate>
+      <guid>https://LZDSJTU.github.io/zh/project/semantic_point_cloud/</guid>
+      <description>&lt;p&gt;负责内容:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;项目过程中技术性问题的及时跟进与协助解决&lt;/li&gt;
+&lt;li&gt;项目中各子任务的阶段性进展收集与汇报&lt;/li&gt;
+&lt;li&gt;项目年度进展总结及成果汇报&lt;/li&gt;
+&lt;/ul&gt;
+</description>
     </item>
     
     <item>
@@ -37,6 +59,14 @@
     </item>
     
     <item>
+      <title>全自动送餐机器人</title>
+      <link>https://LZDSJTU.github.io/zh/project/restaurant_robot/</link>
+      <pubDate>Sat, 15 Sep 2018 00:00:00 +0000</pubDate>
+      <guid>https://LZDSJTU.github.io/zh/project/restaurant_robot/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>News</title>
       <link>https://LZDSJTU.github.io/zh/news/</link>
       <pubDate>Fri, 01 Dec 2017 00:00:00 +0800</pubDate>
@@ -50,6 +80,7 @@
 
 
 
+&lt;p&gt;&lt;strong&gt;[2020.09]&lt;/strong&gt; 我们的方法 &lt;a href=&#34;https://LZDSJTU.github.io/en/publication/rangercnn-towards-fast-and-accurate-3d-object-detection-with-range-image-representation&#34;&gt;RangeRCNN&lt;/a&gt; 在 &lt;a href=&#34;http://www.cvlibs.net/datasets/kitti/eval_3dobject.php&#34;&gt;KITTI 3D车辆检测&lt;/a&gt; 中排名第二 （在有论文的方法中）.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;[2020.07]&lt;/strong&gt; 我们的方法 &lt;strong&gt;HRI-MSP-L&lt;/strong&gt; 在 &lt;a href=&#34;http://www.cvlibs.net/datasets/kitti/eval_3dobject.php&#34;&gt;KITTI Cyclist检测 benchmark&lt;/a&gt; 取得四项任务第一 (2D检测, 3D检测, BEV检测, 朝向检测).&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;[2020.06]&lt;/strong&gt; &lt;a href=&#34;https://LZDSJTU.github.io/en/publication/3d-instance-embedding-learning-with-a-structure-aware-loss-function-for-point-cloud-segmentation&#34;&gt;一篇论文&lt;/a&gt; 被 IEEE Robotics and Automation Letters (IROS 2020 option) 接收.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;[2020.01]&lt;/strong&gt; &lt;a href=&#34;https://LZDSJTU.github.io/en/publication/fusing-geometrical-and-visual-information-via-superpoints-for-the-semantic-segmentation-of-3d-road-scenes/&#34;&gt;一篇论文&lt;/a&gt; 被 Tsinghua Science and Technology 接收.&lt;/p&gt;
@@ -57,6 +88,20 @@
 &lt;p&gt;&lt;strong&gt;[2019.01]&lt;/strong&gt; &lt;a href=&#34;https://LZDSJTU.github.io/en/publication/hierarchical-depthwise-graph-convolutional-neural-network-for-3d-semantic-segmentation-of-point-clouds&#34;&gt;一篇论文&lt;/a&gt; 被 ICRA 2019 接收.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;[2018.09]&lt;/strong&gt; 我们的方法 &lt;a href=&#34;https://LZDSJTU.github.io/en/publication/hierarchical-depthwise-graph-convolutional-neural-network-for-3d-semantic-segmentation-of-point-clouds&#34;&gt;HDGCN&lt;/a&gt; 在 &lt;a href=&#34;https://npm3d.fr/paris-lille-3d&#34;&gt;Paris-Lille-3D benchmark&lt;/a&gt; (3D语义分割任务) 中取得第一。&lt;/p&gt;
 
+</description>
+    </item>
+    
+    <item>
+      <title>L4无人驾驶系统开发</title>
+      <link>https://LZDSJTU.github.io/zh/project/internal-project/</link>
+      <pubDate>Thu, 30 Nov 2017 00:00:00 +0000</pubDate>
+      <guid>https://LZDSJTU.github.io/zh/project/internal-project/</guid>
+      <description>&lt;p&gt;负责内容:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;负责无人车系统集成，包括集成车道线检测、激光雷达检测、占据栅格图、信号灯检测、车辆定位、决策、路径规划、车辆控制等子模块，协调各子模块负责人定义功能接口及进行真车联合调试&lt;/li&gt;
+&lt;li&gt;负责无人车决策、局部路径规划及车辆速度控制模块，实现无人车高速及城区道路的正常行驶&lt;/li&gt;
+&lt;li&gt;负责参加2017年中国智能车未来挑战赛，在比赛过程中实时跟进、解决无人车突发状况&lt;/li&gt;
+&lt;/ul&gt;
 </description>
     </item>
     

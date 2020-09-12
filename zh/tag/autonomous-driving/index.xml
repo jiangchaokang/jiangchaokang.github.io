@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Autonomous driving | 梁志栋的个人主页</title>
+    <link>https://LZDSJTU.github.io/zh/tag/autonomous-driving/</link>
+      <atom:link href="https://LZDSJTU.github.io/zh/tag/autonomous-driving/index.xml" rel="self" type="application/rss+xml" />
+    <description>Autonomous driving</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>zh-Hans</language><lastBuildDate>Mon, 30 Mar 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://LZDSJTU.github.io/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
+      <title>Autonomous driving</title>
+      <link>https://LZDSJTU.github.io/zh/tag/autonomous-driving/</link>
+    </image>
+    
+    <item>
+      <title>国家自然科学基金 “基于语义点云的智能汽车环境感知与建模”</title>
+      <link>https://LZDSJTU.github.io/zh/project/semantic_point_cloud/</link>
+      <pubDate>Mon, 30 Mar 2020 00:00:00 +0000</pubDate>
+      <guid>https://LZDSJTU.github.io/zh/project/semantic_point_cloud/</guid>
+      <description>&lt;p&gt;负责内容:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;项目过程中技术性问题的及时跟进与协助解决&lt;/li&gt;
+&lt;li&gt;项目中各子任务的阶段性进展收集与汇报&lt;/li&gt;
+&lt;li&gt;项目年度进展总结及成果汇报&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>全自动送餐机器人</title>
+      <link>https://LZDSJTU.github.io/zh/project/restaurant_robot/</link>
+      <pubDate>Sat, 15 Sep 2018 00:00:00 +0000</pubDate>
+      <guid>https://LZDSJTU.github.io/zh/project/restaurant_robot/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>L4无人驾驶系统开发</title>
+      <link>https://LZDSJTU.github.io/zh/project/internal-project/</link>
+      <pubDate>Thu, 30 Nov 2017 00:00:00 +0000</pubDate>
+      <guid>https://LZDSJTU.github.io/zh/project/internal-project/</guid>
+      <description>&lt;p&gt;负责内容:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;负责无人车系统集成，包括集成车道线检测、激光雷达检测、占据栅格图、信号灯检测、车辆定位、决策、路径规划、车辆控制等子模块，协调各子模块负责人定义功能接口及进行真车联合调试&lt;/li&gt;
+&lt;li&gt;负责无人车决策、局部路径规划及车辆速度控制模块，实现无人车高速及城区道路的正常行驶&lt;/li&gt;
+&lt;li&gt;负责参加2017年中国智能车未来挑战赛，在比赛过程中实时跟进、解决无人车突发状况&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
