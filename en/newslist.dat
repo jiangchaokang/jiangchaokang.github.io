@@ -1,3 +1,6 @@
+**[2021.11]** [One paper](/en/publication/rangelvdet-boosting-3d-object-detection-in-lidar-with-range-image-and-rgb-image) accepted to IEEE Sensors Journal.
+**[2021.02]** [One paper](/en/publication/rangeioudet-range-image-based-real-time-3d-object-detector-optimized-by-intersection-over-union) accepted to CVPR 2021 Oral.
+**[2021.02]** [One paper](/en/publication/centroidreg-a-global-to-local-framework-for-partial-point-cloud-registration) accepted to IEEE Robotics and Automation Letters with joint ICRA 2021 option.
 **[2020.09]** Our method [RangeRCNN](/en/publication/rangercnn-towards-fast-and-accurate-3d-object-detection-with-range-image-representation) ranked 2nd on the [KITTI 3D Car detection benchmark](http://www.cvlibs.net/datasets/kitti/eval_3dobject.php) among all methods with papers.
 **[2020.07]** Our method **HRI-MSP-L** ranked 1st on the [KITTI cyclist detection benchmark](http://www.cvlibs.net/datasets/kitti/eval_3dobject.php) for all four tasks (2D, 3D, BEV, Orientation).
 **[2020.06]** [One paper](/en/publication/3d-instance-embedding-learning-with-a-structure-aware-loss-function-for-point-cloud-segmentation) accepted to IEEE Robotics and Automation Letters with joint IROS 2020 option.

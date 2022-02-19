@@ -5,12 +5,28 @@
     <link>https://LZDSJTU.github.io/en/publication-type/2/</link>
       <atom:link href="https://LZDSJTU.github.io/en/publication-type/2/index.xml" rel="self" type="application/rss+xml" />
     <description>2</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Thu, 25 Jun 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sat, 13 Nov 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://LZDSJTU.github.io/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
       <title>2</title>
       <link>https://LZDSJTU.github.io/en/publication-type/2/</link>
     </image>
+    
+    <item>
+      <title>RangeLVDet: Boosting 3D Object Detection in LIDAR With Range Image and RGB Image</title>
+      <link>https://LZDSJTU.github.io/en/publication/rangelvdet-boosting-3d-object-detection-in-lidar-with-range-image-and-rgb-image/</link>
+      <pubDate>Sat, 13 Nov 2021 00:00:00 +0000</pubDate>
+      <guid>https://LZDSJTU.github.io/en/publication/rangelvdet-boosting-3d-object-detection-in-lidar-with-range-image-and-rgb-image/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CentroidReg: A Global-to-Local Framework for Partial Point Cloud Registration</title>
+      <link>https://LZDSJTU.github.io/en/publication/centroidreg-a-global-to-local-framework-for-partial-point-cloud-registration/</link>
+      <pubDate>Sun, 28 Feb 2021 00:00:00 +0000</pubDate>
+      <guid>https://LZDSJTU.github.io/en/publication/centroidreg-a-global-to-local-framework-for-partial-point-cloud-registration/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>3D Instance Embedding Learning With a Structure Aware Loss Function for Point Cloud Segmentation</title>

@@ -3,23 +3,23 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://LZDSJTU.github.io/zh/publication-type/3/</loc>
-    <lastmod>2020-09-12T16:37:02+08:00</lastmod>
+    <loc>https://LZDSJTU.github.io/zh/publication-type/2/</loc>
+    <lastmod>2021-11-13T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="https://LZDSJTU.github.io/en/publication-type/3/"
+                href="https://LZDSJTU.github.io/en/publication-type/2/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="https://LZDSJTU.github.io/zh/publication-type/3/"
+                href="https://LZDSJTU.github.io/zh/publication-type/2/"
                 />
   </url>
   
   <url>
     <loc>https://LZDSJTU.github.io/zh/authors/</loc>
-    <lastmod>2020-09-12T16:37:02+08:00</lastmod>
+    <lastmod>2021-11-13T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -33,8 +33,38 @@
   </url>
   
   <url>
+    <loc>https://LZDSJTU.github.io/zh/author/hao-li/</loc>
+    <lastmod>2021-11-13T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://LZDSJTU.github.io/en/author/hao-li/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://LZDSJTU.github.io/zh/author/hao-li/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://LZDSJTU.github.io/zh/author/ming-yang/</loc>
+    <lastmod>2021-11-13T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://LZDSJTU.github.io/en/author/ming-yang/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://LZDSJTU.github.io/zh/author/ming-yang/"
+                />
+  </url>
+  
+  <url>
     <loc>https://LZDSJTU.github.io/zh/author/ming-zhang/</loc>
-    <lastmod>2020-09-12T16:37:02+08:00</lastmod>
+    <lastmod>2021-11-13T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -49,7 +79,7 @@
   
   <url>
     <loc>https://LZDSJTU.github.io/zh/publication_types/</loc>
-    <lastmod>2020-09-12T16:37:02+08:00</lastmod>
+    <lastmod>2021-11-13T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -64,7 +94,7 @@
   
   <url>
     <loc>https://LZDSJTU.github.io/zh/publication/</loc>
-    <lastmod>2020-09-12T16:37:02+08:00</lastmod>
+    <lastmod>2021-11-13T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -74,6 +104,186 @@
                 rel="alternate"
                 hreflang="zh"
                 href="https://LZDSJTU.github.io/zh/publication/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://LZDSJTU.github.io/zh/publication/rangelvdet-boosting-3d-object-detection-in-lidar-with-range-image-and-rgb-image/</loc>
+    <lastmod>2021-11-13T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://LZDSJTU.github.io/en/publication/rangelvdet-boosting-3d-object-detection-in-lidar-with-range-image-and-rgb-image/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://LZDSJTU.github.io/zh/publication/rangelvdet-boosting-3d-object-detection-in-lidar-with-range-image-and-rgb-image/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://LZDSJTU.github.io/zh/author/shiliang-pu/</loc>
+    <lastmod>2021-11-13T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://LZDSJTU.github.io/en/author/shiliang-pu/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://LZDSJTU.github.io/zh/author/shiliang-pu/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://LZDSJTU.github.io/zh/author/wenming-tan/</loc>
+    <lastmod>2021-11-13T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://LZDSJTU.github.io/en/author/wenming-tan/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://LZDSJTU.github.io/zh/author/wenming-tan/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://LZDSJTU.github.io/zh/author/xian-zhao/</loc>
+    <lastmod>2021-11-13T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://LZDSJTU.github.io/en/author/xian-zhao/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://LZDSJTU.github.io/zh/author/xian-zhao/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://LZDSJTU.github.io/zh/author/zehan-zhang/</loc>
+    <lastmod>2021-11-13T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://LZDSJTU.github.io/en/author/zehan-zhang/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://LZDSJTU.github.io/zh/author/zehan-zhang/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://LZDSJTU.github.io/zh/author/zhidong-liang/</loc>
+    <lastmod>2021-11-13T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://LZDSJTU.github.io/en/author/zhidong-liang/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://LZDSJTU.github.io/zh/author/zhidong-liang/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://LZDSJTU.github.io/zh/publication-type/1/</loc>
+    <lastmod>2021-06-21T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://LZDSJTU.github.io/en/publication-type/1/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://LZDSJTU.github.io/zh/publication-type/1/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://LZDSJTU.github.io/zh/publication/rangeioudet-range-image-based-real-time-3d-object-detector-optimized-by-intersection-over-union/</loc>
+    <lastmod>2021-06-21T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://LZDSJTU.github.io/en/publication/rangeioudet-range-image-based-real-time-3d-object-detector-optimized-by-intersection-over-union/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://LZDSJTU.github.io/zh/publication/rangeioudet-range-image-based-real-time-3d-object-detector-optimized-by-intersection-over-union/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://LZDSJTU.github.io/zh/publication/centroidreg-a-global-to-local-framework-for-partial-point-cloud-registration/</loc>
+    <lastmod>2021-02-28T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://LZDSJTU.github.io/en/publication/centroidreg-a-global-to-local-framework-for-partial-point-cloud-registration/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://LZDSJTU.github.io/zh/publication/centroidreg-a-global-to-local-framework-for-partial-point-cloud-registration/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://LZDSJTU.github.io/zh/author/chunxiang-wang/</loc>
+    <lastmod>2021-02-28T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://LZDSJTU.github.io/en/author/chunxiang-wang/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://LZDSJTU.github.io/zh/author/chunxiang-wang/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://LZDSJTU.github.io/zh/author/hengwang-zhao/</loc>
+    <lastmod>2021-02-28T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://LZDSJTU.github.io/en/author/hengwang-zhao/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://LZDSJTU.github.io/zh/author/hengwang-zhao/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://LZDSJTU.github.io/zh/publication-type/3/</loc>
+    <lastmod>2020-09-12T16:37:02+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://LZDSJTU.github.io/en/publication-type/3/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://LZDSJTU.github.io/zh/publication-type/3/"
                 />
   </url>
   
@@ -93,96 +303,6 @@
   </url>
   
   <url>
-    <loc>https://LZDSJTU.github.io/zh/author/shiliang-pu/</loc>
-    <lastmod>2020-09-12T16:37:02+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://LZDSJTU.github.io/en/author/shiliang-pu/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://LZDSJTU.github.io/zh/author/shiliang-pu/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://LZDSJTU.github.io/zh/author/xian-zhao/</loc>
-    <lastmod>2020-09-12T16:37:02+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://LZDSJTU.github.io/en/author/xian-zhao/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://LZDSJTU.github.io/zh/author/xian-zhao/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://LZDSJTU.github.io/zh/author/zehan-zhang/</loc>
-    <lastmod>2020-09-12T16:37:02+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://LZDSJTU.github.io/en/author/zehan-zhang/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://LZDSJTU.github.io/zh/author/zehan-zhang/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://LZDSJTU.github.io/zh/author/zhidong-liang/</loc>
-    <lastmod>2020-09-12T16:37:02+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://LZDSJTU.github.io/en/author/zhidong-liang/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://LZDSJTU.github.io/zh/author/zhidong-liang/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://LZDSJTU.github.io/zh/</loc>
-    <lastmod>2020-09-12T16:37:02+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://LZDSJTU.github.io/en/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://LZDSJTU.github.io/zh/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://LZDSJTU.github.io/zh/publication-type/2/</loc>
-    <lastmod>2020-06-25T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://LZDSJTU.github.io/en/publication-type/2/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://LZDSJTU.github.io/zh/publication-type/2/"
-                />
-  </url>
-  
-  <url>
     <loc>https://LZDSJTU.github.io/zh/publication/3d-instance-embedding-learning-with-a-structure-aware-loss-function-for-point-cloud-segmentation/</loc>
     <lastmod>2020-06-25T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -194,51 +314,6 @@
                 rel="alternate"
                 hreflang="zh"
                 href="https://LZDSJTU.github.io/zh/publication/3d-instance-embedding-learning-with-a-structure-aware-loss-function-for-point-cloud-segmentation/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://LZDSJTU.github.io/zh/author/chunxiang-wang/</loc>
-    <lastmod>2020-06-25T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://LZDSJTU.github.io/en/author/chunxiang-wang/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://LZDSJTU.github.io/zh/author/chunxiang-wang/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://LZDSJTU.github.io/zh/author/hao-li/</loc>
-    <lastmod>2020-06-25T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://LZDSJTU.github.io/en/author/hao-li/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://LZDSJTU.github.io/zh/author/hao-li/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://LZDSJTU.github.io/zh/author/ming-yang/</loc>
-    <lastmod>2020-06-25T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://LZDSJTU.github.io/en/author/ming-yang/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://LZDSJTU.github.io/zh/author/ming-yang/"
                 />
   </url>
   
@@ -299,21 +374,6 @@
                 rel="alternate"
                 hreflang="zh"
                 href="https://LZDSJTU.github.io/zh/project/semantic_point_cloud/"
-                />
-  </url>
-  
-  <url>
-    <loc>https://LZDSJTU.github.io/zh/publication-type/1/</loc>
-    <lastmod>2019-08-21T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://LZDSJTU.github.io/en/publication-type/1/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="https://LZDSJTU.github.io/zh/publication-type/1/"
                 />
   </url>
   
@@ -419,6 +479,21 @@
                 rel="alternate"
                 hreflang="zh"
                 href="https://LZDSJTU.github.io/zh/news/"
+                />
+  </url>
+  
+  <url>
+    <loc>https://LZDSJTU.github.io/zh/</loc>
+    <lastmod>2017-12-01T00:00:00+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://LZDSJTU.github.io/en/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="https://LZDSJTU.github.io/zh/"
                 />
   </url>
   
