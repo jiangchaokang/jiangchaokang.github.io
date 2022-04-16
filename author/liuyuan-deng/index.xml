@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Liuyuan Deng | Chaokang Jiang&#39;s Homepage</title>
+    <link>https://jiangchaokang.github.io/en/author/liuyuan-deng/</link>
+      <atom:link href="https://jiangchaokang.github.io/en/author/liuyuan-deng/index.xml" rel="self" type="application/rss+xml" />
+    <description>Liuyuan Deng</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 21 Aug 2019 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://jiangchaokang.github.io/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
+      <title>Liuyuan Deng</title>
+      <link>https://jiangchaokang.github.io/en/author/liuyuan-deng/</link>
+    </image>
+    
+    <item>
+      <title>Hierarchical Depthwise Graph Convolutional Neural Network for 3D Semantic Segmentation of Point Clouds</title>
+      <link>https://jiangchaokang.github.io/en/publication/hierarchical-depthwise-graph-convolutional-neural-network-for-3d-semantic-segmentation-of-point-clouds/</link>
+      <pubDate>Wed, 21 Aug 2019 00:00:00 +0000</pubDate>
+      <guid>https://jiangchaokang.github.io/en/publication/hierarchical-depthwise-graph-convolutional-neural-network-for-3d-semantic-segmentation-of-point-clouds/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Fusing Geometrical and Visual Information via Superpoints for the Semantic Segmentation of 3D Road Scenes</title>
+      <link>https://jiangchaokang.github.io/en/publication/fusing-geometrical-and-visual-information-via-superpoints-for-the-semantic-segmentation-of-3d-road-scenes/</link>
+      <pubDate>Tue, 20 Aug 2019 00:00:00 +0000</pubDate>
+      <guid>https://jiangchaokang.github.io/en/publication/fusing-geometrical-and-visual-information-via-superpoints-for-the-semantic-segmentation-of-3d-road-scenes/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
