@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Chaokang Jiang | 蒋超康的个人主页</title>
+    <link>https://jiangchaokang.github.io/zh/author/chaokang-jiang/</link>
+      <atom:link href="https://jiangchaokang.github.io/zh/author/chaokang-jiang/index.xml" rel="self" type="application/rss+xml" />
+    <description>Chaokang Jiang</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>zh-Hans</language><lastBuildDate>Sat, 13 Nov 2021 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://jiangchaokang.github.io/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
+      <title>Chaokang Jiang</title>
+      <link>https://jiangchaokang.github.io/zh/author/chaokang-jiang/</link>
+    </image>
+    
+    <item>
+      <title>RangeLVDet: Boosting 3D Object Detection in LIDAR With Range Image and RGB Image</title>
+      <link>https://jiangchaokang.github.io/zh/publication/rangelvdet-boosting-3d-object-detection-in-lidar-with-range-image-and-rgb-image/</link>
+      <pubDate>Sat, 13 Nov 2021 00:00:00 +0000</pubDate>
+      <guid>https://jiangchaokang.github.io/zh/publication/rangelvdet-boosting-3d-object-detection-in-lidar-with-range-image-and-rgb-image/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>RangeIoUDet: Range Image based Real-Time 3D Object Detector Optimized by Intersection over Union</title>
+      <link>https://jiangchaokang.github.io/zh/publication/rangeioudet-range-image-based-real-time-3d-object-detector-optimized-by-intersection-over-union/</link>
+      <pubDate>Mon, 21 Jun 2021 00:00:00 +0000</pubDate>
+      <guid>https://jiangchaokang.github.io/zh/publication/rangeioudet-range-image-based-real-time-3d-object-detector-optimized-by-intersection-over-union/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>CentroidReg: A Global-to-Local Framework for Partial Point Cloud Registration</title>
+      <link>https://jiangchaokang.github.io/zh/publication/centroidreg-a-global-to-local-framework-for-partial-point-cloud-registration/</link>
+      <pubDate>Sun, 28 Feb 2021 00:00:00 +0000</pubDate>
+      <guid>https://jiangchaokang.github.io/zh/publication/centroidreg-a-global-to-local-framework-for-partial-point-cloud-registration/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>RangeRCNN: Towards Fast and Accurate 3D Object Detection With Range Image Representation</title>
+      <link>https://jiangchaokang.github.io/zh/publication/rangercnn-towards-fast-and-accurate-3d-object-detection-with-range-image-representation/</link>
+      <pubDate>Sat, 12 Sep 2020 16:37:02 +0800</pubDate>
+      <guid>https://jiangchaokang.github.io/zh/publication/rangercnn-towards-fast-and-accurate-3d-object-detection-with-range-image-representation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>3D Instance Embedding Learning With a Structure Aware Loss Function for Point Cloud Segmentation</title>
+      <link>https://jiangchaokang.github.io/zh/publication/3d-instance-embedding-learning-with-a-structure-aware-loss-function-for-point-cloud-segmentation/</link>
+      <pubDate>Thu, 25 Jun 2020 00:00:00 +0000</pubDate>
+      <guid>https://jiangchaokang.github.io/zh/publication/3d-instance-embedding-learning-with-a-structure-aware-loss-function-for-point-cloud-segmentation/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Hierarchical Depthwise Graph Convolutional Neural Network for 3D Semantic Segmentation of Point Clouds</title>
+      <link>https://jiangchaokang.github.io/zh/publication/hierarchical-depthwise-graph-convolutional-neural-network-for-3d-semantic-segmentation-of-point-clouds/</link>
+      <pubDate>Wed, 21 Aug 2019 00:00:00 +0000</pubDate>
+      <guid>https://jiangchaokang.github.io/zh/publication/hierarchical-depthwise-graph-convolutional-neural-network-for-3d-semantic-segmentation-of-point-clouds/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Fusing Geometrical and Visual Information via Superpoints for the Semantic Segmentation of 3D Road Scenes</title>
+      <link>https://jiangchaokang.github.io/zh/publication/fusing-geometrical-and-visual-information-via-superpoints-for-the-semantic-segmentation-of-3d-road-scenes/</link>
+      <pubDate>Tue, 20 Aug 2019 00:00:00 +0000</pubDate>
+      <guid>https://jiangchaokang.github.io/zh/publication/fusing-geometrical-and-visual-information-via-superpoints-for-the-semantic-segmentation-of-3d-road-scenes/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
