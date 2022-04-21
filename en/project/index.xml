@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Projects | Chaokang Jiang&#39;s Homepage</title>
+    <link>https://jiangchaokang.github.io/en/project/</link>
+      <atom:link href="https://jiangchaokang.github.io/en/project/index.xml" rel="self" type="application/rss+xml" />
+    <description>Projects</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Mon, 30 Mar 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://jiangchaokang.github.io/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
+      <title>Projects</title>
+      <link>https://jiangchaokang.github.io/en/project/</link>
+    </image>
+    
+    <item>
+      <title>Semantic Point Cloud based Intelligent Vehicle Perception and Localization</title>
+      <link>https://jiangchaokang.github.io/en/project/semantic_point_cloud/</link>
+      <pubDate>Mon, 30 Mar 2020 00:00:00 +0000</pubDate>
+      <guid>https://jiangchaokang.github.io/en/project/semantic_point_cloud/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Restaurant Robot</title>
+      <link>https://jiangchaokang.github.io/en/project/restaurant_robot/</link>
+      <pubDate>Sat, 15 Sep 2018 00:00:00 +0000</pubDate>
+      <guid>https://jiangchaokang.github.io/en/project/restaurant_robot/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Develop L4 self-driving car</title>
+      <link>https://jiangchaokang.github.io/en/project/internal-project/</link>
+      <pubDate>Thu, 30 Nov 2017 00:00:00 +0000</pubDate>
+      <guid>https://jiangchaokang.github.io/en/project/internal-project/</guid>
+      <description>&lt;ul&gt;
+&lt;li&gt;Responsible for the system integration including lane detection, LIDAR detection, traffic light detection, and vehicle localization modules and so on. Determine the function requirement and design the API of these modules with corresponding researchers together.&lt;/li&gt;
+&lt;li&gt;Responsible for the decision, planning and control modules of the self-driving car.&lt;/li&gt;
+&lt;li&gt;Responsible for the simulation test in ROS and the validation in the real car.&lt;/li&gt;
+&lt;li&gt;Participate in the 2017 Intelligent Vehicle Future Challenge.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
