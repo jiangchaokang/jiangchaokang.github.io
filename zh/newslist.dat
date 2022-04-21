@@ -1,0 +1,10 @@
+**[2021.11]** [一篇论文](/en/publication/SFGAN-Unsupervised-Generative-Adversarial-Learning-of-3D-Scene-Flow-from-the-3D-Scene-Self) 被 Advanced Intelligent Systems 接收。
+**[2021.02]** [一篇论文](/en/publication/rangeioudet-range-image-based-real-time-3d-object-detector-optimized-by-intersection-over-union) 被 CVPR 2021 Oral 接收。
+**[2021.02]** [一篇论文](/en/publication/centroidreg-a-global-to-local-framework-for-partial-point-cloud-registration) 被 IEEE Robotics and Automation Letters (ICRA 2021 option) 接收。
+**[2020.09]** 我们的方法 [RangeRCNN](/en/publication/rangercnn-towards-fast-and-accurate-3d-object-detection-with-range-image-representation) 在 [KITTI 3D车辆检测](http://www.cvlibs.net/datasets/kitti/eval_3dobject.php) 中排名第二 （在有论文的方法中）。
+**[2020.07]** 我们的方法 **HRI-MSP-L** 在 [KITTI Cyclist检测 benchmark](http://www.cvlibs.net/datasets/kitti/eval_3dobject.php) 取得四项任务第一 (2D检测, 3D检测, BEV检测, 朝向检测)。
+**[2020.06]** [一篇论文](/en/publication/3d-instance-embedding-learning-with-a-structure-aware-loss-function-for-point-cloud-segmentation) 被 IEEE Robotics and Automation Letters (IROS 2020 option) 接收。
+**[2020.01]** [一篇论文](/en/publication/fusing-geometrical-and-visual-information-via-superpoints-for-the-semantic-segmentation-of-3d-road-scenes/) 被 Tsinghua Science and Technology 接收。
+**[2019.02]** 我们的方法 [SALoss](/en/publication/3d-instance-embedding-learning-with-a-structure-aware-loss-function-for-point-cloud-segmentation) 在 [ScanNet benchmark](http://kaldir.vc.in.tum.de/scannet_benchmark) (3D实例分割任务)中取得第一。
+**[2019.01]** [一篇论文](/en/publication/hierarchical-depthwise-graph-convolutional-neural-network-for-3d-semantic-segmentation-of-point-clouds) 被 ICRA 2019 接收。
+**[2018.09]** 我们的方法 [HDGCN](/en/publication/hierarchical-depthwise-graph-convolutional-neural-network-for-3d-semantic-segmentation-of-point-clouds) 在 [Paris-Lille-3D benchmark](https://npm3d.fr/paris-lille-3d) (3D语义分割任务) 中取得第一。
