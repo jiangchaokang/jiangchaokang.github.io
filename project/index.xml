@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Projects | 蒋超康的个人主页</title>
+    <link>https://jiangchaokang.github.io/zh/project/</link>
+      <atom:link href="https://jiangchaokang.github.io/zh/project/index.xml" rel="self" type="application/rss+xml" />
+    <description>Projects</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>zh-Hans</language><lastBuildDate>Mon, 30 Mar 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://jiangchaokang.github.io/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
+      <title>Projects</title>
+      <link>https://jiangchaokang.github.io/zh/project/</link>
+    </image>
+    
+    <item>
+      <title>国家自然科学基金 “基于语义点云的智能汽车环境感知与建模”</title>
+      <link>https://jiangchaokang.github.io/zh/project/semantic_point_cloud/</link>
+      <pubDate>Mon, 30 Mar 2020 00:00:00 +0000</pubDate>
+      <guid>https://jiangchaokang.github.io/zh/project/semantic_point_cloud/</guid>
+      <description>&lt;p&gt;2018-01-01 ~ 2020-03-30   国自基金项目管理，该基金项目的研究内容涵盖面较广，包括基于图像和点云的环境语义理解，及基于语义信息的建图定位。作为该基金项目的管理者，管理下属五个子项目的实施进展与总结汇报，具体负责内容如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;负责和五个子项目实施人定期沟通，对项目过程中遇到的技术性问题及时了解、跟进及协助解决；&lt;/li&gt;
+&lt;li&gt;负责五个子项目的阶段性进展收集、汇报、总结与进度把控；&lt;/li&gt;
+&lt;li&gt;负责整体项目的年度进展总结及成果汇报；&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>全自动送餐机器人</title>
+      <link>https://jiangchaokang.github.io/zh/project/restaurant_robot/</link>
+      <pubDate>Sat, 15 Sep 2018 00:00:00 +0000</pubDate>
+      <guid>https://jiangchaokang.github.io/zh/project/restaurant_robot/</guid>
+      <description>&lt;p&gt;2018-06-01 ~ 2018-07-30   课程项目组长，带领5人团队实现送餐机器人的全流程设计。得益于精心的机械结构设计，和市面上送餐机器人相比，我们的机器人可以全自动地直接将餐盘送上任意高度的饭桌，不需要人为的干预。具体负责内容如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;统筹规划送餐机器人的机械结构设计、电路设计、定位建图、规划控制，进行任务分工与项目时间管理；&lt;/li&gt;
+&lt;li&gt;个人负责送餐机器人的上位机功能实现，包括上下位机通信、单线激光雷达建图定位、路径规划及控制；&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>L4无人驾驶系统开发</title>
+      <link>https://jiangchaokang.github.io/zh/project/internal-project/</link>
+      <pubDate>Thu, 30 Nov 2017 00:00:00 +0000</pubDate>
+      <guid>https://jiangchaokang.github.io/zh/project/internal-project/</guid>
+      <description>&lt;p&gt;2016-11-30 ~ 2017-11-30   无人驾驶系统负责人，开发智能车实验室L4无人驾驶车辆CyberTiggo，并参加中国智能车未来挑战赛，具体负责内容如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;负责无人车系统集成，包括集成视觉目标检测、车道线检测、信号灯检测、激光雷达检测、车辆定位、决策、路径规划、车辆控制等子模块，协调各子模块负责人定义功能接口及进行真车联合调试；&lt;/li&gt;
+&lt;li&gt;负责无人车决策、局部路径规划及车辆速度控制模块的开发与完善，实现无人车高速及城区道路的正常行驶；&lt;/li&gt;
+&lt;li&gt;负责参加2017年中国智能车未来挑战赛，作为比赛过程中的唯一跟车负责人，实时跟进并负责解决比赛过程中的突发状况；&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
