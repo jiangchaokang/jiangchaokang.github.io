@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Projects | 蒋超康的个人主页</title>
+    <link>https://jiangchaokang.github.io/zh/project/</link>
+      <atom:link href="https://jiangchaokang.github.io/zh/project/index.xml" rel="self" type="application/rss+xml" />
+    <description>Projects</description>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>zh-Hans</language><lastBuildDate>Mon, 30 Mar 2020 00:00:00 +0000</lastBuildDate>
+    <image>
+      <url>https://jiangchaokang.github.io/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
+      <title>Projects</title>
+      <link>https://jiangchaokang.github.io/zh/project/</link>
+    </image>
+    
+    <item>
+      <title>国家自然科学基金 “自学习的机器人动态场景感知”</title>
+      <link>https://jiangchaokang.github.io/zh/project/semantic_point_cloud/</link>
+      <pubDate>Mon, 30 Mar 2020 00:00:00 +0000</pubDate>
+      <guid>https://jiangchaokang.github.io/zh/project/semantic_point_cloud/</guid>
+      <description>&lt;p&gt;2020-12-01 ~ 2021-12-30  中国自然科学基金U1613218、U1913204和62073222的部分资助；部分由上海市教委和上海市教育发展基金会通过 19SG08 下的曙光项目提供；部分来自 NVIDIA 公司的资助。本项目致力于研究缓解机器人动态场景感知面临的成本高精度差的问题，设计新的场景流自学习网络。3D场景流表示了3D空间中每个点的3D运动，可以为自动驾驶和服务器机器人的提供基本3D运动感知。具体负责内容如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;负责和五个子项目实施人定期沟通，对项目过程中遇到的技术性问题及时了解、跟进及协助解决；&lt;/li&gt;
+&lt;li&gt;负责五个子项目的阶段性进展收集、汇报、总结与进度把控；&lt;/li&gt;
+&lt;li&gt;负责整体项目的年度进展总结及成果汇报；&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>国家自然科学基金 “自学习的机器人动态场景感知”</title>
+      <link>https://jiangchaokang.github.io/zh/project/restaurant_robot/</link>
+      <pubDate>Sat, 15 Sep 2018 00:00:00 +0000</pubDate>
+      <guid>https://jiangchaokang.github.io/zh/project/restaurant_robot/</guid>
+      <description>&lt;p&gt;2020-11-01 ~ 2022-07-01  本项目部分得到中央高校基本科研业务费专项资金2020ZDPY0303，部分得到上海市教委和上海市“曙光”项目的资助。教育发展基金19SG08，部分由深圳市科技计划项目JSGG20201103094400002资助，部分由上海市科委21511101900资助，部分由英伟达公司资助。3D场景流表征当前时间点如何在3D欧几里得空间中流向下一个时间点，具有自主推断场景中所有对象的非刚性运动的能力。目前最先进的3D动态场景感知都比较依赖类似于LiDAR等传感器。KITTI 数据集中使用的彩色相机成本不超过 20 美元，而 Velodyne HDL-64E LiDAR 传感器的成本约为 75,000 美元 [16] 自动驾驶或机器人技术的硬件成本将因此大大降低。立体相机系统可以为基于 LiDAR 的场景流估计方案提供低成本的备份系统。具体负责内容如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;统筹规划送餐机器人的机械结构设计、电路设计、定位建图、规划控制，进行任务分工与项目时间管理；&lt;/li&gt;
+&lt;li&gt;个人负责送餐机器人的上位机功能实现，包括上下位机通信、单线激光雷达建图定位、路径规划及控制；&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>除草机器人</title>
+      <link>https://jiangchaokang.github.io/zh/project/internal-project/</link>
+      <pubDate>Thu, 30 Nov 2017 00:00:00 +0000</pubDate>
+      <guid>https://jiangchaokang.github.io/zh/project/internal-project/</guid>
+      <description>&lt;p&gt;2021-10-01 ~ 2022-10-01  除草机器人项目共包含AI视觉障碍物分类识别、多传感器离线与在线标定、视觉惯性里程计、基于多传感器融合的全局位姿估计、基于激光雷达和深度相机的障碍物检测技术以及多传感器融合的3D障碍物检测技术。项目中主要负责基于RGB（色彩纹理）与激光雷达（几何）融合的3D障碍物检测技术。具体负责内容如下：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;负责无人车系统集成，包括集成视觉目标检测、车道线检测、信号灯检测、激光雷达检测、车辆定位、决策、路径规划、车辆控制等子模块，协调各子模块负责人定义功能接口及进行真车联合调试；&lt;/li&gt;
+&lt;li&gt;负责无人车决策、局部路径规划及车辆速度控制模块的开发与完善，实现无人车高速及城区道路的正常行驶；&lt;/li&gt;
+&lt;li&gt;负责参加2017年中国智能车未来挑战赛，作为比赛过程中的唯一跟车负责人，实时跟进并负责解决比赛过程中的突发状况；&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
