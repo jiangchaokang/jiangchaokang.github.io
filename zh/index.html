@@ -1,35 +1,92 @@
 <!DOCTYPE html><html lang="zh-Hans" >
 
 <head>
+  <style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+      }
+
+  body {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+          }
+  
+  :root {
+        --primary-color: #2962ff;
+        --text-color: #333;
+        --background-color: #fff;
+      }
+
+      body {
+        color: var(--text-color);
+        background-color: var(--background-color);
+      }
+
+  .navbar {
+        background-color: var(--primary-color);
+        color: #fff;
+      }
+
+      .navbar a {
+        color: #fff;
+      }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0 -15px;
+    }
+
+    .col-12, .col-lg-4, .col-lg-8 {
+      padding: 0 15px;
+    }
+
+    @media (min-width: 992px) {
+      .col-lg-4 {
+        flex: 0 0 33.333333%;
+        max-width: 33.333333%;
+      }
+      .col-lg-8 {
+        flex: 0 0 66.666667%;
+        max-width: 66.666667%;
+      }
+    }
+
+    a {
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: var(--primary-color);
+      color: #fff;
+      border-radius: 5px;
+      text-align: center;
+    }
+
+    .btn:hover {
+      background-color: darken(var(--primary-color), 10%);
+    }
+  </style>
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="Source Themes Academic 4.8.0">
 
-  
-
-  
-  
-
-  
-  
-  
-  
-  
-    
-    
-    
-  
-  
-
   <meta name="author" content="蒋超康">
 
-  
-  
-  
-    
-  
   <meta name="description" content="Site description in Chinese...">
 
   
@@ -37,195 +94,22 @@
   
   <link rel="alternate" hreflang="zh-Hans" href="https://jiangchaokang.github.io/zh/">
 
-  
-
-
-  
-  
-  
   <meta name="theme-color" content="#2962ff">
-  
 
-  
-  
-
-  
-  
-  
-  
-    
-    
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
 
-    
-    
-    
-      
-    
-    
-      
-      
-        
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css" crossorigin="anonymous" title="hl-light">
           <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
         
-      
-    
-
-    
-
-    
-
-    
-    
-      
-
-      
-      
-
-      
-    
-      
-
-      
-      
-
-      
-    
-      
-
-      
-      
-
-      
-    
-      
-
-      
-      
-
-      
-    
-      
-
-      
-      
-
-      
-    
-      
-
-      
-      
-
-      
-    
-      
-
-      
-      
-
-      
-    
-      
-
-      
-      
-
-      
-    
-      
-
-      
-      
-
-      
-    
-      
-
-      
-      
-
-      
-    
-      
-
-      
-      
-
-      
-    
-      
-
-      
-      
-
-      
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
-      
-    
-      
 
-      
-      
-
-      
-    
-      
-
-      
-      
-
-      
-    
-      
-
-      
-      
-        
-      
-
-      
-    
-      
-
-      
-      
-
-      
-    
-
-  
-
-  
-  
-  
-    
-      
-      
       <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700%7CRoboto:400,400italic,700%7CRoboto+Mono&display=swap">
-    
-  
 
-  
-  
-  
-  
   <link rel="stylesheet" href="/css/academic.css">
 
-  
-
-
-
-
-  
-
-
-  
-  
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   
 
@@ -239,16 +123,6 @@
 
   <link rel="canonical" href="https://jiangchaokang.github.io/zh/">
 
-  
-  
-  
-  
-  
-  
-  
-    
-    
-  
   
   <meta property="twitter:card" content="summary">
   
@@ -276,20 +150,8 @@
 }
 </script>
 
-
-  
-
-
-  
-
-
-  
-
-
-
-
-
   <title>蒋超康的个人主页</title>
+
 
 </head>
 <body id="top" data-spy="scroll" data-offset="70" data-target="#navbar-main" >
@@ -325,17 +187,6 @@
   </div>
 </aside>
 
-
-  
-
-
-
-
-
-
-
-
-
 <nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
   <div class="container">
 
@@ -364,156 +215,27 @@
 
       
       <ul class="navbar-nav d-md-inline-flex">
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        
-        
-        
-        
-        
-        
-          
-          
-          
-            
-          
-          
-        
 
         <li class="nav-item">
           <a class="nav-link " href="/zh/#about" data-target="#about"><span>关于我</span></a>
         </li>
 
-        
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        
-        
-        
-        
-        
-        
-          
-          
-          
-            
-          
-          
-        
-
         <li class="nav-item">
           <a class="nav-link " href="/zh/#recent_news" data-target="#recent_news"><span>新闻</span></a>
         </li>
-
-        
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        
-        
-        
-        
-        
-        
-          
-          
-          
-            
-          
-          
-        
 
         <li class="nav-item">
           <a class="nav-link " href="/zh/#publications" data-target="#publications"><span>出版物</span></a>
         </li>
 
-        
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        
-        
-        
-        
-        
-        
-          
-          
-          
-            
-          
-          
-        
-
         <li class="nav-item">
           <a class="nav-link " href="/zh/#projects" data-target="#projects"><span>项目经历</span></a>
         </li>
-
-        
-        
-
-        
-
-        
-        
-        
-          
-        
-
-        
-        
-        
-        
-        
-        
-          
-          
-          
-            
-          
-          
-        
 
         <li class="nav-item">
           <a class="nav-link " href="/zh/#contact" data-target="#contact"><span>联系方式</span></a>
         </li>
 
-        
-        
-
-      
-
-        
       </ul>
     </div>
 
@@ -548,81 +270,10 @@
   </div>
 </nav>
 
-
-  
-
-
-
-
-
-
-
-
-
 <span class="js-widget-page d-none"></span>
-
-
-
-
-
-  
-  
-  
-  
-
-
-
-
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-  
-
-  
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-  
 
   <section id="about" class="home-section wg-about   "  >
     <div class="container">
-      
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
 
 <div class="row">
   <div class="col-12 col-lg-4">
@@ -647,33 +298,13 @@
       </div>
 
       <ul class="network-icon" aria-hidden="true">
-        
-        
-        
-        
-          
-        
-        
-        
-        
-        
-          
-        
+
         <li>
           <a href="/zh/#contact" >
             <i class="fas fa-envelope big-icon"></i>
           </a>
         </li>
-        
-        
-        
-        
-        
-        
-        
-        
-          
-        
+
         <li>
           <a href="https://scholar.google.com/citations?hl=en&user=6gZ8vloAAAAJ" target="_blank" rel="noopener">
             <i class="ai ai-google-scholar big-icon"></i>
@@ -743,44 +374,9 @@
     </div>
   </section>
 
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-  
-
-  
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-  
-
   <section id="recent_news" class="home-section wg-blank   "  >
     <div class="container">
       
-
-
 <div class="row">
   
     <div class="col-12 col-lg-4 section-heading">
@@ -788,16 +384,11 @@
       
     </div>
     <div class="col-12 col-lg-8">
-      
-
-
-
-
-
-
-
-
+  
 <p><strong>[2021.11]</strong> <a href="/en/publication/SFGAN-Unsupervised-Generative-Adversarial-Learning-of-3D-Scene-Flow-from-the-3D-Scene-Self">一篇论文</a> 被 Advanced Intelligent Systems 接收。</p>
+
+<p><strong>[2022.09]</strong> <a href="/en/publication/FFPA-Net-Efficient-Feature-Fusion-with-Projection-Awareness-for-3D-Object-Detection">一篇论文</a> 提交到 ArXiv 上。</p>
+
 
 
     </div>
@@ -807,83 +398,8 @@
     </div>
   </section>
 
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-  
-
-  
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-  
-
   <section id="publications" class="home-section wg-pages   "  >
     <div class="container">
-      
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-  
-
 
 <div class="row">
   <div class="col-12 col-lg-4 section-heading">
@@ -891,29 +407,6 @@
     
   </div>
   <div class="col-12 col-lg-8">
-
-    
-
-    
-      
-        
-
-
-
-
-
-
-
-
-  
-  
-
-
-
-
-
-  
-
 
 <div class="media stream-item">
   <div class="media-body">
@@ -946,31 +439,13 @@
 
     
     <div class="btn-links">
-      
-
-
-
-
-
-
-
-
-  
-    
-  
-
-
-
+ 
 <a class="btn btn-outline-primary my-1 mr-1 btn-sm" href="https://onlinelibrary.wiley.com/doi/full/10.1002/aisy.202100197" target="_blank" rel="noopener">
   PDF
 </a>
 
 </div>
 
-      
-    
-
-    
     <div class="see-all">
       <a href="/zh/publication/">
         查看全部出版物
@@ -985,52 +460,9 @@
     </div>
   </section>
 
-  
-  
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-
-  
-
-  
-  
-
-  
-  
-  
-
-  
-  
-  
-  
-  
-
-  
-  
-
   <section id="projects" class="home-section wg-portfolio   "  >
     <div class="container">
-      
-
-
-
-
-
-
-
-
-
-
+ 
 <div class="row">
   <div class="col-12 col-lg-4 section-heading">
 
@@ -1040,42 +472,9 @@
   </div>
   <div class="col-12 col-lg-8">
 
-
-
-    
-
-    
-
     <div class=" row js-layout-row ">
-      
-
-        
-        
-        
-
-        
-          
-
-
+ 
 <div class="col-12 isotope-item js-id-autonomous-driving">
-  
-
-
-
-
-
-
-
-
-  
-  
-
-
-
-
-
-  
-
 
 <div class="media stream-item">
   <div class="media-body">
@@ -1094,50 +493,17 @@
 
     <div class="stream-meta article-metadata">
 
-      
-
-      
     </div>
 
     
     <div class="btn-links">
-      
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
 
     </div>
     
 
   </div>
   <div class="ml-3">
-    
-    
-    
+
     <a href="/zh/project/semantic_point_cloud/" >
       <img src="/zh/project/semantic_point_cloud/featured_hu5f62f3040d0c66650410064f06eed736_364129_150x0_resize_q90_lanczos.jpg" alt="国家自然科学基金 “自学习的机器人动态场景感知”">
     </a>
@@ -1147,28 +513,7 @@
 
 </div>
 
-        
-
-      
-
-        
-        
-        
-
-        
-          
-
-
 <div class="col-12 isotope-item js-id-autonomous-driving">
-
-  
-
-
-
-
-
-
-
 
   <div class="media stream-item">
     <div class="media-body">
@@ -1194,35 +539,7 @@
   
       
       <div class="btn-links">
-        
-  
-  
-  
-  
-  
-  
-  
-  
-    
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    
-  
-  
-  
-  
-  
-  
+
       </div>
       
   
@@ -1239,28 +556,8 @@
   </div>
   
   </div>
-  
-          
-  
-        
-  
-          
-          
-          
-  
-          
-            
-  
-  
+
   <div class="col-12 isotope-item js-id-autonomous-driving">  
-  
-
-
-
-
-
-  
-
 
 <div class="media stream-item">
   <div class="media-body">
@@ -1286,35 +583,6 @@
 
     
     <div class="btn-links">
-      
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
     </div>
     
 
@@ -1329,8 +597,6 @@
     
   </div>
 </div>
-
-
 
 <div class="media stream-item">
   <div class="media-body">
@@ -1356,34 +622,6 @@
 
     
     <div class="btn-links">
-      
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
 
     </div>
     
@@ -1402,28 +640,8 @@
 
 </div>
 
-        
-
-      
-
-        
-        
-        
-
-        
-          
-
-
 <div class="col-12 isotope-item js-id-autonomous-driving">
   
-
-
-
-
-
-
-
-
   <div class="media stream-item">
     <div class="media-body">
   
@@ -1448,35 +666,7 @@
   
       
       <div class="btn-links">
-        
-  
-  
-  
-  
-  
-  
-  
-  
-    
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    
-  
-  
-  
-  
-  
-  
+
       </div>
       
   
@@ -1702,25 +892,7 @@
         });
       }
     </script>
-    
 
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-      
-    
-    
-    
-    
     <script src="/js/academic.min.66c553246b0f279a03be6e5597f72b52.js"></script>
 
     
