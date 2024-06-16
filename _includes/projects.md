@@ -3,7 +3,7 @@
 {% for project in site.data.projects %}
 <div class="project">
   <h3 class="project-title">{{ project.title }}</h3>
-  <p class="project-subtitle">{{ project.subtitle }}</p>
+  <p class="project-subtitle">{{ project.subtitle | markdownify }}</p>
   
   <div class="project-images">
     {% for image in project.images %}
@@ -23,7 +23,7 @@
     {% endfor %}
   </ul>
   
-  <p class="project-description">{{ project.description }}</p>
+  <p class="project-description">{{ project.description | markdownify }}</p>
   
   <div class="project-links">
     {% for link in project.links %}
