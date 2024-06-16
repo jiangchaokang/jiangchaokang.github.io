@@ -1,0 +1,113 @@
+main:
+
+  - title: "NeuroGauss4D-PCI: 4D Neural Fields and Gaussian Deformation Fields for Point Cloud Interpolation"
+    authors: Chaokang Jiang, Guangming Wang, Jiuming Liu, Hesheng Wang, Zhuang Ma, Zhenqiang Liu, Zhujin Liang, Yi Shan, Dalong Du
+    conference_short: arXiv
+    conference: arXiv
+    pdf: https://arxiv.org/pdf/2405.14241
+    code: https://github.com/jiangchaokang/NeuroGauss4D-PCI
+    bibtex: https://scholar.googleusercontent.com/scholar.bib?q=info:KJ4AKAvj47gJ:scholar.google.com/&output=citation&scisdr=ClGaayC5ELzsosSoqWQ:AFWwaeYAAAAAZm2usWQvYkiwzuyUIOys1AM_hUg&scisig=AFWwaeYAAAAAZm2usbhU5e_z7gWyn5kOMQIg5Lc&scisf=4&ct=citation&cd=-1&hl=zh-CN
+    notes: Under Review
+    image: ./assets/img/paper/NeuroGauss4D.png
+
+  - title: "MAMBA4D: Efficient Long-Sequence Point Cloud Video Understanding with Disentangled Spatial-Temporal State Space Models"
+    authors: Jiuming Liu, Jinru Han, Lihao Liu, Angelica I Aviles-Rivero, Chaokang Jiang, Zhe Liu, Hesheng Wang
+    conference_short: arXiv
+    conference: arXiv
+    pdf: https://arxiv.org/pdf/2405.14338
+    code: https://github.com/IRMVLab/MAMBA4D
+    bibtex: https://scholar.googleusercontent.com/scholar.bib?q=info:WrzUY_XeCMcJ:scholar.google.com/&output=citation&scisdr=ClGaayC5ELzsosSr_5A:AFWwaeYAAAAAZm2t55DjL7oaLzmVOZMbNS09xzc&scisig=AFWwaeYAAAAAZm2t5_EUqKyt4C1uUPVDFjvY3Rw&scisf=4&ct=citation&cd=-1&hl=zh-CN
+    notes: Under Review
+    image: ./assets/img/paper/MAMBA4D.gif
+
+  - title: "3DSFLabelling: Boosting 3D Scene Flow Estimation by Pseudo Auto-labelling"
+    authors: Chaokang Jiang, Guangming Wang, Jiuming Liu, Hesheng Wang, Zhuang Ma, Zhenqiang Liu, Zhujin Liang, Yi Shan, Dalong Du
+    conference_short: CVPR 2024
+    conference: IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) 2024
+    pdf: https://openaccess.thecvf.com/content/CVPR2024/papers/Jiang_3DSFLabelling_Boosting_3D_Scene_Flow_Estimation_by_Pseudo_Auto-labelling_CVPR_2024_paper.pdf
+    code: https://github.com/jiangchaokang/3DSFLabelling
+    page: https://jiangchaokang.github.io/3DSFLabelling-Page/
+    bibtex: https://openaccess.thecvf.com/content/ICCV2023/html/Liu_RegFormer_An_Efficient_Projection-Aware_Transformer_Network_for_Large-Scale_Point_Cloud_ICCV_2023_paper.html
+    notes: Published
+    image: ./assets/img/paper/3DSFLabelling.gif
+
+  - title: "DifFlow3D: Toward Robust Uncertainty-Aware Scene Flow Estimation with Iterative Diffusion-Based Refinement"
+    authors: Jiuming Liu, Guangming Wang, Weicai Ye, Chaokang Jiang, Jinru Han, Zhe Liu, Guofeng Zhang, Dalong Du, Hesheng Wang
+    conference_short: CVPR 2024
+    conference: IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) 2024
+    pdf: https://openaccess.thecvf.com/content/CVPR2024/papers/Liu_DifFlow3D_Toward_Robust_Uncertainty-Aware_Scene_Flow_Estimation_with_Iterative_Diffusion-Based_CVPR_2024_paper.pdf
+    code: https://github.com/IRMVLab/DifFlow3D
+    bibtex: https://scholar.googleusercontent.com/scholar.bib?q=info:j0TtQfGkk-MJ:scholar.google.com/&output=citation&scisdr=ClGaayC5ELzsosSs9FU:AFWwaeYAAAAAZm2q7FU15YFzVXt8G8heh_0c6Dw&scisig=AFWwaeYAAAAAZm2q7MfyVnbdo_cnZiKoZKunrKM&scisf=4&ct=citation&cd=-1&hl=zh-CN
+    notes: Published
+    image: ./assets/img/paper/DifFlow3D.gif
+
+  - title: "RegFormer: An Efficient Projection-Aware Transformer Network for Large-Scale Point Cloud Registration"
+    authors: Jiuming Liu, Guangming Wang, Chaokang Jiang, Zhe Liu, Hesheng Wang
+    conference_short: ICCV 2023
+    conference: IEEE/CVF International Conference on Computer Vision (ICCV), 2023
+    pdf: https://openaccess.thecvf.com/content/ICCV2023/papers/Liu_RegFormer_An_Efficient_Projection-Aware_Transformer_Network_for_Large-Scale_Point_Cloud_ICCV_2023_paper.pdf
+    code: https://github.com/IRMVLab/RegFormer
+    bibtex: https://openaccess.thecvf.com/content/ICCV2023/html/Liu_RegFormer_An_Efficient_Projection-Aware_Transformer_Network_for_Large-Scale_Point_Cloud_ICCV_2023_paper.html
+    notes: Published
+    image: ./assets/img/paper/RegFormer.gif
+
+  - title: "TransLO: A Window-Based Masked Point Transformer Framework for Large-Scale LiDAR Odometry"
+    authors: Jiuming Liu, Guangming Wang, Chaokang Jiang, Zhe Liu, Hesheng Wang
+    conference_short: AAAI 2023
+    conference: AAAI Conference on Artificial Intelligence 2023
+    pdf: https://scholar.google.com/citations?view_op=view_citation&hl=zh-CN&user=6gZ8vloAAAAJ&citation_for_view=6gZ8vloAAAAJ:W7OEmFMy1HYC
+    code: https://github.com/IRMVLab/TransLO
+    bibtex: https://scholar.googleusercontent.com/scholar.bib?q=info:JljxJ6XFUHIJ:scholar.google.com/&output=citation&scisdr=ClGaayC5ELzsosSuVxE:AFWwaeYAAAAAZm2oTxG6yWcOQ6xX3Q-4n6T8vCI&scisig=AFWwaeYAAAAAZm2oT47mxYGjz3FOA_c7pxunmZs&scisf=4&ct=citation&cd=-1&hl=zh-CN
+    notes: Published
+    image: ./assets/img/paper/translo.gif
+
+  - title: "FFPA-Net: Efficient feature fusion with projection awareness for 3D object detection"
+    authors: Chaokang Jiang, Guangming Wang, Jinxing Wu, Yanzi Miao, Hesheng Wang
+    conference_short: arXiv
+    conference: arXiv
+    pdf: https://arxiv.org/pdf/2209.07419
+    code: https://github.com/DongZhouGu/arxiv-daily/issues/341
+    bibtex: https://scholar.googleusercontent.com/scholar.bib?q=info:SuO9VirALQoJ:scholar.google.com/&output=citation&scisdr=ClHEWZj2ELzsosSN9Os:AFWwaeYAAAAAZm2L7OtB_M12x0DaifKLL6X0oKw&scisig=AFWwaeYAAAAAZm2L7O7wFdrj0akdWJpBp3vHd7k&scisf=4&ct=citation&cd=-1&hl=zh-CN
+    notes: Under Review
+    image: ./assets/img/paper/ICRA2023_FFPANet.gif
+
+  - title: "Pseudo-LiDAR for Visual Odometry"
+    authors: Yanzi Miao, Huiying Deng, Chaokang Jiang, Zhiheng Feng, Xinrui Wu, Guangming Wang, Hesheng Wang
+    conference_short: TIM
+    conference: IEEE Transactions on Instrumentation and Measurement
+    pdf: https://ieeexplore.ieee.org/abstract/document/10251537
+    code: https://github.com/IRMVLab/Pseudo-LiDAR-for-Visual-Odometry
+    bibtex: https://scholar.googleusercontent.com/scholar.bib?q=info:0EMOLOUvIscJ:scholar.google.com/&output=citation&scisdr=ClHEWZj2ELzsosSMSks:AFWwaeYAAAAAZm2KUkueEkSZuo699DWihxZcbyg&scisig=AFWwaeYAAAAAZm2KUqCBMK2rtpbZIojDN1XXF1I&scisf=4&ct=citation&cd=-1&hl=zh-CN
+    notes: Published
+    image: ./assets/img/paper/Vslam_PseudoLidar.gif
+
+  - title: "Unsupervised Learning of 3D Scene Flow with 3D Odometry Assistance"
+    authors: Guangming Wang, Zhiheng Feng, Chaokang Jiang, Hesheng Wang
+    conference_short: arXiv
+    conference: arXiv
+    pdf: https://arxiv.org/pdf/2209.04945
+    code: https://github.com/fzhiheng/PSFNet
+    bibtex: https://scholar.googleusercontent.com/scholar.bib?q=info:9rqR_C9N8UkJ:scholar.google.com/&output=citation&scisdr=ClHEWZj2ELzsosSBWHQ:AFWwaeYAAAAAZm2HQHRQXikuHL64_Im6TWmVxVs&scisig=AFWwaeYAAAAAZm2HQKRUCPKAxOxY-rXd6L4rqes&scisf=4&ct=citation&cd=-1&hl=zh-CN
+    notes: Under Review
+    image: ./assets/img/paper/psfnet.gif
+
+  - title: "3-D Scene Flow Estimation on Pseudo-LiDAR: Bridging the Gap on Estimating Point Motion"
+    authors: Chaokang Jiang; Guangming Wang; Yanzi Miao; Hesheng Wang
+    conference_short: TII
+    conference: IEEE Transactions on Industrial Informatics June 2023
+    pdf: https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=9905954
+    code: https://github.com/IRMVLab/3DSF-PL
+    page: https://ieeexplore.ieee.org/abstract/document/9905954
+    bibtex: https://scholar.googleusercontent.com/scholar.bib?q=info:ZbbT1pES-V4J:scholar.google.com/&output=citation&scisdr=ClFqk38mELzsosSExGM:AFWwaeYAAAAAZm2C3GOnf0BIqy8QibRBoEb3RzY&scisig=AFWwaeYAAAAAZm2C3JW_YBFXNxDbeZRo_HZl4os&scisf=4&ct=citation&cd=-1&hl=zh-CN
+    notes: Published
+    image: ./assets/img/paper/Scene_Flow_on_Pseudo_Point.gif
+
+  - title: "SFGAN: Unsupervised Generative Adversarial Learning of 3D Scene Flow from the 3D Scene Self"
+    authors: Guangming Wang, Chaokang Jiang, Zehang Shen, Yanzi Miao, Hesheng Wang* (*Corresponding authors)
+    conference_short: AIS
+    conference: Advanced Intelligent Systems
+    pdf: https://onlinelibrary.wiley.com/doi/pdf/10.1002/aisy.202100197
+    code: https://github.com/IRMVLab/SFGAN
+    bibtex: https://scholar.googleusercontent.com/scholar.bib?q=info:fdmc6Xj1WTMJ:scholar.google.com/&output=citation&scisdr=ClFqk38mELzsosR9Q9c:AFWwaeYAAAAAZm17W9f4uyNY80WEvP8mmDv750Y&scisig=AFWwaeYAAAAAZm17W46vM-KHHI6BBe3m8WBKB18&scisf=4&ct=citation&cd=-1&hl=zh-CN
+    image: ./assets/img/paper/sfgan.gif
+    notes: Published
