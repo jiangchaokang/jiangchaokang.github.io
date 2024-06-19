@@ -4,7 +4,7 @@ layout: homepage
 
 ## About Me
 
-I was born in 1998 and currently work as a Computer Vision (CV) Algorithm Engineer at [PhiGent Robotics](https://www.phigent.ai/) in Beijing. I obtained my Master's degree in Engineering in 2023, during which I was jointly trained by [China University of Mining and Technology](https://www.cumt.edu.cn/) and [Shanghai Jiao Tong University](https://en.sjtu.edu.cn/). I was fortunate to be guided by Professor [Hesheng Wang](https://irmv.sjtu.edu.cn/wanghesheng) and to collaborate with my senior, Dr. [Guangming Wang](https://guangmingw.github.io/) from the University of Cambridge. At the [IRMV Lab](https://irmv.sjtu.edu.cn/), I participated in numerous engineering projects, such as lawn mowing robots and 4D automatic annotation, which significantly enhanced my practical engineering skills.
+I was born in 1998 and currently work as a Computer Vision (CV) Algorithm Engineer at [PhiGent Robotics](https://www.phigent.ai/) in Beijing. I obtained my Master's degree in Engineering in 2023, during which I was jointly trained by [China University of Mining and Technology](https://www.cumt.edu.cn/) and [Shanghai Jiao Tong University](https://en.sjtu.edu.cn/). I was fortunate to be guided by Professor [Hesheng Wang](https://irmv.sjtu.edu.cn/wanghesheng), [Yanzi Miao](http://faculty.cumt.edu.cn/MYZ1/zh_CN/index.htm) and to collaborate with my senior, Dr. [Guangming Wang](https://guangmingw.github.io/) from the University of Cambridge. At the [IRMV Lab](https://irmv.sjtu.edu.cn/), I participated in numerous engineering projects, such as lawn mowing robots and 4D automatic annotation, which significantly enhanced my practical engineering skills.
 
 ## Research Interests
 
