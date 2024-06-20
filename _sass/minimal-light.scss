@@ -208,8 +208,8 @@ papertitle {
 
     .image.avatar {
       border-radius: 100%;
-      width: 12.00em; /* 增大头像容器的宽度 */
-      height: 12.00em; /* 增大头像容器的高度 */
+      width: 18.00em; /* 增大头像容器的宽度 */
+      height: 18.00em; /* 增大头像容器的高度 */
       margin: 0 0 1em 0;
       display: flex; /* 使用 flex 布局 */
       justify-content: center; /* 水平居中 */
@@ -222,7 +222,7 @@ papertitle {
 
       .image.avatar img {
         border-radius: 100%;
-         width: 100%; /* 图像宽度填满头像容器 */
+        width: 100%; /* 图像宽度填满头像容器 */
         height: 100%; /* 图像高度填满头像容器 */
         object-fit: cover; /* 图像填充方式,防止失真 */
         // border: 1px solid #ddd;
