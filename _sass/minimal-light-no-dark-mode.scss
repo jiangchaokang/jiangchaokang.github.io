@@ -161,7 +161,7 @@ papertitle {
 
     .image.avatar {
       border-radius: 100%;
-      width: 12.00em; /* 增大头像容器的宽度 */
+      width: 18.00em; /* 增大头像容器的宽度 */
       height: 18.00em; /* 增大头像容器的高度 */
       margin: 0 0 1em 0;
       display: flex; /* 使用 flex 布局 */
@@ -575,4 +575,26 @@ footer {
 
 .project-links a {
   margin-right: 10px;
+}
+
+
+.theme-toggle {
+  display: inline-block;
+  margin: 20px;
+}
+
+#theme-toggle-checkbox {
+  display: none;
+}
+
+#theme-toggle-checkbox + label {
+  cursor: pointer;
+  padding: 5px 10px;
+  background: #eee;
+  border-radius: 5px;
+}
+
+#theme-toggle-checkbox:checked + label {
+  background: #333;
+  color: #fff;
 }
