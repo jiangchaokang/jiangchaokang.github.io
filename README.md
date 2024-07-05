@@ -5,17 +5,16 @@ https://jiangchaokang.github.io/
 
 # The Minimal Light Theme
 
-[![LICENSE](https://img.shields.io/github/license/yaoyao-liu/minimal-light?style=flat-square&logo=creative-commons&color=EF9421)](https://github.com/yaoyao-liu/minimal-light/blob/main/LICENSE)
+[![LICENSE](https://img.shields.io/github/license/yaoyao-liu/minimal-light?style=flat-square&logo=creative-commons&color=EF9421)](https://github.com/jiangchaokang/jiangchaokang.github.io/blob/main/LICENSE)
 
-\[[Demo the theme](https://minimal-light-theme.yliu.me/)\]  \[[简体中文](https://github.com/yaoyao-liu/minimal-light/blob/master/README_zh_Hans.md) | [繁體中文](https://github.com/yaoyao-liu/minimal-light/blob/master/README_zh_Hant.md) | [Deutsche](https://github.com/yaoyao-liu/minimal-light/blob/master/README_de.md)\]
+\[[Demo the theme](https://minimal-light-theme.yliu.me/)\]  \[[简体中文](https://github.com/jiangchaokang/jiangchaokang.github.io/blob/master/README_zh_Hans.md) | [繁體中文](https://github.com/jiangchaokang/jiangchaokang.github.io/blob/master/README_zh_Hant.md) | [Deutsche](https://github.com/jiangchaokang/jiangchaokang.github.io/blob/master/README_de.md)\]
  
 *This is the source code of my homepage. I build this website based on [minimal](https://github.com/orderedlist/minimal).*
 <br>
 *Feel free to use and share the source code anywhere you like.*
 
-The latest version of my homepage is available here: [[link](https://github.com/yaoyao-liu/yaoyao-liu.github.io)]
+The latest version of my homepage is available here: [[link](https://github.com/jiangchaokang/jiangchaokang.github.io.git)]
 <br>
-A template for Max Planck Institute for Informatics is available here: [[link](https://github.com/yaoyao-liu/minimal-light-theme-mpi-inf)]
 
 ## Features
 
@@ -90,7 +89,7 @@ First, install [Ruby](https://www.ruby-lang.org/en/) and [Jekyll](https://jekyll
 Then, clone this repository:
 
 ```bash
-git clone https://github.com/yaoyao-liu/minimal-light.git
+git clone https://github.com/jiangchaokang/jiangchaokang.github.io.git
 cd minimal-light
 ```
 Install and run:
@@ -163,10 +162,10 @@ Create `index.md` and add your personal information. It supports **Markdown** an
 ### Edit included files
 
 There are two markdown files included in `index.md`. They are `_includes/publications.md` and `_includes/service.md`, respectively. These two files also support **Markdown** and **HTML** syntax. If you don't hope to include these two files, you may remove the following lines in `index.md`:
-https://github.com/yaoyao-liu/minimal-light/blob/b38070cd0b6bce45d8a885f3828549af8f82b7cb/index.md?plain=1#L21-L23
+https://github.com/jiangchaokang/jiangchaokang.github.io/blob/b38070cd0b6bce45d8a885f3828549af8f82b7cb/index.md?plain=1#L21-L23
 
 If you hope to edit the publication list without changing the format, you may edit `_data/publications.yml`:
-https://github.com/yaoyao-liu/minimal-light/blob/77b1b3b31d4561091bcd739f37a2e1880e8b5ca5/_data/publications.yml#L3-L11
+https://github.com/jiangchaokang/jiangchaokang.github.io/blob/77b1b3b31d4561091bcd739f37a2e1880e8b5ca5/_data/publications.yml#L3-L11
 
 
 ### Stylesheet
@@ -179,7 +178,7 @@ If you'd like to change the theme's HTML layout, you may edit `_layout/homepage.
 
 ## License
 
-This work is licensed under a [Creative Commons Zero v1.0 Universal](https://github.com/yaoyao-liu/minimal-light/blob/master/LICENSE) License.
+This work is licensed under a [Creative Commons Zero v1.0 Universal](https://github.com/jiangchaokang/jiangchaokang.github.io/blob/master/LICENSE) License.
 
 ## Acknowledgements
 
