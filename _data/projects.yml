@@ -53,7 +53,7 @@
       url: assets/files/Soft_and_Hard_Associations_in_Bi_modality_Fusion_Are_All_You_Need.pdf
 
 
-- title: Integrated Network for Perception, Planning and Decision-making (2021-08~2022-10)
+- title: Integrated Network for Perception, Planning and Decision-making (2021-08 ~ 2022-10)
   subtitle: Independent Innovation Joint Fund Project of [The Future Laboratory of The Second Aerospace Academy](https://m.spacechina.com/)
   images:
     - src: assets/img/projects/simulation_exploration.gif
@@ -91,3 +91,22 @@
   responsibilities:
     - Perception team leader, responsible for reporting, summarizing, and controlling the phased progress of each sub project. Timely follow up and assist in resolving technical issues encountered.
   description: Imitating Tesla's 4D automatic labeling solution, the process includes the following parts, input signal processing, standard scene perception tasks, ground element reconstruction and labeling, static scene reconstruction and 3D dynamic object labeling, overall 4D automatic labeling summary, badcase simulation.
+
+
+- title: Road Preview - Disparity Estimation (2023-05 ~ 2023-11)
+  subtitle: Collaboration Project with [SJTU IRMV](https://irmv.sjtu.edu.cn/)
+  images:
+    - src: assets/img/projects/NDR.PNG
+      alt: Road preview disparity estimation
+      description: Road preview disparity estimation using optimized neural networks
+
+  # date: 2023-06 ~ 2023-09
+  responsibilities:
+    - Optimized the NDR-Ne pseudo disparity estimation model, improving data clarity, preprocessing, and augmentation.
+    - Enhanced the compressed network model for better efficiency, accuracy, and robustness.
+    - Deployed the model on the TDA4-AL board, addressing various bad cases and improving overall model robustness.
+
+  description: This project focuses on road preview and disparity estimation tasks, including improving pseudo disparity estimation models, optimizing neural networks for real-time performance, and deploying robust solutions on embedded platforms.
+  links:
+    - title: Road Preview Disparity Estimation Web Demo
+      url: assets/html/Road_preview_disparity.html

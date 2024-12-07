@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>伪双目视差估计网络 NDRNet</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f9fa;
+    }
+    header {
+      text-align: center;
+      background-color: #343a40;
+      color: white;
+      padding: 20px 10px;
+    }
+    header h1 {
+      font-size: 2.5em;
+      margin: 0;
+    }
+    main {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 20px;
+      background: white;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 10px;
+    }
+    section {
+      margin-bottom: 30px;
+    }
+    section h2 {
+      color: #343a40;
+      border-left: 5px solid #007bff;
+      padding-left: 10px;
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+    .content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+    .text-block, .image-block {
+      flex: 1;
+      min-width: 300px;
+    }
+    .text-block ul {
+      padding-left: 20px;
+    }
+    .text-block ul li {
+      margin-bottom: 10px;
+    }
+    .image-block img {
+      max-width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .logic-diagram {
+      text-align: center;
+      margin: 20px 0;
+    }
+    .logic-diagram svg {
+      max-width: 100%;
+      height: auto;
+    }
+    footer {
+      text-align: center;
+      padding: 10px;
+      background-color: #343a40;
+      color: white;
+      margin-top: 20px;
+    }
+    footer a {
+      color: #007bff;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+    <header>
+        <h1>伪双目视差估计网络 NDRNet</h1>
+        <p>单目视差估计网络的高效架构与性能优化 <a href="https://c3fd7g1nq8.feishu.cn/docx/ZbD8di6qKoT5Saxd3Qica2aqnQf">了解更多</a></p>
+    </header>
+
+    <main>
+    <!-- 项目开头视频或GIF展示 -->
+    <div class="intro-video">
+        <img src="assets/img/projects/mp4/output_depth_video4.mp4" alt="NDRNet 架构">
+    </div>
+
+    <!-- 网络整体架构 -->
+    <section>
+        <h2>1. 网络整体架构</h2>
+        <div class="content">
+        <div class="text-block">
+            <ul>
+            <li>双路编码器（RGB 和 SGM）</li>
+            <li>多尺度特征解码器</li>
+            <li>双头视差预测（主视差头和辅助视差头）</li>
+            </ul>
+        </div>
+        <div class="image-block">
+            <img src="assets/img/projects/NDR.PNG" alt="NDRNet 架构图">
+        </div>
+        </div>
+    </section>
+    
+  <main>
+    <!-- 网络运行逻辑 -->
+    <section>
+      <h2>2. 网络详细运行逻辑</h2>
+      
+      <!-- 编码阶段 -->
+      <div class="content">
+        <div class="text-block">
+          <h3>2.1 编码阶段</h3>
+          <ul>
+            <li><strong>双路特征提取：</strong>
+              <ul>
+                <li>RGB 图像通过 RGB 编码器。</li>
+                <li>SGM 结果通过 SGM 编码器。</li>
+                <li>两个编码器均采用 RegNetX/Y 作为主干网络。</li>
+              </ul>
+            </li>
+            <li><strong>多尺度特征提取：</strong>
+              <ul>
+                <li>特征图逐级下采样：1/4、1/8、1/16、1/32。</li>
+                <li>保留各尺度特征用于后续解码。</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 解码阶段 -->
+      <div class="content">
+        <div class="text-block">
+          <h3>2.2 解码阶段</h3>
+          <ul>
+            <li><strong>特征融合：</strong>
+              <ul>
+                <li>通过 Sum 操作融合 RGB 和 SGM 特征。</li>
+                <li>逐级上采样（Up）恢复分辨率。</li>
+                <li>采用跳跃连接保留细节信息。</li>
+              </ul>
+            </li>
+            <li><strong>双头预测：</strong>
+              <ul>
+                <li><strong>主视差头 (Disp Head)：</strong> 使用多层 ReLU 激活，并采用 F.Smooth 和 L1 损失函数。</li>
+                <li><strong>辅助视差头 (Aux Disp Head)：</strong> 包含级联卷积和上采样模块，使用 SMD 损失函数。</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 特征头部设计 -->
+      <div class="content">
+        <div class="text-block">
+          <h3>2.3 特征头部设计</h3>
+          <ul>
+            <li><strong>主视差头结构：</strong>
+              <ul>
+                <li>3 个 64 通道卷积块。</li>
+                <li>ReLU 激活函数。</li>
+                <li>1×1 卷积输出视差图。</li>
+              </ul>
+            </li>
+            <li><strong>辅助视差头结构：</strong>
+              <ul>
+                <li>多尺度特征处理 (×1, ×2, ×4)。</li>
+                <li>级联卷积结构，交替使用卷积和 ReLU。</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 流程图 -->
+      <div class="logic-diagram">
+        <h3>网络运行逻辑流程图</h3>
+        <svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400">
+          <!-- 编码部分 -->
+          <rect x="50" y="50" width="200" height="100" fill="#6c757d" rx="10" ry="10"></rect>
+          <text x="150" y="110" fill="white" font-size="16" text-anchor="middle">RGB 编码器</text>
+          <rect x="300" y="50" width="200" height="100" fill="#6c757d" rx="10" ry="10"></rect>
+          <text x="400" y="110" fill="white" font-size="16" text-anchor="middle">SGM 编码器</text>
+          
+          <!-- 特征融合 -->
+          <rect x="175" y="200" width="200" height="50" fill="#007bff" rx="10" ry="10"></rect>
+          <text x="275" y="230" fill="white" font-size="16" text-anchor="middle">特征融合 (Sum)</text>
+          
+          <!-- 解码部分 -->
+          <rect x="75" y="300" width="200" height="50" fill="#28a745" rx="10" ry="10"></rect>
+          <text x="175" y="330" fill="white" font-size="16" text-anchor="middle">主视差头</text>
+          <rect x="375" y="300" width="200" height="50" fill="#ffc107" rx="10" ry="10"></rect>
+          <text x="475" y="330" fill="white" font-size="16" text-anchor="middle">辅助视差头</text>
+        </svg>
+      </div>
+    </section>
+  </main>
+
+
+    <!-- 数据增强视差可视化效果 -->
+    <section>
+    <h2>3. 视差可视化效果</h2>
+        <div class="comparison">
+        <img src="assets/img/projects/baseline-disp-ndr.png" alt="Baseline 视差">
+        <img src="assets/img/projects/disp-ndr.png" alt="新模型视差">
+        </div>
+    <p style="text-align: center;">左图：Baseline 视差估计效果 | 右图：新模型视差估计效果</p>
+    <div class="comparison">
+        <img src="assets/img/projects/ndr-baseline.png" alt="Baseline 视差">
+        <img src="assets/img/projects/ndr-pc.png" alt="新模型视差">
+    </div>
+    <p style="text-align: center;">左图：Baseline 视差(点云)估计效果 | 右图：新模型视差(点云)估计效果</p>
+    </section>
+
+
+    <!-- 参考文献 -->
+    <section>
+        <h2>4. 参考文献</h2>
+        <div class="references">
+          <p>[1] Tosi, F., Liao, Y., Schmitt, C., & Geiger, A. (2021). SMD-Nets: Stereo Mixture Density Networks. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (pp. 8942-8952).</p>
+          <p>[2] Mayer, N., Ilg, E., Hausser, P., Fischer, P., Cremers, D., Dosovitskiy, A., & Brox, T. (2016). A large dataset to train convolutional networks for disparity, optical flow, and scene flow estimation. In Proceedings of the IEEE conference on computer vision and pattern recognition (pp. 4040-4048).</p>
+        </div>
+      </section>
+
+  <footer>
+    <p>© 2024 由 <a href="https://jiangchaokang.github.io">蒋超康个人主页</a> 提供支持。</p>
+  </footer>
+</body>
+</html>
