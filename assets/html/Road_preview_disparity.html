@@ -1,239 +1,437 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>伪双目视差估计网络 NDRNet</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      margin: 0;
-      padding: 0;
-      background-color: #f8f9fa;
-    }
-    header {
-      text-align: center;
-      background-color: #343a40;
-      color: white;
-      padding: 20px 10px;
-    }
-    header h1 {
-      font-size: 2.5em;
-      margin: 0;
-    }
-    main {
-      max-width: 1200px;
-      margin: 20px auto;
-      padding: 20px;
-      background: white;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      border-radius: 10px;
-    }
-    section {
-      margin-bottom: 30px;
-    }
-    section h2 {
-      color: #343a40;
-      border-left: 5px solid #007bff;
-      padding-left: 10px;
-      font-size: 1.5em;
-      margin-bottom: 10px;
-    }
-    .content {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-    .text-block, .image-block {
-      flex: 1;
-      min-width: 300px;
-    }
-    .text-block ul {
-      padding-left: 20px;
-    }
-    .text-block ul li {
-      margin-bottom: 10px;
-    }
-    .image-block img {
-      max-width: 100%;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-    .logic-diagram {
-      text-align: center;
-      margin: 20px 0;
-    }
-    .logic-diagram svg {
-      max-width: 100%;
-      height: auto;
-    }
-    footer {
-      text-align: center;
-      padding: 10px;
-      background-color: #343a40;
-      color: white;
-      margin-top: 20px;
-    }
-    footer a {
-      color: #007bff;
-      text-decoration: none;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>伪双目视差估计网络 NDRNet</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* 基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        /* 头部样式 */
+        header {
+            background: linear-gradient(135deg, #343a40, #1a1e21);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.8em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        header a {
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        header a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        /* 主体内容样式 */
+        main {
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 30px;
+            background: linear-gradient(to bottom, #ffffff, #f8f9fa);
+        }
+
+        /* 章节样式 */
+        section {
+            margin-bottom: 50px;
+            padding: 25px;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        section h2 {
+            position: relative;
+            font-size: 1.8em;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #007bff;
+            color: #343a40;
+        }
+
+        section h3 {
+            font-size: 1.4em;
+            margin: 20px 0;
+            color: #495057;
+        }
+
+        /* 内容布局 */
+        .content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            padding: 20px;
+        }
+
+        .text-block {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .text-block ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .text-block ul li {
+            margin-bottom: 12px;
+            line-height: 1.8;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .text-block ul li::before {
+            content: "•";
+            color: #007bff;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* 图片样式 */
+        .image-block {
+            text-align: center;
+        }
+
+        .image-block img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .image-block img:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        /* 视频/GIF展示 */
+        .intro-video {
+            position: relative;
+        }
+
+        .loading-indicator {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+        }
+
+        .intro-video[data-loading="true"] .loading-indicator {
+            display: block;
+        }
+
+        /* 比较展示 */
+        .comparison {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .comparison img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .comparison img:hover {
+            transform: scale(1.05);
+        }
+
+        /* 参考文献样式 */
+        .references p {
+            padding: 15px;
+            background: #f8f9fa;
+            border-left: 4px solid #007bff;
+            margin-bottom: 15px;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.95em;
+        }
+        /* 页脚样式 */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #343a40, #1a1e21);
+            color: white;
+        }
+
+        footer a {
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+            
+            .content {
+                grid-template-columns: 1fr;
+            }
+            
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+            
+            section {
+                padding: 15px;
+            }
+
+            .text-block {
+                padding: 15px;
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
         <h1>伪双目视差估计网络 NDRNet</h1>
-        <p>单目视差估计网络的高效架构与性能优化 <a href="https://c3fd7g1nq8.feishu.cn/docx/ZbD8di6qKoT5Saxd3Qica2aqnQf">了解更多</a></p>
+        <p>单目视差估计网络的高效架构与性能优化 <a href="https://c3fd7g1nq8.feishu.cn/docx/ZbD8di6qKoT5Saxd3Qica2aqnQf" target="_blank">了解更多</a></p>
     </header>
 
     <main>
-    <!-- 项目开头视频或GIF展示 -->
-    <div class="intro-video">
-        <img src="assets/img/projects/mp4/output_depth_video4.mp4" alt="NDRNet 架构">
-    </div>
-
-    <!-- 网络整体架构 -->
-    <section>
-        <h2>1. 网络整体架构</h2>
-        <div class="content">
-        <div class="text-block">
-            <ul>
-            <li>双路编码器（RGB 和 SGM）</li>
-            <li>多尺度特征解码器</li>
-            <li>双头视差预测（主视差头和辅助视差头）</li>
-            </ul>
-        </div>
-        <div class="image-block">
-            <img src="assets/img/projects/NDR.PNG" alt="NDRNet 架构图">
-        </div>
-        </div>
-    </section>
-    
-  <main>
-    <!-- 网络运行逻辑 -->
-    <section>
-      <h2>2. 网络详细运行逻辑</h2>
-      
-      <!-- 编码阶段 -->
-      <div class="content">
-        <div class="text-block">
-          <h3>2.1 编码阶段</h3>
-          <ul>
-            <li><strong>双路特征提取：</strong>
-              <ul>
-                <li>RGB 图像通过 RGB 编码器。</li>
-                <li>SGM 结果通过 SGM 编码器。</li>
-                <li>两个编码器均采用 RegNetX/Y 作为主干网络。</li>
-              </ul>
-            </li>
-            <li><strong>多尺度特征提取：</strong>
-              <ul>
-                <li>特征图逐级下采样：1/4、1/8、1/16、1/32。</li>
-                <li>保留各尺度特征用于后续解码。</li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- 解码阶段 -->
-      <div class="content">
-        <div class="text-block">
-          <h3>2.2 解码阶段</h3>
-          <ul>
-            <li><strong>特征融合：</strong>
-              <ul>
-                <li>通过 Sum 操作融合 RGB 和 SGM 特征。</li>
-                <li>逐级上采样（Up）恢复分辨率。</li>
-                <li>采用跳跃连接保留细节信息。</li>
-              </ul>
-            </li>
-            <li><strong>双头预测：</strong>
-              <ul>
-                <li><strong>主视差头 (Disp Head)：</strong> 使用多层 ReLU 激活，并采用 F.Smooth 和 L1 损失函数。</li>
-                <li><strong>辅助视差头 (Aux Disp Head)：</strong> 包含级联卷积和上采样模块，使用 SMD 损失函数。</li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- 特征头部设计 -->
-      <div class="content">
-        <div class="text-block">
-          <h3>2.3 特征头部设计</h3>
-          <ul>
-            <li><strong>主视差头结构：</strong>
-              <ul>
-                <li>3 个 64 通道卷积块。</li>
-                <li>ReLU 激活函数。</li>
-                <li>1×1 卷积输出视差图。</li>
-              </ul>
-            </li>
-            <li><strong>辅助视差头结构：</strong>
-              <ul>
-                <li>多尺度特征处理 (×1, ×2, ×4)。</li>
-                <li>级联卷积结构，交替使用卷积和 ReLU。</li>
-              </ul>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- 流程图 -->
-      <div class="logic-diagram">
-        <h3>网络运行逻辑流程图</h3>
-        <svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400">
-          <!-- 编码部分 -->
-          <rect x="50" y="50" width="200" height="100" fill="#6c757d" rx="10" ry="10"></rect>
-          <text x="150" y="110" fill="white" font-size="16" text-anchor="middle">RGB 编码器</text>
-          <rect x="300" y="50" width="200" height="100" fill="#6c757d" rx="10" ry="10"></rect>
-          <text x="400" y="110" fill="white" font-size="16" text-anchor="middle">SGM 编码器</text>
-          
-          <!-- 特征融合 -->
-          <rect x="175" y="200" width="200" height="50" fill="#007bff" rx="10" ry="10"></rect>
-          <text x="275" y="230" fill="white" font-size="16" text-anchor="middle">特征融合 (Sum)</text>
-          
-          <!-- 解码部分 -->
-          <rect x="75" y="300" width="200" height="50" fill="#28a745" rx="10" ry="10"></rect>
-          <text x="175" y="330" fill="white" font-size="16" text-anchor="middle">主视差头</text>
-          <rect x="375" y="300" width="200" height="50" fill="#ffc107" rx="10" ry="10"></rect>
-          <text x="475" y="330" fill="white" font-size="16" text-anchor="middle">辅助视差头</text>
-        </svg>
-      </div>
-    </section>
-  </main>
-
-
-    <!-- 数据增强视差可视化效果 -->
-    <section>
-    <h2>3. 视差可视化效果</h2>
-        <div class="comparison">
-        <img src="assets/img/projects/baseline-disp-ndr.png" alt="Baseline 视差">
-        <img src="assets/img/projects/disp-ndr.png" alt="新模型视差">
-        </div>
-    <p style="text-align: center;">左图：Baseline 视差估计效果 | 右图：新模型视差估计效果</p>
-    <div class="comparison">
-        <img src="assets/img/projects/ndr-baseline.png" alt="Baseline 视差">
-        <img src="assets/img/projects/ndr-pc.png" alt="新模型视差">
-    </div>
-    <p style="text-align: center;">左图：Baseline 视差(点云)估计效果 | 右图：新模型视差(点云)估计效果</p>
-    </section>
-
-
-    <!-- 参考文献 -->
-    <section>
-        <h2>4. 参考文献</h2>
-        <div class="references">
-          <p>[1] Tosi, F., Liao, Y., Schmitt, C., & Geiger, A. (2021). SMD-Nets: Stereo Mixture Density Networks. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (pp. 8942-8952).</p>
-          <p>[2] Mayer, N., Ilg, E., Hausser, P., Fischer, P., Cremers, D., Dosovitskiy, A., & Brox, T. (2016). A large dataset to train convolutional networks for disparity, optical flow, and scene flow estimation. In Proceedings of the IEEE conference on computer vision and pattern recognition (pp. 4040-4048).</p>
-        </div>
+        <!-- 项目开头视频或GIF展示 -->
+        <section class="intro-section">
+          <h2>项目概览</h2>
+          <div class="intro-video">
+              <video 
+                  id="myVideo"
+                  autoplay 
+                  loop 
+                  muted 
+                  playsinline
+                  preload="auto"
+                  controlsList="nodownload"
+                  onloadedmetadata="this.muted = true; this.play()"
+              >
+                  <source src="../img/projects/mp4/depth_vis.mp4" type="video/mp4">
+                  您的浏览器不支持视频标签。
+              </video>
+          </div>
       </section>
+      
+      <script>
+      // 确保视频自动播放
+      document.addEventListener('DOMContentLoaded', function() {
+          const video = document.getElementById('myVideo');
+          
+          // 尝试播放视频
+          const playVideo = async () => {
+              try {
+                  await video.play();
+              } catch (err) {
+                  console.log("视频自动播放失败:", err);
+              }
+          };
+      
+          // 页面加载完成后播放视频
+          playVideo();
+      
+          // 用户交互后再次尝试播放
+          document.addEventListener('click', () => {
+              if (video.paused) {
+                  playVideo();
+              }
+          });
+      });
+      </script>
+      
+      <style>
+      .intro-video {
+          width: 100%;
+          max-width: 1200px;
+          margin: 0 auto;
+          position: relative;
+          overflow: hidden;
+          border-radius: 12px;
+          box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      }
+      
+      .intro-video video {
+          width: 100%;
+          height: auto;
+          display: block;
+          object-fit: cover;
+      }
+      
+      /* 添加加载动画 */
+      .intro-video::before {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 40px;
+          height: 40px;
+          margin: -20px 0 0 -20px;
+          border: 4px solid #f3f3f3;
+          border-top: 4px solid #3498db;
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+          z-index: 1;
+      }
+      
+      @keyframes spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+      }
+      
+      /* 视频加载完成后隐藏加载动画 */
+      .intro-video.loaded::before {
+          display: none;
+      }
+      </style>
+      
+      <script>
+      // 添加视频加载完成的处理
+      document.querySelector('video').addEventListener('loadeddata', function() {
+          this.parentElement.classList.add('loaded');
+      });
+      </script>
 
-  <footer>
-    <p>© 2024 由 <a href="https://jiangchaokang.github.io">蒋超康个人主页</a> 提供支持。</p>
-  </footer>
+        <!-- 网络整体架构 -->
+        <section>
+            <h2>1. 网络整体架构</h2>
+            <div class="content">
+                <div class="text-block">
+                    <h3>核心组件</h3>
+                    <ul>
+                        <li>双路编码器（RGB 和 SGM）设计</li>
+                        <li>多尺度特征解码器架构</li>
+                        <li>创新的双头视差预测机制</li>
+                        <li>高效的特征融合策略</li>
+                    </ul>
+                </div>
+                <div class="image-block">
+                    <img src="../img/projects/NDR.PNG" alt="NDRNet 架构图" loading="lazy">
+                </div>
+            </div>
+        </section>
+
+        <!-- 网络运行逻辑 -->
+        <section>
+            <h2>2. 网络详细运行逻辑</h2>
+            
+            <!-- 编码阶段 -->
+            <div class="content">
+                <div class="text-block">
+                    <h3>2.1 编码阶段</h3>
+                    <ul>
+                        <li>双路特征提取：
+                            <ul>
+                                <li>RGB 图像通过专用编码器处理</li>
+                                <li>SGM 结果经过独立编码器分析</li>
+                                <li>采用 RegNetX/Y 作为主干网络</li>
+                            </ul>
+                        </li>
+                        <li>多尺度特征提取：
+                            <ul>
+                                <li>特征图逐级下采样（1/4、1/8、1/16、1/32）</li>
+                                <li>保留各尺度特征信息</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 解码阶段 -->
+            <div class="content">
+                <div class="text-block">
+                    <h3>2.2 解码阶段</h3>
+                    <ul>
+                        <li>特征融合策略：
+                            <ul>
+                                <li>通过 Sum 操作实现特征融合</li>
+                                <li>采用逐级上采样恢复分辨率</li>
+                                <li>引入跳跃连接保留细节信息</li>
+                            </ul>
+                        </li>
+                        <li>双头预测机制：
+                            <ul>
+                                <li>主视差头：多层 ReLU 激活，F.Smooth 和 L1 损失</li>
+                                <li>辅助视差头：级联卷积结构，SMD 损失函数</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 视差可视化效果 -->
+        <section>
+            <h2>3. 视差可视化效果</h2>
+            <div class="comparison">
+                <img src="../img/projects/baseline-disp-ndr.png" alt="Baseline 视差" loading="lazy">
+                <img src="../img/projects/disp-ndr.png" alt="新模型视差" loading="lazy">
+            </div>
+            <p style="text-align: center; margin: 15px 0;">左图：Baseline 视差估计效果 | 右图：新模型视差估计效果</p>
+            
+            <div class="comparison">
+                <img src="../img/projects/ndr-baseline.png" alt="Baseline 点云视差" loading="lazy">
+                <img src="../img/projects/ndr-pc.png" alt="新模型点云视差" loading="lazy">
+            </div>
+            <p style="text-align: center; margin: 15px 0;">左图：Baseline 视差(点云)估计效果 | 右图：新模型视差(点云)估计效果</p>
+        </section>
+
+        <!-- 参考文献 -->
+        <section>
+            <h2>4. 参考文献</h2>
+            <div class="references">
+                <p>[1] Tosi, F., Liao, Y., Schmitt, C., & Geiger, A. (2021). SMD-Nets: Stereo Mixture Density Networks. In Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (pp. 8942-8952).</p>
+                <p>[2] Mayer, N., Ilg, E., Hausser, P., Fischer, P., Cremers, D., Dosovitskiy, A., & Brox, T. (2016). A large dataset to train convolutional networks for disparity, optical flow, and scene flow estimation. In Proceedings of the IEEE conference on computer vision and pattern recognition (pp. 4040-4048).</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2024 由 <a href="https://jiangchaokang.github.io" target="_blank">蒋超康个人主页</a> 提供支持</p>
+    </footer>
 </body>
 </html>

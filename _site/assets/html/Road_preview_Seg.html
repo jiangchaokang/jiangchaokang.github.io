@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>路面预瞄与语义分割任务</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* 基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        section {
+            margin-bottom: 50px;
+            padding: 25px;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        section h2 {
+            position: relative;
+            font-size: 1.8em;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #2575fc;
+            color: #343a40;
+        }
+
+        section h3 {
+            font-size: 1.4em;
+            margin: 20px 0;
+            color: #495057;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            padding: 20px;
+        }
+
+        .text-block {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .text-block ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .text-block ul li {
+            margin-bottom: 12px;
+            line-height: 1.8;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .text-block ul li::before {
+            content: "•";
+            color: #2575fc;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        .image-block {
+            text-align: center;
+        }
+
+        .image-block img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .image-block img:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+        }
+
+        footer a {
+            color: #ffdd57;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+
+            .content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>路面预瞄与语义分割任务</h1>
+        <p>高效语义分割模型及深度学习部署优化</p>
+    </header>
+
+    <main>
+        <!-- 项目介绍 -->
+        <section>
+            <h2>项目概览</h2>
+            <div class="content">
+                <div class="text-block">
+                    <h3>任务挑战</h3>
+                    <ul>
+                        <li>路面分割与语义分割</li>
+                        <li>减速带与井盖检测</li>
+                        <li>环境适应性与实时部署</li>
+                    </ul>
+                </div>
+                <div class="image-block">
+                    <img src="images/overview.jpg" alt="项目概览" loading="lazy">
+                </div>
+            </div>
+        </section>
+
+        <!-- 任务分析 -->
+        <section>
+            <h2>1. 任务挑战</h2>
+            <div class="content">
+                <div class="text-block">
+                    <h3>1.1 算力资源约束</h3>
+                    <ul>
+                        <li>TDA4平台资源受限</li>
+                        <li>模型复杂度与参数量需严格控制</li>
+                        <li>浮点模型与定点模型一致性对齐</li>
+                    </ul>
+                </div>
+                <div class="text-block">
+                    <h3>1.2 目标特征挑战</h3>
+                    <ul>
+                        <li>尺度失衡：目标像素占比小于1%</li>
+                        <li>特征模糊：目标-背景纹理相似度高</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 模型架构 -->
+        <section>
+            <h2>2. 模型架构与损失函数</h2>
+            <div class="content">
+                <div class="text-block">
+                    <h3>2.1 模型架构</h3>
+                    <ul>
+                        <li>高效特征编码器</li>
+                        <li>多尺度解码器</li>
+                        <li>轻量化推理优化</li>
+                    </ul>
+                </div>
+                <div class="image-block">
+                    <img src="images/model_architecture.jpg" alt="模型架构" loading="lazy">
+                </div>
+            </div>
+            <div class="content">
+                <div class="text-block">
+                    <h3>2.2 损失函数</h3>
+                    <ul>
+                        <li>OhemCrossEntropy Loss</li>
+                        <li>Lovasz Loss</li>
+                        <li>Focal Loss</li>
+                        <li>Tversky Loss</li>
+                        <li>RMI Loss</li>
+                    </ul>
+                </div>
+                <div class="image-block">
+                    <img src="images/loss_functions.jpg" alt="损失函数" loading="lazy">
+                </div>
+            </div>
+        </section>
+
+        <!-- 模型效果 -->
+        <section>
+            <h2>3. 模型效果与可视化</h2>
+            <div class="content">
+                <div class="image-block">
+                    <img src="images/effect_1.jpg" alt="效果图1" loading="lazy">
+                </div>
+                <div class="image-block">
+                    <img src="images/effect_2.jpg" alt="效果图2" loading="lazy">
+                </div>
+            </div>
+        </section>
+
+        <!-- 部署优化 -->
+        <section>
+            <h2>4. 板端部署优化</h2>
+            <div class="content">
+                <div class="text-block">
+                    <h3>4.1 浮点模型训练</h3>
+                    <ul>
+                        <li>标准训练流程：前向传播、计算损失、反向传播更新参数</li>
+                        <li>QAT训练：模拟低比特推理</li>
+                    </ul>
+                </div>
+                <div class="text-block">
+                    <h3>4.2 TIDL RT 推理</h3>
+                    <ul>
+                        <li>数据预处理与标准化</li>
+                        <li>调用 TIDLRT_invoke 执行推理</li>
+                        <li>输出结果后处理</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2024 蒋超康个人主页 | <a href="https://c3fd7g1nq8.feishu.cn/docx/ZLzpdiAqLoVEGixJLOhcOEzmnPe">了解更多</a></p>
+    </footer>
+</body>
+</html>

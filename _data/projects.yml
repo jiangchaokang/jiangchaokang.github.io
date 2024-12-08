@@ -94,11 +94,17 @@
 
 
 - title: Road Preview - Disparity Estimation (2023-05 ~ 2023-11)
-  subtitle: Collaboration Project with [SJTU IRMV](https://irmv.sjtu.edu.cn/)
+  subtitle: Collaboration Project with [BYD](https://chejiahao.autohome.com.cn/info/13952185)
   images:
     - src: assets/img/projects/NDR.PNG
-      alt: Road preview disparity estimation
+      alt: Road preview disparity estimation Network 
       description: Road preview disparity estimation using optimized neural networks
+    - src: assets/img/projects/mp4/depth_vis.gif
+      alt: Visualization of road preview depth estimation
+      description: Visualization of road preview depth estimation
+  links:
+    - title: Road Preview Disparity Estimation Web Demo
+      url: assets/html/Road_preview_disparity.html
 
   # date: 2023-06 ~ 2023-09
   responsibilities:
@@ -107,6 +113,3 @@
     - Deployed the model on the TDA4-AL board, addressing various bad cases and improving overall model robustness.
 
   description: This project focuses on road preview and disparity estimation tasks, including improving pseudo disparity estimation models, optimizing neural networks for real-time performance, and deploying robust solutions on embedded platforms.
-  links:
-    - title: Road Preview Disparity Estimation Web Demo
-      url: assets/html/Road_preview_disparity.html
