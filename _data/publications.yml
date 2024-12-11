@@ -2,12 +2,12 @@ main:
 
   - title: "NeuroGauss4D-PCI: 4D Neural Fields and Gaussian Deformation Fields for Point Cloud Interpolation"
     authors: Chaokang Jiang, Guangming Wang, Jiuming Liu, Hesheng Wang, Zhuang Ma, Zhenqiang Liu, Zhujin Liang, Yi Shan, Dalong Du
-    conference_short: arXiv
-    conference: arXiv
+    conference_short: NeurIPS 2024
+    conference: NeurIPS 2024
     pdf: https://arxiv.org/pdf/2405.14241
     code: https://github.com/jiangchaokang/NeuroGauss4D-PCI
     bibtex: https://scholar.googleusercontent.com/scholar.bib?q=info:KJ4AKAvj47gJ:scholar.google.com/&output=citation&scisdr=ClGaayC5ELzsosSoqWQ:AFWwaeYAAAAAZm2usWQvYkiwzuyUIOys1AM_hUg&scisig=AFWwaeYAAAAAZm2usbhU5e_z7gWyn5kOMQIg5Lc&scisf=4&ct=citation&cd=-1&hl=zh-CN
-    notes: Under Review
+    notes: NeurIPS 2024
     image: ./assets/img/paper/NeuroGauss4D.png
 
   - title: "MAMBA4D: Efficient Long-Sequence Point Cloud Video Understanding with Disentangled Spatial-Temporal State Space Models"

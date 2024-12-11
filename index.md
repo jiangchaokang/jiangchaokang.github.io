@@ -17,6 +17,7 @@ I was born in 1998 and currently work as a Computer Vision (CV) Algorithm Engine
 
 ## News
 
+- **[Oct. 2024]** Our paper "NeuroGauss4D-PCI: 4D Neural Fields and Gaussian Deformation Fields for Point Cloud Interpolation" is accepted to [NeurIPS 2024](https://neurips.cc/virtual/2024/poster/95602).
 - **[May. 2024]** Our paper "NeuroGauss4D-PCI: 4D Neural Fields and Gaussian Deformation Fields for Point Cloud Interpolation" is available on [arXiv](https://arxiv.org/abs/2405.14241).
 - **[May. 2024]** Our paper "MAMBA4D: Efficient Long-Sequence Point Cloud Video Understanding with Disentangled Spatial-Temporal State Space Models" is available on [arXiv](https://arxiv.org/abs/2405.14338).
 - **[Feb. 2024]** Our paper "3DSFLabelling: Boosting 3D Scene Flow Estimation by Pseudo Auto-labelling" is accepted to [CVPR 2024](https://openaccess.thecvf.com/content/CVPR2024/html/Jiang_3DSFLabelling_Boosting_3D_Scene_Flow_Estimation_by_Pseudo_Auto-labelling_CVPR_2024_paper.html).
