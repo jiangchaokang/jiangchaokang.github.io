@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>路面预瞄与语义分割任务</title>
+    <title>路面预瞄与路面分割项目</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         /* 基础样式 */
@@ -23,31 +23,31 @@
         header {
             background: linear-gradient(135deg, #6a11cb, #2575fc);
             color: white;
-            padding: 40px 20px;
+            padding: 60px 20px;
             text-align: center;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
         header h1 {
-            font-size: 2.5em;
-            margin-bottom: 15px;
+            font-size: 2.8em;
+            margin-bottom: 20px;
             text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
         }
 
         header p {
-            font-size: 1.2em;
-            opacity: 0.9;
+            font-size: 1.3em;
+            opacity: 0.95;
         }
 
         main {
             max-width: 1200px;
-            margin: 40px auto;
+            margin: 60px auto;
             padding: 20px;
         }
 
         section {
-            margin-bottom: 50px;
-            padding: 25px;
+            margin-bottom: 60px;
+            padding: 30px;
             border-radius: 15px;
             background: white;
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
@@ -61,31 +61,37 @@
 
         section h2 {
             position: relative;
-            font-size: 1.8em;
-            margin-bottom: 25px;
+            font-size: 2em;
+            margin-bottom: 30px;
             padding-bottom: 10px;
-            border-bottom: 3px solid #2575fc;
+            border-bottom: 4px solid #2575fc;
             color: #343a40;
         }
 
-        section h3 {
-            font-size: 1.4em;
-            margin: 20px 0;
+        section h3, section h4 {
+            font-size: 1.6em;
+            margin: 25px 0 15px 0;
             color: #495057;
         }
 
         .content {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
-            padding: 20px;
+            padding: 20px 0;
         }
 
         .text-block {
             background: #f8f9fa;
-            padding: 20px;
+            padding: 25px;
             border-radius: 12px;
             box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .text-block:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         }
 
         .text-block ul {
@@ -94,10 +100,11 @@
         }
 
         .text-block ul li {
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             line-height: 1.8;
-            padding-left: 20px;
+            padding-left: 25px;
             position: relative;
+            font-size: 1em;
         }
 
         .text-block ul li::before {
@@ -106,28 +113,135 @@
             font-weight: bold;
             position: absolute;
             left: 0;
+            top: 0;
         }
 
-        .image-block {
+        .image-block, .video-block {
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        figure {
             text-align: center;
+            margin: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .image-block img {
-            max-width: 100%;
+        figure:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        figure img, figure video {
+            width: 100%;
             height: auto;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            border: 1px solid #ddd;
             transition: all 0.3s ease;
         }
 
-        .image-block img:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        figure figcaption {
+            text-align: center;
+            font-size: 0.95em;
+            color: #666;
+            margin-top: 8px;
+        }
+
+        /* 修改图片块样式 */
+        .image-block figure {
+            flex: 1 1 calc(33.333% - 50px);
+            max-width: 30%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-block-single {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1 1 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+            margin-top: 20px;
+        }
+
+        .image-block-single figure {
+            width: 100%;
+            max-width: 600px;
+        }
+
+        /* 修改视频块样式 */
+        .video-block figure {
+            flex: 1 1 calc(50% - 50px);
+            max-width: 48%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 模态窗口样式 */
+        .modal {
+            display: none; /* 默认隐藏 */
+            position: fixed;
+            z-index: 1000;
+            padding-top: 60px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 80%;
+            border-radius: 10px;
+            box-shadow: 0 4px 25px rgba(255,255,255,0.2);
+        }
+
+        .modal-caption {
+            margin: 15px auto;
+            text-align: center;
+            color: #ddd;
+            font-size: 1.1em;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .close-modal:hover,
+        .close-modal:focus {
+            color: #ffdd57;
+            text-decoration: none;
         }
 
         footer {
             text-align: center;
-            padding: 20px;
+            padding: 25px 20px;
             background: linear-gradient(135deg, #6a11cb, #2575fc);
             color: white;
         }
@@ -135,51 +249,179 @@
         footer a {
             color: #ffdd57;
             text-decoration: none;
+            font-weight: bold;
         }
 
         footer a:hover {
             text-decoration: underline;
         }
 
+        @media (max-width: 1024px) {
+            .image-block figure {
+                flex: 1 1 calc(50% - 50px);
+                max-width: 45%;
+            }
+
+            .video-block figure {
+                flex: 1 1 calc(100% - 50px);
+                max-width: 100%;
+            }
+        }
+
         @media (max-width: 768px) {
             header h1 {
-                font-size: 2em;
+                font-size: 2.2em;
+            }
+
+            section h2 {
+                font-size: 1.8em;
+            }
+
+            section h3, section h4 {
+                font-size: 1.4em;
+            }
+
+            .image-block figure, .video-block figure {
+                flex: 1 1 100%;
+                max-width: 100%;
+            }
+
+            .image-block-single figure {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.8em;
+                padding: 30px 10px;
+            }
+
+            header p {
+                font-size: 1em;
+            }
+
+            section h2 {
+                font-size: 1.6em;
+            }
+
+            section h3, section h4 {
+                font-size: 1.2em;
             }
 
             .content {
                 grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .image-block figure, .video-block figure {
+                padding: 5px;
+            }
+
+            .close-modal {
+                top: 15px;
+                right: 25px;
+                font-size: 30px;
+            }
+
+            .modal-caption {
+                font-size: 1em;
             }
         }
+
+    /* loss   */     
+    .loss-functions {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+    }
+
+    .loss-block {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 20px;
+        margin-bottom: 30px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .loss-details {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .description {
+        line-height: 1.6;
+    }
+
+    .formula {
+        background: #fff;
+        padding: 15px;
+        border-radius: 6px;
+        border-left: 4px solid #3498db;
+    }
+
+    .math-block {
+        font-family: "Computer Modern", serif;
+        font-size: 1.1em;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .code-block {
+        background: #2d2d2d;
+        border-radius: 6px;
+        padding: 15px;
+        overflow-x: auto;
+    }
+
+    .code-block pre {
+        margin: 0;
+    }
+
+    .code-block code {
+        color: #e6e6e6;
+        font-family: 'Consolas', monospace;
+        font-size: 0.9em;
+    }
+
+    h2 {
+        color: #2c3e50;
+        margin-bottom: 30px;
+    }
+
+    h3 {
+        color: #3498db;
+        margin-bottom: 20px;
+    }
+
+    h4 {
+        color: #2c3e50;
+        margin-bottom: 10px;
+    }
+
+    /* @media (max-width: 768px) {
+        .loss-functions {
+            padding: 10px;
+        }
+        
+        .loss-block {
+            padding: 15px;
+        }
+    } */
     </style>
 </head>
 <body>
     <header>
-        <h1>路面预瞄与语义分割任务</h1>
-        <p>高效语义分割模型及深度学习部署优化</p>
+        <h1>路面预瞄与路面分割项目</h1>
+        <p>精准分割路面区域，优化深度学习模型部署</p>
     </header>
 
     <main>
-        <!-- 项目介绍 -->
+        <!-- 第一部分：任务挑战 -->
         <section>
-            <h2>项目概览</h2>
-            <div class="content">
-                <div class="text-block">
-                    <h3>任务挑战</h3>
-                    <ul>
-                        <li>路面分割与语义分割</li>
-                        <li>减速带与井盖检测</li>
-                        <li>环境适应性与实时部署</li>
-                    </ul>
-                </div>
-                <div class="image-block">
-                    <img src="images/overview.jpg" alt="项目概览" loading="lazy">
-                </div>
-            </div>
-        </section>
-
-        <!-- 任务分析 -->
-        <section>
-            <h2>1. 任务挑战</h2>
+            <h2>1. 减速带与井盖语义分割任务挑战</h2>
             <div class="content">
                 <div class="text-block">
                     <h3>1.1 算力资源约束</h3>
@@ -192,84 +434,385 @@
                 <div class="text-block">
                     <h3>1.2 目标特征挑战</h3>
                     <ul>
-                        <li>尺度失衡：目标像素占比小于1%</li>
-                        <li>特征模糊：目标-背景纹理相似度高</li>
+                        <li>尺度失衡：场景尺度大而目标尺寸小（目标像素占比&lt;1%）</li>
+                        <li>特征模糊：目标形状复杂，目标-背景纹理相似度高</li>
                     </ul>
+                </div>
+            </div>
+            <div class="image-block">
+                <figure onclick="openModal(this)">
+                    <img src="../img/projects/seg/seg_case4.PNG" alt="案例图片4">
+                    <figcaption>井盖在全图的像素占比</figcaption>
+                </figure>
+                <figure onclick="openModal(this)">
+                    <img src="../img/projects/seg/seg_case5.PNG" alt="案例图片5">
+                    <figcaption>井盖和地面分割结果可视化</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- 光照条件和遮挡问题 -->
+        <section>
+            <h3>1.3 光照条件和遮挡问题</h3>
+            <div class="content">
+                <div class="text-block">
+                    <h4>光照条件</h4>
+                    <ul>
+                        <li>白天：顺光、逆光、侧光</li>
+                        <li>阴影与积水路面</li>
+                        <li>室内：地下车库</li>
+                        <li>夜间：强光、弱光环境</li>
+                    </ul>
+                </div>
+                <div class="text-block">
+                    <h4>遮挡问题</h4>
+                    <ul>
+                        <li>目标像素占比小</li>
+                        <li>严重遮挡干扰</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="image-block">
+                <figure onclick="openModal(this)">
+                    <img src="../img/projects/seg/seg_case1.PNG" alt="案例图片1">
+                    <figcaption>常见的水渠井盖</figcaption>
+                </figure>
+                <figure onclick="openModal(this)">
+                    <img src="../img/projects/seg/seg_case2.PNG" alt="案例图片2">
+                    <figcaption>若纹理条件下的井盖</figcaption>
+                </figure>
+                <figure onclick="openModal(this)">
+                    <img src="../img/projects/seg/seg_case3.PNG" alt="案例图片3">
+                    <figcaption>和井盖高度相似的水渍或者油渍</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- 第二部分：模型架构 -->
+        <section>
+            <h2>2. 模型架构设计</h2>
+            <div class="image-block-single">
+                <figure onclick="openModal(this)">
+                    <img src="../img/projects/seg/model_arch.PNG" alt="模型架构">
+                    <figcaption>模型架构图</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <section class="loss-functions">
+            <h2>3. 损失函数</h2>
+            <div class="content">
+                <div class="loss-block">
+                    <h3>OhemCrossEntropy Loss</h3>
+                    <div class="loss-details">
+                        <div class="description">
+                            <p>自适应选择损失值较高的困难样本进行训练,提升模型对难例的学习能力。该损失函数通过对样本进行排序,仅保留损失较大的top-k个样本参与反向传播。</p>
+                        </div>
+                        <div class="formula">
+                            <h4>计算公式:</h4>
+                            <div class="math-block">
+                                L = -∑(y<sub>i</sub>log(p<sub>i</sub>)) where i ∈ top-k highest losses
+                            </div>
+                        </div>
+                        <div class="code-block">
+                            <pre><code>
+        class OhemCrossEntropy(nn.Module):
+            def __init__(self, thresh=0.7, min_kept=100000):
+                super(OhemCrossEntropy, self).__init__()
+                self.thresh = thresh
+                self.min_kept = min_kept
+                self.criterion = nn.CrossEntropyLoss(ignore_index=-1)
+            
+            def forward(self, pred, target):
+                # 计算每个像素的损失
+                pixel_losses = self.criterion(pred, target).view(-1)
+                # 选择 top-k 损失值
+                sorted_losses, indices = torch.sort(pixel_losses, descending=True)
+                if len(sorted_losses) < self.min_kept:
+                    kept_losses = sorted_losses
+                else:
+                    kept_losses = sorted_losses[:self.min_kept]
+                return kept_losses.mean()
+                            </code></pre>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="loss-block">
+                    <h3>Lovasz Loss</h3>
+                    <div class="loss-details">
+                        <div class="description">
+                            <p>直接优化IoU评估指标的凸近似,特别适合处理语义分割任务中的边界区域。通过最小化Lovász扩展来优化Jaccard指数。</p>
+                        </div>
+                        <div class="formula">
+                            <h4>计算公式:</h4>
+                            <div class="math-block">
+                                L = ∑<sub>c</sub> w<sub>c</sub>l̃<sub>c</sub>(m(c))
+                            </div>
+                            <p>其中 l̃<sub>c</sub> 是Lovász扩展,m(c)是类别c的错误向量</p>
+                        </div>
+                        <div class="code-block">
+                            <pre><code>
+        class LovaszLoss(nn.Module):
+            def __init__(self, classes='present', per_image=False):
+                super(LovaszLoss, self).__init__()
+                self.classes = classes
+                self.per_image = per_image
+                
+            def forward(self, logits, labels):
+                lovasz_loss = 0
+                for cls in range(logits.shape[1]):
+                    cls_pred = logits[:,cls]
+                    cls_target = (labels == cls).float()
+                    errors = (cls_pred - cls_target).abs()
+                    # 计算Lovász扩展
+                    sorted_errors, perm = torch.sort(errors, dim=0, descending=True)
+                    intersection = cls_target[perm].cumsum(0)
+                    union = cls_target.sum() + (1 - cls_target)[perm].cumsum(0)
+                    iou = intersection / union
+                    lovasz_loss += (sorted_errors * (1 - iou)).mean()
+                return lovasz_loss
+                            </code></pre>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="loss-block">
+                    <h3>Tversky Loss</h3>
+                    <div class="loss-details">
+                        <div class="description">
+                            <p>Dice Loss的一般化形式,通过α和β参数灵活调节假阳性和假阴性的权重,特别适合处理类别不平衡问题。</p>
+                        </div>
+                        <div class="formula">
+                            <h4>计算公式:</h4>
+                            <div class="math-block">
+                                T = ∑(p<sub>n</sub>g<sub>n</sub>) / (∑(p<sub>n</sub>g<sub>n</sub>) + α∑(p<sub>n</sub>(1-g<sub>n</sub>)) + β∑((1-p<sub>n</sub>)g<sub>n</sub>))
+                            </div>
+                        </div>
+                        <div class="code-block">
+                            <pre><code>
+        class TverskyLoss(nn.Module):
+            def __init__(self, alpha=0.3, beta=0.7):
+                super(TverskyLoss, self).__init__()
+                self.alpha = alpha
+                self.beta = beta
+                
+            def forward(self, pred, target):
+                # 计算真阳性、假阳性和假阴性
+                TP = (pred * target).sum()
+                FP = (pred * (1-target)).sum()
+                FN = ((1-pred) * target).sum()
+                # Tversky指数
+                tversky = TP / (TP + self.alpha*FP + self.beta*FN)
+                return 1 - tversky
+                            </code></pre>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="loss-block">
+                    <h3>Focal Loss</h3>
+                    <div class="loss-details">
+                        <div class="description">
+                            <p>通过动态缩放因子降低易分类样本的权重,提升难分类样本的重要性,有效处理类别不平衡问题。</p>
+                        </div>
+                        <div class="formula">
+                            <h4>计算公式:</h4>
+                            <div class="math-block">
+                                FL(p<sub>t</sub>) = -α(1-p<sub>t</sub>)<sup>γ</sup>log(p<sub>t</sub>)
+                            </div>
+                        </div>
+                        <div class="code-block">
+                            <pre><code>
+        class FocalLoss(nn.Module):
+            def __init__(self, alpha=0.25, gamma=2):
+                super(FocalLoss, self).__init__()
+                self.alpha = alpha
+                self.gamma = gamma
+                
+            def forward(self, pred, target):
+                # 计算交叉熵
+                ce_loss = F.binary_cross_entropy_with_logits(pred, target, reduction='none')
+                # 计算pt
+                pt = torch.exp(-ce_loss)
+                # 计算focal loss
+                focal_loss = self.alpha * (1-pt)**self.gamma * ce_loss
+                return focal_loss.mean()
+                            </code></pre>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="loss-block">
+                    <h3>RMI Loss</h3>
+                    <div class="loss-details">
+                        <div class="description">
+                            <p>通过建模像素间的互信息来捕获空间依赖关系,提升分割结果的区域一致性和语义连贯性。</p>
+                        </div>
+                        <div class="formula">
+                            <h4>计算公式:</h4>
+                            <div class="math-block">
+                                RMI = -log|Σ| + log|Σ<sub>g</sub>| + log|Σ<sub>p</sub>|
+                            </div>
+                            <p>其中Σ为联合协方差矩阵,Σ<sub>g</sub>和Σ<sub>p</sub>为边缘协方差矩阵</p>
+                        </div>
+                        <div class="code-block">
+                            <pre><code>
+        class RMILoss(nn.Module):
+            def __init__(self, radius=3):
+                super(RMILoss, self).__init__()
+                self.radius = radius
+                
+            def forward(self, pred, target):
+                # 提取局部区域
+                n = (2*self.radius + 1)**2
+                local_pred = F.unfold(pred, 2*self.radius+1)
+                local_target = F.unfold(target, 2*self.radius+1)
+                
+                # 计算协方差矩阵
+                joint_cov = torch.matmul(local_pred, local_target.transpose(-1,-2)) / n
+                pred_cov = torch.matmul(local_pred, local_pred.transpose(-1,-2)) / n
+                target_cov = torch.matmul(local_target, local_target.transpose(-1,-2)) / n
+                
+                # 计算RMI
+                rmi = -torch.logdet(joint_cov) + torch.logdet(pred_cov) + torch.logdet(target_cov)
+                return rmi.mean()
+                            </code></pre>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- 模型架构 -->
+        <!-- 第四部分：模型效果与视频 -->
         <section>
-            <h2>2. 模型架构与损失函数</h2>
-            <div class="content">
-                <div class="text-block">
-                    <h3>2.1 模型架构</h3>
-                    <ul>
-                        <li>高效特征编码器</li>
-                        <li>多尺度解码器</li>
-                        <li>轻量化推理优化</li>
-                    </ul>
-                </div>
-                <div class="image-block">
-                    <img src="images/model_architecture.jpg" alt="模型架构" loading="lazy">
-                </div>
+            <h2>4. 模型效果评估与可视化</h2>
+            <div class="image-block">
+                <figure onclick="openModal(this)">
+                    <img src="../img/projects/seg/Example_indicator1.png" alt="指标图1">
+                    <figcaption>指标图1</figcaption>
+                </figure>
+                <figure onclick="openModal(this)">
+                    <img src="../img/projects/seg/Example_indicator2.png" alt="指标图2">
+                    <figcaption>指标图2</figcaption>
+                </figure>
+                <figure onclick="openModal(this)">
+                    <img src="../img/projects/seg/Example_indicator3.png" alt="指标图3">
+                    <figcaption>指标图3</figcaption>
+                </figure>
             </div>
-            <div class="content">
-                <div class="text-block">
-                    <h3>2.2 损失函数</h3>
-                    <ul>
-                        <li>OhemCrossEntropy Loss</li>
-                        <li>Lovasz Loss</li>
-                        <li>Focal Loss</li>
-                        <li>Tversky Loss</li>
-                        <li>RMI Loss</li>
-                    </ul>
-                </div>
-                <div class="image-block">
-                    <img src="images/loss_functions.jpg" alt="损失函数" loading="lazy">
-                </div>
-            </div>
-        </section>
-
-        <!-- 模型效果 -->
-        <section>
-            <h2>3. 模型效果与可视化</h2>
-            <div class="content">
-                <div class="image-block">
-                    <img src="images/effect_1.jpg" alt="效果图1" loading="lazy">
-                </div>
-                <div class="image-block">
-                    <img src="images/effect_2.jpg" alt="效果图2" loading="lazy">
-                </div>
+            <div class="video-block">
+                <figure>
+                    <video autoplay muted loop controls src="../img/projects/seg/pred_4.7.17_vis.mp4"></video>
+                    <figcaption>可视化1：实际摆拍场景下的模型预测效果</figcaption>
+                </figure>
+                <figure>
+                    <video autoplay muted loop controls src="../img/projects/seg/pred_1280_case.mp4"></video>
+                    <figcaption>可视化2：实际场景+摆拍易误检的非标场景</figcaption>
+                </figure>
+                <figure>
+                    <video autoplay muted loop controls src="../img/projects/seg/badcase_vis_waterstains.mp4"></video>
+                    <figcaption>可视化3： 在实际复杂困难场景下的表现</figcaption>
+                </figure>
+                <figure>
+                    <video autoplay muted loop controls src="../img/projects/seg/vis_seg2.mp4"></video>
+                    <figcaption>可视化4：分割高程效果展示</figcaption>
+                </figure>
             </div>
         </section>
 
-        <!-- 部署优化 -->
+        <!-- 第五部分：模型训练和部署 -->
         <section>
-            <h2>4. 板端部署优化</h2>
-            <div class="content">
-                <div class="text-block">
-                    <h3>4.1 浮点模型训练</h3>
-                    <ul>
-                        <li>标准训练流程：前向传播、计算损失、反向传播更新参数</li>
-                        <li>QAT训练：模拟低比特推理</li>
-                    </ul>
-                </div>
-                <div class="text-block">
-                    <h3>4.2 TIDL RT 推理</h3>
-                    <ul>
-                        <li>数据预处理与标准化</li>
-                        <li>调用 TIDLRT_invoke 执行推理</li>
-                        <li>输出结果后处理</li>
-                    </ul>
-                </div>
+            <h2>5. 模型训练和板端部署</h2>
+            <div class="text-block">
+                <h3>5.1 浮点分割模型训练</h3>
+                <p>标准训练流程包含以下步骤：</p>
+                <ul>
+                    <li><b>前向传播</b>：输入图像数据，通过深度学习模型计算预测结果。</li>
+                    <li><b>计算损失</b>：根据预测值与真实标签计算损失函数。</li>
+                    <li><b>反向传播</b>：通过梯度下降算法更新模型参数。</li>
+                </ul>
+            </div>
+            <div class="text-block">
+                <h3>5.2 QAT训练（量化感知训练）</h3>
+                <p>QAT 训练的详细步骤：</p>
+                <ul>
+                    <li><b>前向传播</b>：插入量化器和反量化器，模拟量化过程，计算模型输出。</li>
+                    <li><b>计算损失</b>：根据量化后的输出和标签计算损失。</li>
+                    <li><b>反向传播</b>：通过梯度更新模型参数，以优化量化后的性能。</li>
+                    <li><b>保存量化参数</b>：保存缩放因子等参数，用于低比特推理。</li>
+                </ul>
+            </div>
+            <div class="text-block">
+                <h3>QuantTrainModule 的运行逻辑</h3>
+                <ol>
+                    <li><b>初始化配置</b>：接收量化配置参数，设置量化策略。</li>
+                    <li><b>前向传播</b>：更新计数器、调整量化位宽，调用量化层进行模拟量化。</li>
+                    <li><b>模型手术量化</b>：递归替换原始层为量化版本（如 QuantTrainConv2d）。</li>
+                    <li><b>清除量化状态</b>：清除统计信息，确保训练一致性。</li>
+                </ol>
+            </div>
+            <div class="image-block-single">
+                <figure onclick="openModal(this)">
+                    <img src="../img/projects/seg/TDA4_flow.png" alt="QAT流程图">
+                    <figcaption>QAT流程图</figcaption>
+                </figure>
+            </div>
+            <div class="text-block">
+                <h3>5.3 板端部署阶段</h3>
+                <ol>
+                    <li><b>TIDL RT 环境准备</b>
+                        <ul>
+                            <li>创建运行时句柄。</li>
+                            <li>配置输入输出张量参数：数据布局、数据类型、内存类型。</li>
+                        </ul>
+                    </li>
+                    <li><b>推理流程</b>
+                        <ul>
+                            <li>数据预处理：读取图像、初始化缓存、标准化处理。</li>
+                            <li>模型推理：调用 <code>TIDLRT_invoke</code> 执行推理。</li>
+                            <li>结果后处理：输出解析并统计性能。</li>
+                        </ul>
+                    </li>
+                </ol>
             </div>
         </section>
     </main>
 
     <footer>
-        <p>© 2024 蒋超康个人主页 | <a href="https://c3fd7g1nq8.feishu.cn/docx/ZLzpdiAqLoVEGixJLOhcOEzmnPe">了解更多</a></p>
+        <p>© 2024 路面分割项目 | <a href="https://c3fd7g1nq8.feishu.cn/docx/ZLzpdiAqLoVEGixJLOhcOEzmnPe">了解更多</a></p>
     </footer>
+
+    <!-- 模态窗口结构 -->
+    <div id="imageModal" class="modal" onclick="closeModal(event)">
+        <span class="close-modal" onclick="closeModal(event)">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div class="modal-caption" id="modalCaption"></div>
+    </div>
+
+    <script>
+        // 打开模态窗口并显示点击的图片
+        function openModal(element) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const captionText = document.getElementById('modalCaption');
+            modal.style.display = "block";
+            modalImg.src = element.querySelector('img').src;
+            captionText.innerHTML = element.querySelector('figcaption').innerText;
+        }
+
+        // 关闭模态窗口
+        function closeModal(event) {
+            const modal = document.getElementById('imageModal');
+            if (event.target === modal || event.target.classList.contains('close-modal')) {
+                modal.style.display = "none";
+            }
+        }
+
+        // 防止模态窗口内点击关闭
+        document.getElementById('modalImage').addEventListener('click', function(event){
+            event.stopPropagation();
+        });
+    </script>
 </body>
 </html>

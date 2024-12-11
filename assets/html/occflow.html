@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D运动估计项目</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* 基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            font-size: 2.8em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+        }
+
+        header p {
+            font-size: 1.3em;
+            opacity: 0.95;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 20px;
+        }
+
+        section {
+            margin-bottom: 60px;
+            padding: 30px;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        section h2 {
+            position: relative;
+            font-size: 2em;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 4px solid #ff7e5f;
+            color: #343a40;
+        }
+
+        section h3, section h4 {
+            font-size: 1.6em;
+            margin: 25px 0 15px 0;
+            color: #495057;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 20px 0;
+        }
+
+        .text-block {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .text-block:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .text-block ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .text-block ul li {
+            margin-bottom: 15px;
+            line-height: 1.8;
+            padding-left: 25px;
+            position: relative;
+            font-size: 1em;
+        }
+
+        .text-block ul li::before {
+            content: "•";
+            color: #ff7e5f;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .image-block, .video-block {
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        figure {
+            text-align: center;
+            margin: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        figure:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        figure img, figure video {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            transition: all 0.3s ease;
+        }
+
+        figure figcaption {
+            text-align: center;
+            font-size: 0.95em;
+            color: #666;
+            margin-top: 8px;
+        }
+
+        /* 修改图片块样式 */
+        .image-block figure {
+            flex: 1 1 calc(33.333% - 50px);
+            max-width: 30%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-block-single {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1 1 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+            margin-top: 20px;
+        }
+
+        .image-block-single figure {
+            width: 100%;
+            max-width: 600px;
+        }
+
+        /* 修改视频块样式 */
+        .video-block figure {
+            flex: 1 1 calc(50% - 50px);
+            max-width: 48%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 模态窗口样式 */
+        .modal {
+            display: none; /* 默认隐藏 */
+            position: fixed;
+            z-index: 1000;
+            padding-top: 60px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 80%;
+            border-radius: 10px;
+            box-shadow: 0 4px 25px rgba(255,255,255,0.2);
+        }
+
+        .modal-caption {
+            margin: 15px auto;
+            text-align: center;
+            color: #ddd;
+            font-size: 1.1em;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .close-modal:hover,
+        .close-modal:focus {
+            color: #ffdd57;
+            text-decoration: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px 20px;
+            background: linear-gradient(135deg, #ff7e5f, #feb47b);
+            color: white;
+        }
+
+        footer a {
+            color: #ffdd57;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 1024px) {
+            .image-block figure {
+                flex: 1 1 calc(50% - 50px);
+                max-width: 45%;
+            }
+
+            .video-block figure {
+                flex: 1 1 calc(100% - 50px);
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.2em;
+            }
+
+            section h2 {
+                font-size: 1.8em;
+            }
+
+            section h3, section h4 {
+                font-size: 1.4em;
+            }
+
+            .image-block figure, .video-block figure {
+                flex: 1 1 100%;
+                max-width: 100%;
+            }
+
+            .image-block-single figure {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.8em;
+                padding: 30px 10px;
+            }
+
+            header p {
+                font-size: 1em;
+            }
+
+            section h2 {
+                font-size: 1.6em;
+            }
+
+            section h3, section h4 {
+                font-size: 1.2em;
+            }
+
+            .content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .image-block figure, .video-block figure {
+                padding: 5px;
+            }
+
+            .close-modal {
+                top: 15px;
+                right: 25px;
+                font-size: 30px;
+            }
+
+            .modal-caption {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>3D运动估计项目</h1>
+        <p>先进的3D场景流估计与运动分析解决方案</p>
+    </header>
+
+    <main>
+        <!-- 第一部分：任务挑战 -->
+        <section>
+            <h2>1. 3D运动估计任务挑战</h2>
+            <div class="content">
+                <div class="text-block">
+                    <h3>1.1 无法获取逐点的3D速度或3D位移GT</h3>
+                    <ul>
+                        <li>缺乏高精度的逐点3D运动数据作为训练和评估的基准。</li>
+                        <li>获取真实标注数据的成本高且耗时。</li>
+                    </ul>
+                </div>
+                <div class="text-block">
+                    <h3>1.2 缺乏开源的3D场景流估计基线网络</h3>
+                    <ul>
+                        <li>现有开源代码中没有适用于3D场景流估计的基线网络。</li>
+                        <li>现有网络因计算量大和复杂算子众多，难以作为基准。</li>
+                    </ul>
+                </div>
+                <div class="text-block">
+                    <h3>1.3 多种算子不支持</h3>
+                    <ul>
+                        <li>常见的3D场景流估计算法涉及多种不兼容或难以实现的算子。</li>
+                        <li>导致项目在实际应用中面临实现和优化的挑战。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="image-block">
+                <figure onclick="openModal(this)">
+                    <img src="../img/projects/occ3dflow/m1_conv.PNG" alt="3D运动估计示意图1">
+                    <figcaption>3D运动流估计的不同方案</figcaption>
+                </figure>
+                <figure onclick="openModal(this)">
+                    <img src="../img/projects/occ3dflow/Auto-Flow.PNG" alt="自动流估计示意图">
+                    <figcaption>3D运动流自动标注Pipeline</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- 第二部分：主要工作 -->
+        <section>
+            <h2>2. 主要工作</h2>
+            <div class="content">
+                <div class="text-block">
+                    <h3>2.1 构建3D场景流训练集</h3>
+                    <ul>
+                        <li>收集并整理多源数据以创建高质量的训练集。</li>
+                        <li>确保数据涵盖多种场景和运动类型，以提高模型的泛化能力。</li>
+                    </ul>
+                </div>
+                <div class="text-block">
+                    <h3>2.2 构建并维护两种3D场景流估计网络</h3>
+                    <ul>
+                        <li>设计高效的网络架构以处理大规模点云数据。</li>
+                        <li>优化网络以支持多种复杂的算子，同时保持计算效率。</li>
+                        <li>定期维护和更新网络，确保其在新的数据和场景中的表现。</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="image-block">
+                <figure onclick="openModal(this)">
+                    <img src="../img/projects/occ3dflow/e1.PNG" alt="网络性能评估">
+                    <figcaption>Onnx模型性能评估</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- 第三部分：自动标注框架 -->
+        <section>
+            <h2>3. 自动标注框架</h2>
+            <div class="image-block-single">
+                <figure onclick="openModal(this)">
+                    <img src="../img/projects/occ3dflow/arch.png" alt="自动标注框架架构图">
+                    <figcaption>自动标注框架架构图</figcaption>
+                </figure>
+            </div>
+            <div class="text-block">
+                <p>设计和实现了一套自动标注框架，能够高效地为3D场景流估计网络生成准确的标签。该框架利用先进的算法和优化技术，显著减少了手动标注的工作量，并提升了标注的精度和一致性。</p>
+            </div>
+        </section>
+
+        <!-- 第四部分：在公开数据集上的实验 -->
+        <section>
+            <h2>4. 在公开数据集上的实验</h2>
+            <div class="image-block-single">
+                <figure onclick="openModal(this)">
+                    <img src="../img/projects/occ3dflow/e2.PNG" alt="实验结果示意图">
+                    <figcaption>在公开数据集上的实验结果示意图</figcaption>
+                </figure>
+            </div>
+            <div class="text-block">
+                <p>在多个公开数据集上进行了广泛的实验，验证了所构建的3D场景流估计网络的有效性和鲁棒性。实验结果显示，所提方法在精度和计算效率方面均优于现有的基线方法，尤其在复杂场景和高负载条件下表现尤为出色。</p>
+            </div>
+        </section>
+
+        <!-- 第五部分：模型效果与视频 -->
+        <section>
+            <h2>5. 模型效果评估与可视化</h2>
+            <div class="video-block">
+                <figure>
+                    <video controls autoplay muted loop src="../img/projects/occ3dflow/autoflow_vis.mp4"></video>
+                    <figcaption>视频1：自动标注场景流估计可视化</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- 第六部分：模型训练和部署 -->
+        <section>
+            <h2>6. 模型训练和部署</h2>
+            <div class="text-block">
+                <h3>6.1 浮点模型训练</h3>
+                <p>标准训练流程包括以下步骤：</p>
+                <ul>
+                    <li><b>前向传播</b>：输入3D点云数据，通过深度学习模型计算预测结果。</li>
+                    <li><b>计算损失</b>：根据预测值与真实标签计算损失函数。</li>
+                    <li><b>反向传播</b>：通过梯度下降算法更新模型参数。</li>
+                </ul>
+            </div>
+            <div class="text-block">
+                <h3>6.2 板端部署阶段</h3>
+                <p>在将训练完成的模型部署到英伟达 Orin 和地平线 J6E 等硬件平台时，主要流程如下：</p>
+                <ol>
+                    <li><b>模型转换与优化</b>
+                        <ul>
+                            <li>将训练好的浮点或量化模型导出为 ONNX 格式。</li>
+                            <li>使用平台提供的工具进行模型优化：
+                                <ul>
+                                    <li>对于英伟达 Orin：使用 TensorRT 优化 ONNX 模型。</li>
+                                    <li>对于地平线 J6E：使用 Horizon 提供的模型转换工具（如 Horizon SDK 或工具链）。</li>
+                                </ul>
+                            </li>
+                            <li>验证优化后的模型是否与原始模型输出一致。</li>
+                        </ul>
+                    </li>
+                    <li><b>部署环境准备</b>
+                        <ul>
+                            <li>在目标平台上安装必要的运行时库和驱动。</li>
+                            <li>创建运行时句柄并加载优化后的模型。</li>
+                            <li>配置输入输出张量参数：数据布局、数据类型、内存类型等。</li>
+                        </ul>
+                    </li>
+                    <li><b>推理流程</b>
+                        <ul>
+                            <li>数据预处理：读取3D点云、初始化缓存、标准化处理。</li>
+                            <li>模型推理：调用目标平台的推理接口完成模型计算。
+                                <ul>
+                                    <li>英伟达 Orin：使用 TensorRT 的推理 API。</li>
+                                    <li>地平线 J6E：使用 Horizon SDK 的推理接口（如 Horizon Inference API）。</li>
+                                </ul>
+                            </li>
+                            <li>结果后处理：解析模型输出，生成可用结果并统计性能指标。</li>
+                        </ul>
+                    </li>
+                </ol>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2024 3D运动估计项目 | <a href="https://c3fd7g1nq8.feishu.cn/docx/L9TJdE2iKoHuFPxzMa8chpk7nOg">了解更多</a></p>
+    </footer>
+
+    <!-- 模态窗口结构 -->
+    <div id="imageModal" class="modal" onclick="closeModal(event)">
+        <span class="close-modal" onclick="closeModal(event)">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div class="modal-caption" id="modalCaption"></div>
+    </div>
+
+    <script>
+        // 打开模态窗口并显示点击的图片
+        function openModal(element) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const captionText = document.getElementById('modalCaption');
+            modal.style.display = "block";
+            modalImg.src = element.querySelector('img').src;
+            captionText.innerHTML = element.querySelector('figcaption').innerText;
+        }
+
+        // 关闭模态窗口
+        function closeModal(event) {
+            const modal = document.getElementById('imageModal');
+            if (event.target === modal || event.target.classList.contains('close-modal')) {
+                modal.style.display = "none";
+            }
+        }
+
+        // 防止模态窗口内点击关闭
+        document.getElementById('modalImage').addEventListener('click', function(event){
+            event.stopPropagation();
+        });
+    </script>
+</body>
+</html>

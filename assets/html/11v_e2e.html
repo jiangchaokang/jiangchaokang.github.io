@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>端到端自动驾驶（LiDAR+11V 融合）项目</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* 基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, #cbcb11, #25fcd8);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            font-size: 2.8em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+        }
+
+        header p {
+            font-size: 1.3em;
+            opacity: 0.95;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 20px;
+        }
+
+        section {
+            margin-bottom: 60px;
+            padding: 30px;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        section h2 {
+            position: relative;
+            font-size: 2em;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 4px solid #2575fc;
+            color: #343a40;
+        }
+
+        section h3, section h4 {
+            font-size: 1.6em;
+            margin: 25px 0 15px 0;
+            color: #495057;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 20px 0;
+        }
+
+        .text-block {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .text-block:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .text-block ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .text-block ul li {
+            margin-bottom: 15px;
+            line-height: 1.8;
+            padding-left: 25px;
+            position: relative;
+            font-size: 1em;
+        }
+
+        .text-block ul li::before {
+            content: "•";
+            color: #2575fc;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .image-block, .video-block {
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        figure {
+            text-align: center;
+            margin: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        figure:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        figure img, figure video {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            transition: all 0.3s ease;
+        }
+
+        figure figcaption {
+            text-align: center;
+            font-size: 0.95em;
+            color: #666;
+            margin-top: 8px;
+        }
+
+        /* 修改图片块样式 */
+        .image-block figure {
+            flex: 1 1 calc(33.333% - 50px);
+            max-width: 30%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-block-single {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1 1 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+            margin-top: 20px;
+        }
+
+        .image-block-single figure {
+            width: 100%;
+            max-width: 600px;
+        }
+
+        /* 修改视频块样式 */
+        .video-block figure {
+            flex: 1 1 calc(100% - 50px);
+            max-width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 模态窗口样式 */
+        .modal {
+            display: none; /* 默认隐藏 */
+            position: fixed;
+            z-index: 1000;
+            padding-top: 60px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 80%;
+            border-radius: 10px;
+            box-shadow: 0 4px 25px rgba(255,255,255,0.2);
+        }
+
+        .modal-caption {
+            margin: 15px auto;
+            text-align: center;
+            color: #ddd;
+            font-size: 1.1em;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .close-modal:hover,
+        .close-modal:focus {
+            color: #ffdd57;
+            text-decoration: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px 20px;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+        }
+
+        footer a {
+            color: #ffdd57;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 1024px) {
+            .image-block figure {
+                flex: 1 1 calc(50% - 50px);
+                max-width: 45%;
+            }
+
+            .video-block figure {
+                flex: 1 1 calc(100% - 50px);
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.2em;
+            }
+
+            section h2 {
+                font-size: 1.8em;
+            }
+
+            section h3, section h4 {
+                font-size: 1.4em;
+            }
+
+            .image-block figure, .video-block figure {
+                flex: 1 1 100%;
+                max-width: 100%;
+            }
+
+            .image-block-single figure {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.8em;
+                padding: 30px 10px;
+            }
+
+            header p {
+                font-size: 1em;
+            }
+
+            section h2 {
+                font-size: 1.6em;
+            }
+
+            section h3, section h4 {
+                font-size: 1.2em;
+            }
+
+            .content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .image-block figure, .video-block figure {
+                padding: 5px;
+            }
+
+            .close-modal {
+                top: 15px;
+                right: 25px;
+                font-size: 30px;
+            }
+
+            .modal-caption {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>端到端自动驾驶（LiDAR+11V 融合）项目</h1>
+        <p>融合LiDAR与多视角相机数据，实现精准感知与自主驾驶控制</p>
+    </header>
+
+    <main>
+        <!-- 第一部分：项目简介 -->
+        <section>
+            <h2>1. 项目简介</h2>
+            <div class="text-block">
+                <p>本项目旨在实现端到端的自动驾驶感知系统，融合LiDAR与11个视角相机的数据，输出高精度的感知结果、预测、规划与控制信息，以提升车辆在复杂环境中的自主驾驶能力。</p>
+            </div>
+            <div class="image-block">
+                <figure onclick="openModal(this)">
+                    <img src="../img/projects/11v_e2e/vis1.PNG" alt="端到端自动驾驶可视化示意图">
+                    <figcaption>端到端自动驾驶可视化示意图</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- 第二部分：输入与输出 -->
+        <section>
+            <h2>2. 输入与输出</h2>
+            <div class="text-block">
+                <h3>2.1 输入信号</h3>
+                <ul>
+                    <li>4鱼眼相机</li>
+                    <li>7针孔相机（大小眼）</li>
+                    <li>图达通数据</li>
+                </ul>
+            </div>
+            <div class="text-block">
+                <h3>2.2 输出信息</h3>
+                <ul>
+                    <li>感知结果</li>
+                    <li>预测信息</li>
+                    <li>规划信息</li>
+                    <li>控制信息</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 第三部分：主要职责 -->
+        <section>
+            <h2>3. 主要职责</h2>
+            <div class="content">
+                <div class="text-block">
+                    <h3>3.1 数据读取与处理</h3>
+                    <ul>
+                        <li>负责端到端感知部分的数据读取、处理、格式转换等脚本或pipeline。</li>
+                    </ul>
+                </div>
+                <div class="text-block">
+                    <h3>3.2 去除LiDAR运动畸变</h3>
+                    <ul>
+                        <li>利用全球位姿变换矩阵和时间戳去除LiDAR运动畸变。</li>
+                    </ul>
+                </div>
+                <div class="text-block">
+                    <h3>3.3 图像与LiDAR融合</h3>
+                    <ul>
+                        <li>负责图像-LiDAR融合障碍物感知部分，利用稀疏Anchor或Map Instances聚合多模态特征，提升感知精度。</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第四部分：架构设计 -->
+        <section>
+            <h2>4. 架构设计</h2>
+            <div class="image-block">
+                <figure onclick="openModal(this)">
+                    <img src="../img/projects/11v_e2e/arch1.PNG" alt="端到端自动驾驶架构图1">
+                    <figcaption>端到端自动驾驶架构图1</figcaption>
+                </figure>
+                <figure onclick="openModal(this)">
+                    <img src="../img/projects/11v_e2e/arch2.PNG" alt="端到端自动驾驶架构图2">
+                    <figcaption>端到端自动驾驶架构图2</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- 第六部分：模型效果评估与可视化 -->
+        <section>
+            <h2>6. 模型效果评估与可视化</h2>
+            <div class="video-block">
+                <figure>
+                    <video controls autoplay muted loop src="../img/projects/11v_e2e/video_turn_around_e2e.mp4"></video>
+                    <figcaption>视频1：端到端自动驾驶可视化示例</figcaption>
+                </figure>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2024 端到端自动驾驶（LiDAR+11V 融合）项目 | <a href="#">了解更多</a></p>
+    </footer>
+
+    <!-- 模态窗口结构 -->
+    <div id="imageModal" class="modal" onclick="closeModal(event)">
+        <span class="close-modal" onclick="closeModal(event)">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <video class="modal-content" id="modalVideo" controls style="display: none;"></video>
+        <div class="modal-caption" id="modalCaption"></div>
+    </div>
+
+    <script>
+        // 打开模态窗口并显示点击的图片或视频
+        function openModal(element) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const modalVideo = document.getElementById('modalVideo');
+            const captionText = document.getElementById('modalCaption');
+
+            // 检查是否包含视频
+            const video = element.querySelector('video');
+            if (video) {
+                modal.style.display = "block";
+                modalImg.style.display = 'none';
+                modalVideo.style.display = 'block';
+                modalVideo.src = video.src;
+                modalVideo.play();
+                captionText.innerHTML = element.querySelector('figcaption').innerText;
+            } else {
+                modal.style.display = "block";
+                modalImg.style.display = 'block';
+                modalVideo.style.display = 'none';
+                modalImg.src = element.querySelector('img').src;
+                captionText.innerHTML = element.querySelector('figcaption').innerText;
+            }
+        }
+
+        // 关闭模态窗口
+        function closeModal(event) {
+            const modal = document.getElementById('imageModal');
+            const modalVideo = document.getElementById('modalVideo');
+
+            if (event.target === modal || event.target.classList.contains('close-modal')) {
+                modal.style.display = "none";
+                // 停止并清空视频
+                if (modalVideo.style.display === 'block') {
+                    modalVideo.pause();
+                    modalVideo.src = '';
+                }
+            }
+        }
+
+        // 防止模态窗口内点击关闭
+        document.getElementById('modalImage')?.addEventListener('click', function(event){
+            event.stopPropagation();
+        });
+
+        document.getElementById('modalVideo')?.addEventListener('click', function(event){
+            event.stopPropagation();
+        });
+    </script>
+</body>
+</html>

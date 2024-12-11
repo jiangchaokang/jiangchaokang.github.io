@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>可控数据生成项目</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* 基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, #770f73, #e76384);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            font-size: 2.8em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+        }
+
+        header p {
+            font-size: 1.3em;
+            opacity: 0.95;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 20px;
+        }
+
+        section {
+            margin-bottom: 60px;
+            padding: 30px;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        section h2 {
+            position: relative;
+            font-size: 2em;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 4px solid #2575fc;
+            color: #343a40;
+        }
+
+        section h3, section h4 {
+            font-size: 1.6em;
+            margin: 25px 0 15px 0;
+            color: #495057;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* 默认规则 */
+            gap: 30px;
+            padding: 20px 0;
+        }
+
+        .text-block {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .text-block:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .text-block ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .text-block ul li {
+            margin-bottom: 15px;
+            line-height: 1.8;
+            padding-left: 25px;
+            position: relative;
+            font-size: 1em;
+        }
+
+        .text-block ul li::before {
+            content: "•";
+            color: #2575fc;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .image-block, .video-block {
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        figure {
+            text-align: center;
+            margin: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        figure:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        figure img, figure video {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            transition: all 0.3s ease;
+        }
+
+        figure figcaption {
+            text-align: center;
+            font-size: 0.95em;
+            color: #666;
+            margin-top: 8px;
+        }
+
+        /* 修改图片块样式 */
+        .image-block figure {
+            flex: 1 1 calc(50% - 50px); /* 修改为每行两张图像 */
+            max-width: 45%; /* 保证宽度适配 */
+            padding: 10px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-block-single {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1 1 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+            margin-top: 20px;
+        }
+
+        .image-block-single figure {
+            width: 100%;
+            max-width: 600px;
+        }
+
+        /* 修改视频块样式 */
+        .video-block figure {
+            flex: 1 1 calc(100% - 50px);
+            max-width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 模态窗口样式 */
+        .modal {
+            display: none; /* 默认隐藏 */
+            position: fixed;
+            z-index: 1000;
+            padding-top: 60px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 80%;
+            border-radius: 10px;
+            box-shadow: 0 4px 25px rgba(255,255,255,0.2);
+        }
+
+        .modal-caption {
+            margin: 15px auto;
+            text-align: center;
+            color: #ddd;
+            font-size: 1.1em;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .close-modal:hover,
+        .close-modal:focus {
+            color: #ffdd57;
+            text-decoration: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px 20px;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+        }
+
+        footer a {
+            color: #ffdd57;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 1024px) {
+            .image-block figure {
+                flex: 1 1 calc(50% - 50px);
+                max-width: 45%;
+            }
+
+            .video-block figure {
+                flex: 1 1 calc(100% - 50px);
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.2em;
+            }
+
+            section h2 {
+                font-size: 1.8em;
+            }
+
+            section h3, section h4 {
+                font-size: 1.4em;
+            }
+
+            .image-block figure, .video-block figure {
+                flex: 1 1 100%;
+                max-width: 100%;
+            }
+
+            .image-block-single figure {
+                max-width: 100%;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            header h1 {
+                font-size: 1.8em;
+                padding: 30px 10px;
+            }
+
+            header p {
+                font-size: 1em;
+            }
+
+            section h2 {
+                font-size: 1.6em;
+            }
+
+            section h3, section h4 {
+                font-size: 1.2em;
+            }
+
+            .content {
+                grid-template-columns: repeat(2, 1fr); /* 每行最多展示两个文本块 */
+            }
+
+            .image-block figure, .video-block figure {
+                padding: 5px;
+            }
+
+            .close-modal {
+                top: 15px;
+                right: 25px;
+                font-size: 30px;
+            }
+
+            .modal-caption {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>可控数据生成项目</h1>
+        <p>利用先进的生成模型，实现多样化交通场景的视频生成与模拟</p>
+    </header>
+
+    <main>
+        <!-- 第一部分：项目简介 -->
+        <section>
+            <h2>1. 项目简介</h2>
+            <div class="text-block">
+                <p>本项目致力于通过可控的数据生成技术，生成多样化且时空一致的交通场景视频。利用大规模语言模型（LLM）和先进的扩散模型（Diffusion Models），实现基于文本提示的高质量交通模拟系统，支持多视图视频生成，以满足自动驾驶、交通规划等多领域的需求。</p>
+            </div>
+        </section>
+
+        <!-- 第二部分：数据合成最近工作 -->
+        <section>
+            <h2>2. 数据合成最近工作</h2>
+            <div class="content">
+                <!-- DriveDreamer-2 -->
+                <div class="text-block">
+                    <h3>2.1 DriveDreamer-2: LLM-Enhanced World Models for Diverse Driving Video Generation</h3>
+                    <p>DriveDreamer-2 通过集成大型语言模型（LLM）增强的世界模型，能够生成多样化的驾驶视频。系统基于文本提示生成符合交通规则的高清地图（HDMap），并确保生成视频的时空一致性，为自动驾驶系统提供高质量的数据支持。</p>
+                </div>
+                <div class="image-block-single">
+                    <figure onclick="openModal(this)">
+                        <img src="../img/projects/contrl_gen_video/DriveDreamer-2.PNG" alt="DriveDreamer-2">
+                        <figcaption>图1: DriveDreamer-2 系统架构图</figcaption>
+                    </figure>
+                </div>
+        
+                <!-- DrivingDiffusion -->
+        
+                <div class="text-block">
+                    <h3>2.2 DrivingDiffusion: Layout-Guided Multi-view Driving Scene Video Generation with Latent Diffusion Model</h3>
+                    <p>DrivingDiffusion 是一个时空一致的多视图视频生成框架，利用潜在扩散模型（Latent Diffusion Model）指导的布局生成，确保多视角下的视频内容一致且连贯。该框架通过多视图单帧生成、单视图视频生成以及后处理优化，显著提升了生成视频的质量与一致性。</p>
+                </div>
+                <div class="image-block-single">
+                    <figure onclick="openModal(this)">
+                        <img src="../img/projects/contrl_gen_video/DrivingDiffusion.PNG" alt="DrivingDiffusion">
+                        <figcaption>图2: DrivingDiffusion 系统架构图</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第三部分：输入与输出 -->
+        <section>
+            <h2>3. 输入与输出</h2>
+            <div class="text-block">
+                <h3>3.1 输入</h3>
+                <ul>
+                    <li><strong>场景描述 (S):</strong> S = {M, B, L, I}</li>
+                    <li><strong>M:</strong> w×h×c 的二进制鸟瞰图道路地图</li>
+                    <li><strong>B:</strong> N 个 3D 边界框及其类别 {(ci, bi)} N_i=1</li>
+                    <li><strong>L:</strong> 场景文本描述，如天气、时间、车道线、3D 框 GT 类别等</li>
+                    <li><strong>I:</strong> w×h×3 的参考图像</li>
+                    <li><strong>相机参数 (P):</strong> P = [K, R, T]</li>
+                </ul>
+            </div>
+            <div class="image-block-single">
+                <figure onclick="openModal(this)">
+                    <img src="../img/projects/contrl_gen_video/ours_pipeline.png" alt="生成管道">
+                    <figcaption>图3: 基于 ControlNet 和 Stable Diffusion 的生成管道</figcaption>
+                </figure>
+            </div>
+            <div class="text-block">
+                <h3>3.2 输出</h3>
+                <ul>
+                    <li>生成的多视图驾驶视频，支持不同天气和时间条件</li>
+                    <li>确保生成视频的时空一致性和交通规则遵循</li>
+                </ul>
+            </div>
+        </section>
+
+       <!-- 第四部分：主要职责 -->
+        <section>
+            <h2>4. 主要职责</h2>
+            <div class="content">
+                <div class="text-block">
+                    <h3>4.1 系统目标</h3>
+                    <ul>
+                        <li>通过文本提示生成多样化的交通场景</li>
+                        <li>提供 Drive 视频生成的交通条件</li>
+                        <li>确保生成视频的时空一致性</li>
+                    </ul>
+                </div>
+                <div class="text-block">
+                    <h3>4.2 个人负责内容</h3>
+                    <ul>
+                        <li><strong>单帧生成模块:</strong>
+                            <ul>
+                                <li>基于 MagicDrive，支持内部多视角（4 鱼眼、7V、11V）的数据生成与编辑。</li>
+                                <li>生成数据中包含 3D 边界框（3D BBox）和地图标签，确保数据的完整性和可用性。</li>
+                                <li>优化单帧生成任务的算法流程，提高生成效率和结果精度。</li>
+                            </ul>
+                        </li>
+                        <li><strong>视频生成模块:</strong>
+                            <ul>
+                                <li>设计自回归模型，实现连续帧的高质量生成，确保时序一致性。</li>
+                                <li>集成 DDIM（Denoising Diffusion Implicit Models），优化推理速度并提升生成视频的图像质量。</li>
+                                <li>支持文本或离线 BEV 交通流作为条件输入，生成符合实际驾驶场景的视频。</li>
+                                <li>利用 OpenSora-STDiT 技术，显著提升视频的时间连贯性和图像质量。</li>
+                                <li>引入 ControlNet，对齐时序条件（condition）和时序 latent 特征，实现可控的多维度环视视频生成 (B, T, V, 3, H, W)。</li>
+                                <li>实现环视视频一次性生成，支持多视角（4 鱼眼、7V、11V）数据的自动化生成。</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第五部分：架构设计 -->
+        <section>
+            <h2>5. 架构设计</h2>
+            <div class="text-block">
+                <h3>5.1 解决方案架构</h3>
+                <ul>
+                    <li><strong>多视图单帧生成:</strong>
+                        <ul>
+                            <li>通过相邻摄像机信息交换确保视图一致性</li>
+                            <li>引入参考帧提示提升图像和视频生成质量</li>
+                        </ul>
+                    </li>
+                    <li><strong>单视图视频生成:</strong>
+                        <ul>
+                            <li>多相机共享机制</li>
+                            <li>基于首帧多视图信息指导后续帧生成</li>
+                        </ul>
+                    </li>
+                    <li><strong>后处理优化:</strong>
+                        <ul>
+                            <li>增强后续帧的跨视图一致性</li>
+                            <li>通过DDIM算法改善前后帧生成一致性和质量</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="image-block-single">
+                <figure onclick="openModal(this)">
+                    <img src="../img/projects/contrl_gen_video/ours_pipeline.png" alt="架构设计">
+                    <figcaption>图4: 解决方案架构设计</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <!-- 第六部分：模型效果评估与可视化 -->
+        <section>
+            <h2>6. 模型效果评估与可视化</h2>
+            <div class="text-block">
+                <h3>6.1 自回归版本效果</h3>
+                <ul>
+                    <li>支持 768×960 分辨率</li>
+                    <li>生成的 4 鱼眼图像效果:</li>
+                </ul>
+            </div>
+            <div class="video-block">
+                <figure onclick="openModal(this)">
+                    <video src="../img/projects/contrl_gen_video/daytime_4fisheye.mp4" controls></video>
+                    <figcaption>图5: 白天常规场景</figcaption>
+                </figure>
+                <figure onclick="openModal(this)">
+                    <video src="../img/projects/contrl_gen_video/rain_4fisheye.mp4" controls></video>
+                    <figcaption>图6: 下雨场景</figcaption>
+                </figure>
+                <figure onclick="openModal(this)">
+                    <video src="../img/projects/contrl_gen_video/night_4fisheye.mp4" controls></video>
+                    <figcaption>图7: 夜晚场景</figcaption>
+                </figure>
+            </div>
+            <div class="text-block">
+                <h3>6.2 非自回归版本的单帧效果</h3>
+                <p>Fov120-1V（分辨率为 544×960）:</p>
+            </div>
+            <div class="image-block">
+                <figure onclick="openModal(this)">
+                    <img src="../img/projects/contrl_gen_video/Fov120-1V-0.png" alt="Fov120-1V-0">
+                    <figcaption>图8: Fov120-1V-0</figcaption>
+                </figure>
+                <figure onclick="openModal(this)">
+                    <img src="../img/projects/contrl_gen_video/Fov120-1V-1.png" alt="Fov120-1V-1">
+                    <figcaption>图9: Fov120-1V-1</figcaption>
+                </figure>
+                <figure onclick="openModal(this)">
+                    <img src="../img/projects/contrl_gen_video/Fov120-1V-2.png" alt="Fov120-1V-2">
+                    <figcaption>图10: Fov120-1V-2</figcaption>
+                </figure>
+                <figure onclick="openModal(this)">
+                    <img src="../img/projects/contrl_gen_video/Fov120-1V-3.png" alt="Fov120-1V-3">
+                    <figcaption>图11: Fov120-1V-3</figcaption>
+                </figure>
+            </div>
+            <div class="text-block">
+                <h3>6.3 多样性生成效果</h3>
+                <p>同一场景的多样性生成:</p>
+            </div>
+            <div class="image-block">
+                <figure onclick="openModal(this)">
+                    <img src="../img/projects/contrl_gen_video/same_scene_7V_map1.gif" alt="同一场景 7V map1">
+                    <figcaption>图12: 同一场景 7V map1</figcaption>
+                </figure>
+                <figure onclick="openModal(this)">
+                    <img src="../img/projects/contrl_gen_video/same_scene_7V_map2.gif" alt="同一场景 7V map2">
+                    <figcaption>图13: 同一场景 7V map2</figcaption>
+                </figure>
+                <figure onclick="openModal(this)">
+                    <img src="../img/projects/contrl_gen_video/same_scene_11V_map1.gif" alt="同一场景 11V map1">
+                    <figcaption>图14: 同一场景 11V map1</figcaption>
+                </figure>
+                <figure onclick="openModal(this)">
+                    <img src="../img/projects/contrl_gen_video/same_scene_11V_map2.gif" alt="同一场景 11V map2">
+                    <figcaption>图15: 同一场景 11V map2</figcaption>
+                </figure>
+            </div>
+            <div class="text-block">
+                <h3>6.4 支持不同版本的 Diffusion</h3>
+                <div class="image-block-single">
+                    <figure onclick="openModal(this)">
+                        <img src="../img/projects/contrl_gen_video/SDXL.png" alt="支持不同版本的 Diffusion">
+                        <figcaption>图16: 支持不同版本的 Diffusion 模型 (SDXL)</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2024 可控数据生成项目 | <a href="#">了解更多</a></p>
+    </footer>
+
+    <!-- 模态窗口结构 -->
+    <div id="imageModal" class="modal" onclick="closeModal(event)">
+        <span class="close-modal" onclick="closeModal(event)">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <video class="modal-content" id="modalVideo" controls style="display: none;"></video>
+        <div class="modal-caption" id="modalCaption"></div>
+    </div>
+
+    <script>
+        // 打开模态窗口并显示点击的图片或视频
+        function openModal(element) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const modalVideo = document.getElementById('modalVideo');
+            const captionText = document.getElementById('modalCaption');
+
+            // 检查是否是视频
+            const video = element.querySelector('video');
+            if (video) {
+                modal.style.display = "block";
+                modalImg.style.display = 'none';
+                modalVideo.style.display = 'block';
+                modalVideo.src = video.src;
+                modalVideo.play();
+                captionText.innerHTML = element.querySelector('figcaption')?.innerText || '';
+            } else {
+                const img = element.querySelector('img');
+                const gif = img && img.src.endsWith('.gif');
+                modal.style.display = "block";
+                modalImg.style.display = 'block';
+                modalVideo.style.display = 'none';
+                modalImg.src = img.src;
+                captionText.innerHTML = element.querySelector('figcaption')?.innerText || '';
+            }
+        }
+
+        // 关闭模态窗口
+        function closeModal(event) {
+            const modal = document.getElementById('imageModal');
+            const modalVideo = document.getElementById('modalVideo');
+
+            if (event.target === modal || event.target.classList.contains('close-modal')) {
+                modal.style.display = "none";
+                // 停止并清空视频
+                if (modalVideo.style.display === 'block') {
+                    modalVideo.pause();
+                    modalVideo.src = '';
+                }
+            }
+        }
+
+        // 防止模态窗口内点击关闭
+        document.getElementById('modalImage')?.addEventListener('click', function(event){
+            event.stopPropagation();
+        });
+
+        document.getElementById('modalVideo')?.addEventListener('click', function(event){
+            event.stopPropagation();
+        });
+    </script>
+</body>
+</html>

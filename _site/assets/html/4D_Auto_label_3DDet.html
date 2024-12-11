@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4D自动标注与3D纯LiDAR检测项目</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* 基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.8;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        header {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            font-size: 2.8em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+        }
+
+        header p {
+            font-size: 1.3em;
+            opacity: 0.95;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 20px;
+        }
+
+        section {
+            margin-bottom: 60px;
+            padding: 30px;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        section h2 {
+            position: relative;
+            font-size: 2em;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 4px solid #2575fc;
+            color: #343a40;
+        }
+
+        section h3, section h4 {
+            font-size: 1.6em;
+            margin: 25px 0 15px 0;
+            color: #495057;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 20px 0;
+        }
+
+        .text-block {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .text-block:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .text-block ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .text-block ul li {
+            margin-bottom: 15px;
+            line-height: 1.8;
+            padding-left: 25px;
+            position: relative;
+            font-size: 1em;
+        }
+
+        .text-block ul li::before {
+            content: "•";
+            color: #2575fc;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .image-block, .video-block {
+            display: flex;
+            gap: 25px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        figure {
+            text-align: center;
+            margin: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        figure:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        figure img, figure video {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            transition: all 0.3s ease;
+        }
+
+        figure figcaption {
+            text-align: center;
+            font-size: 0.95em;
+            color: #666;
+            margin-top: 8px;
+        }
+
+        /* 修改图片块样式 */
+        .image-block figure {
+            flex: 1 1 calc(33.333% - 50px);
+            max-width: 30%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .image-block-single {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1 1 100%;
+            max-width: 100%;
+            box-sizing: border-box;
+            margin-top: 20px;
+        }
+
+        .image-block-single figure {
+            width: 100%;
+            max-width: 600px;
+        }
+
+        /* 修改视频块样式 */
+        .video-block figure {
+            flex: 1 1 calc(50% - 50px);
+            max-width: 48%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 模态窗口样式 */
+        .modal {
+            display: none; /* 默认隐藏 */
+            position: fixed;
+            z-index: 1000;
+            padding-top: 60px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.8);
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 80%;
+            border-radius: 10px;
+            box-shadow: 0 4px 25px rgba(255,255,255,0.2);
+        }
+
+        .modal-caption {
+            margin: 15px auto;
+            text-align: center;
+            color: #ddd;
+            font-size: 1.1em;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 25px;
+            right: 35px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            transition: color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .close-modal:hover,
+        .close-modal:focus {
+            color: #ffdd57;
+            text-decoration: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px 20px;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+        }
+
+        footer a {
+            color: #ffdd57;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 1024px) {
+            .image-block figure {
+                flex: 1 1 calc(50% - 50px);
+                max-width: 45%;
+            }
+
+            .video-block figure {
+                flex: 1 1 calc(100% - 50px);
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.2em;
+            }
+
+            section h2 {
+                font-size: 1.8em;
+            }
+
+            section h3, section h4 {
+                font-size: 1.4em;
+            }
+
+            .image-block figure, .video-block figure {
+                flex: 1 1 100%;
+                max-width: 100%;
+            }
+
+            .image-block-single figure {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 1.8em;
+                padding: 30px 10px;
+            }
+
+            header p {
+                font-size: 1em;
+            }
+
+            section h2 {
+                font-size: 1.6em;
+            }
+
+            section h3, section h4 {
+                font-size: 1.2em;
+            }
+
+            .content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .image-block figure, .video-block figure {
+                padding: 5px;
+            }
+
+            .close-modal {
+                top: 15px;
+                right: 25px;
+                font-size: 30px;
+            }
+
+            .modal-caption {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>4D自动标注与3D纯LiDAR检测项目</h1>
+        <p>融合自动标注系统与高效3D检测模型，提升VRU识别与检测精度</p>
+    </header>
+
+    <main>
+        <!-- 第一部分：4D自动标注系统 -->
+        <section>
+            <h2>1. 4D自动标注系统</h2>
+            <div class="content">
+                <div class="text-block">
+                    <h3>1.1 任务挑战</h3>
+                    <ul>
+                        <li>几乎无法获取逐点的3D速度或者3D位移GT</li>
+                        <li>目前开源代码中没有一个可以用来作为baseline的3D场景流估计网络</li>
+                        <li>由于耗时非常高，而且有非常多复杂的算子</li>
+                        <li>多种算子不支持</li>
+                        <li>当前网络能够处理的点数有限</li>
+                    </ul>
+                </div>
+                <div class="text-block">
+                    <h3>1.2 主要工作</h3>
+                    <ul>
+                        <li>构建3D场景流训练集</li>
+                        <li>构建并维护两种3D场景流估计网络</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="image-block">
+                <figure onclick="openModal(this)">
+                    <img src="../img/projects/Auto_label_3DDet/pipeline.PNG" alt="4D自动标注系统Pipeline">
+                    <figcaption>4D自动标注系统Pipeline</figcaption>
+                </figure>
+            </div>
+            <div class="text-block">
+                <h3>1.3 VRU召回率提升</h3>
+                <p>为了提升VRU（易受伤害交通参与者）的召回率，我们在数据层面和模型层面进行了多项优化：</p>
+            </div>
+            <div class="content">
+                <div class="text-block">
+                    <h4>1.3.1 数据层面优化</h4>
+                    <ul>
+                        <li>
+                            <b>3D物体数据增强：</b>通过 Copy-Paste 技术，将现有数据中的3D物体复制粘贴到其他场景中，增强训练数据的多样性和鲁棒性。
+                            <div class="image-block">
+                                <figure onclick="openModal(this)">
+                                    <img src="../img/projects/Auto_label_3DDet/Copy-Paste1.PNG" alt="3D物体数据增强1">
+                                    <figcaption>3D物体数据增强1</figcaption>
+                                </figure>
+                                <figure onclick="openModal(this)">
+                                    <img src="../img/projects/Auto_label_3DDet/Copy-Paste2.PNG" alt="3D物体数据增强2">
+                                    <figcaption>3D物体数据增强2</figcaption>
+                                </figure>
+                            </div>
+                        </li>
+                        <li>
+                            <b>引入点云反射率特征：</b>在Voxel中加入点云的反射率信息，提升模型对物体表面材质和特性的感知能力。
+                        </li>
+                        <li>
+                            <b>增加人工标注数据：</b>重点扩充与 VRU 和 超长挂车相关的标注数据，增强模型对这些关键目标的识别能力。
+                        </li>
+                    </ul>
+                </div>
+                <div class="text-block">
+                    <h4>1.3.2 模型层面优化</h4>
+                    <ul>
+                        <li>
+                            <b>提高BEV分辨率：</b>增加BEV (Bird's Eye View) 的特征图分辨率，提升模型在不同尺度下的目标感知能力。
+                        </li>
+                        <li>
+                            <b>适配不同感知范围：</b>针对210米内不同区域的感知需求，优化模型结构，使其更高效地适应近、中、远距离目标的检测。
+                        </li>
+                    </ul>
+                </div>
+                <div class="text-block">
+                    <h4>1.3.3 损失函数层面优化</h4>
+                    <ul>
+                        <li>
+                            <b>引入几何对齐损失（Geometric Alignment Loss）：</b>通过几何约束的方式，精细优化预测框的尺寸和角度，提高检测框的精度。
+                            <div class="image-block">
+                                <figure onclick="openModal(this)">
+                                    <img src="../img/projects/Auto_label_3DDet/loss1.PNG" alt="几何对齐损失">
+                                    <figcaption>需要几何对齐损失的场景</figcaption>
+                                </figure>
+                                <figure onclick="openModal(this)">
+                                    <img src="../img/projects/Auto_label_3DDet/loss2.PNG" alt="几何对齐损失">
+                                    <figcaption>几何对齐损失</figcaption>
+                                </figure>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-block">
+                <h3>1.4 在内部数据集上的部分指标</h3>
+                <div class="image-block">
+                    <figure onclick="openModal(this)">
+                        <img src="../img/projects/Auto_label_3DDet/metric.PNG" alt="指标示例">
+                        <figcaption>指标示例</figcaption>
+                    </figure>
+                </div>
+            </div>
+            <div class="text-block">
+                <h3>1.5 可视化示例</h3>
+                <div class="image-block">
+                    <figure onclick="openModal(this)">
+                        <img src="../img/projects/Auto_label_3DDet/vis_auto_3ddet.gif" alt="自动标注可视化">
+                        <figcaption>自动标注可视化</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <!-- 第二部分：3D纯LiDAR检测模型 -->
+        <section>
+            <h2>2. 3D纯LiDAR物体检测</h2>
+            <div class="content">
+                <div class="text-block">
+                    <h3>2.1 主要负责内容</h3>
+                    <ul>
+                        <li>数据集适配与优化</li>
+                        <li>模型迭代优化</li>
+                        <li>问题识别与解决</li>
+                        <li>系统性分析</li>
+                        <li>持续改进循环</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="content">
+                <div class="text-block">
+                    <h4>2.1.1 数据集适配与优化</h4>
+                    <ul>
+                        <li>将内部数据集转换为模型所需格式</li>
+                        <li>建立数据处理pipeline</li>
+                        <li>确保数据质量和标注准确性</li>
+                    </ul>
+                </div>
+                <div class="text-block">
+                    <h4>2.1.2 模型迭代优化</h4>
+                    <ul>
+                        <li>基础模型架构调整</li>
+                        <li>参数优化与实验</li>
+                        <li>性能指标监控与分析</li>
+                    </ul>
+                </div>
+                <div class="text-block">
+                    <h4>2.1.3 问题识别与解决</h4>
+                    <ul>
+                        <li>识别典型失败场景</li>
+                        <li>分类整理问题类型</li>
+                        <li>建立问题优先级</li>
+                    </ul>
+                </div>
+                <div class="text-block">
+                    <h4>2.1.4 持续改进循环</h4>
+                    <ul>
+                        <li>挖掘 Bad Cases</li>
+                        <li>分析case失败原因</li>
+                        <li>提出/讨论改进方案</li>
+                        <li>验证优化效果</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- <div class="image-block">
+                <figure onclick="openModal(this)">
+                    <img src="../img/projects/Auto_label_3DDet/pure_lidar_det.png" alt="3D纯LiDAR检测流程">
+                    <figcaption>3D纯LiDAR检测流程</figcaption>
+                </figure>
+            </div> -->
+            <div class="text-block">
+                <h3>2.2 模型pipeline和基本的指标</h3>
+                <div class="image-block-single">
+                    <figure onclick="openModal(this)">
+                        <img src="../img/projects/Auto_label_3DDet/pure_lidar_det.png" alt="大致流程图">
+                        <figcaption>纯LiDAR 3D检测模型的pipeline和基本结论</figcaption>
+                    </figure>
+                </div>
+            </div>
+            <div class="text-block">
+                <h3>2.3 可视化示例</h3>
+                <div class="image-block">
+                    <figure onclick="openModal(this)">
+                        <img src="../img/projects/Auto_label_3DDet/vis1_pure_lidar_det.png" alt="可视化示例1">
+                        <figcaption>可视化示例1</figcaption>
+                    </figure>
+                    <figure onclick="openModal(this)">
+                        <img src="../img/projects/Auto_label_3DDet/vis2_pure_lidar_det.png" alt="可视化示例2">
+                        <figcaption>可视化示例2</figcaption>
+                    </figure>
+                    <figure onclick="openModal(this)">
+                        <img src="../img/projects/Auto_label_3DDet/vis3_pure_lidar_det.png" alt="可视化示例3">
+                        <figcaption>可视化示例3</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+    <footer>
+        <p>© 2024 4D自动标注与3D纯LiDAR检测项目 | <a href="https://c3fd7g1nq8.feishu.cn/docx/BXRYdC1Qho1PkzxzQywc6il7nQg">了解更多</a></p>
+    </footer>
+
+    <!-- 模态窗口结构 -->
+    <div id="imageModal" class="modal" onclick="closeModal(event)">
+        <span class="close-modal" onclick="closeModal(event)">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div class="modal-caption" id="modalCaption"></div>
+    </div>
+
+    <script>
+        // 打开模态窗口并显示点击的图片
+        function openModal(element) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const captionText = document.getElementById('modalCaption');
+            modal.style.display = "block";
+            modalImg.src = element.querySelector('img').src;
+            captionText.innerHTML = element.querySelector('figcaption').innerText;
+        }
+
+        // 关闭模态窗口
+        function closeModal(event) {
+            const modal = document.getElementById('imageModal');
+            if (event.target === modal || event.target.classList.contains('close-modal')) {
+                modal.style.display = "none";
+            }
+        }
+
+        // 防止模态窗口内点击关闭
+        document.getElementById('modalImage').addEventListener('click', function(event){
+            event.stopPropagation();
+        });
+    </script>
+</body>
+</html>
