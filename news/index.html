@@ -1,0 +1,773 @@
+<!doctype html>
+<html lang="en">
+<head>
+  
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem("theme");
+        var dark = stored === "dark" || stored === "light"
+          ? stored === "dark"
+          : window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+      } catch (e) {}
+    })();
+  </script>
+  
+    <title>News — Jiang Chaokang</title>
+  
+  <meta name="description" content="Latest news, papers, talks, and research updates from Jiang Chaokang.">
+  <meta name="author" content="Jiang Chaokang">
+  <meta name="theme-color" content="#101114">
+  <link rel="canonical" href="https://jiangchaokang.github.io/news/">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/assets/img/chaokang_jiang/logo-mark.svg">
+  <link rel="icon" type="image/png" href="/assets/img/chaokang_jiang/favicon-dark.png">
+  <link rel="apple-touch-icon" href="/assets/img/chaokang_jiang/favicon-dark.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Jiang Chaokang">
+  <meta property="og:title" content="News">
+  <meta property="og:description" content="Latest news, papers, talks, and research updates from Jiang Chaokang.">
+  <meta property="og:url" content="https://jiangchaokang.github.io/news/">
+  <meta property="og:image" content="https://jiangchaokang.github.io/assets/img/chaokang_jiang/avatar.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="News">
+  <meta name="twitter:description" content="Latest news, papers, talks, and research updates from Jiang Chaokang.">
+  <meta name="twitter:image" content="https://jiangchaokang.github.io/assets/img/chaokang_jiang/avatar.png">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Jiang Chaokang",
+    "jobTitle": "World Models Algorithm Engineer",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Bosch (XC-CN)"
+    },
+    "email": "jck98@foxmail.com",
+    "url": "https://jiangchaokang.github.io",
+    "sameAs": [
+      "https://github.com/jiangchaokang"
+    ],
+    "knowsAbout": [
+      "World Models",
+      "Generative Models",
+      "Vision-Language-Action",
+      "Autonomous Driving",
+      "3D Scene Flow",
+      "LiDAR Odometry",
+      "3D/4D Perception"
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <svg class="lg-svg" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="liquid-glass" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+        <feTurbulence type="fractalNoise" baseFrequency="0.009 0.013" numOctaves="2" seed="7" result="noise"/>
+        <feGaussianBlur in="noise" stdDeviation="1.4" result="soft"/>
+        <feDisplacementMap in="SourceGraphic" in2="soft" scale="42" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <div class="site-shell">
+    <header class="site-header" data-site-header>
+      <a class="brand" href="/" aria-label="Jiang Chaokang home">
+        <img src="/assets/img/chaokang_jiang/logo-mark.svg" alt="" width="49" height="38">
+        <span>
+          <strong>Jiang Chaokang</strong>
+          <small>World Models · Generative Driving · 3D/4D Perception</small>
+        </span>
+      </a>
+
+      <div class="header-right">
+        <nav class="site-nav" id="site-nav" aria-label="Primary navigation" data-site-nav>
+          
+            
+            
+
+            
+              <a class="nav-link" href="/" >Home</a>
+            
+          
+            
+            
+
+            
+              <div class="nav-item has-menu" data-nav-item>
+                <a class="nav-trigger" href="/publications/"  aria-haspopup="true" aria-expanded="false" data-nav-trigger>
+                  Publications
+                  <svg class="nav-caret" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </a>
+
+                <div class="nav-dropdown" data-nav-menu role="menu">
+                  <div class="liquid-glass" aria-hidden="true">
+                    <span class="lg-refract"></span>
+                    <span class="lg-tint"></span>
+                    <span class="lg-shine"></span>
+                  </div>
+                  <div class="nav-dropdown-inner">
+                    <p class="nav-dd-blurb">Peer-reviewed work on world models, generative driving, and 3D/4D perception.</p>
+
+                    
+                      
+                      <div class="nav-dd-pubs">
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#jiang2026vectorworld">
+                            <span class="ndp-venue venue-icml">ICML</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">VectorWorld: Efficient Streaming World Model via Diffusion Fl...</span>
+                              <span class="ndp-meta">2026 · Accepted · Spotlight</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#liu2026regformerpp">
+                            <span class="ndp-venue venue-arxiv">arXiv</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">RegFormer++: An Efficient Large-Scale 3D LiDAR Point Registra...</span>
+                              <span class="ndp-meta">2026 · Preprint</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#liu2026difflow3d">
+                            <span class="ndp-venue venue-t-pami">T-PAMI</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">DifFlow3D: Hierarchical Diffusion Models for Uncertainty-Awar...</span>
+                              <span class="ndp-meta">2026 · Published</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#liu2025mamba4d">
+                            <span class="ndp-venue venue-cvpr">CVPR</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">Mamba4D: Efficient 4D Point Cloud Video Understanding with Di...</span>
+                              <span class="ndp-meta">2025 · Published</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#jiang20243dsflabelling">
+                            <span class="ndp-venue venue-cvpr">CVPR</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">3DSFLabelling: Boosting 3D Scene Flow Estimation by Pseudo Au...</span>
+                              <span class="ndp-meta">2024 · Published</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#jiang2024neurogauss4d">
+                            <span class="ndp-venue venue-neurips">NeurIPS</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">NeuroGauss4D-PCI: 4D Neural Fields and Gaussian Deformation F...</span>
+                              <span class="ndp-meta">2024 · Published</span>
+                            </span>
+                          </a>
+                        
+                      </div>
+                      <a class="nav-dd-all" role="menuitem" href="/publications/">All publications<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+
+                    
+                  </div>
+                </div>
+              </div>
+            
+          
+            
+            
+
+            
+              <div class="nav-item has-menu" data-nav-item>
+                <a class="nav-trigger" href="/projects/"  aria-haspopup="true" aria-expanded="false" data-nav-trigger>
+                  Projects
+                  <svg class="nav-caret" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </a>
+
+                <div class="nav-dropdown" data-nav-menu role="menu">
+                  <div class="liquid-glass" aria-hidden="true">
+                    <span class="lg-refract"></span>
+                    <span class="lg-tint"></span>
+                    <span class="lg-shine"></span>
+                  </div>
+                  <div class="nav-dropdown-inner">
+                    <p class="nav-dd-blurb">Production systems and research platforms, shown as interactive logic maps.</p>
+
+                    
+                      
+                      <div class="nav-dd-projects">
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/generative-ad-simulation-platform/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/gen_ad_sim/ingolstadt_gen_video_grid.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">Generative Autonomous-Driving Simulation Platform</span>
+                              <span class="ddp-meta">Research Platform · 2025.03–Present</span>
+                            </span>
+                          </a>
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/traffic-sensor-level-ctrl/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/recon_gen_simulation/1.Gen_fg_bg_Diff_light.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">Vector Traffic Generation & Sensor-Level Closed-Loop Simulation</span>
+                              <span class="ddp-meta">Research Platform · 2025.05–Present</span>
+                            </span>
+                          </a>
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/phigent-gen-model/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/phigent_gen_model/phigent_gen_7V_video2.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">Controllable Surround-View Driving Generation</span>
+                              <span class="ddp-meta">Research Project · 2023.05–2024</span>
+                            </span>
+                          </a>
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/auto-labeling-4d-lidar/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/offline-4d-labeling/offline_visual_auto_labeling.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">4D Auto-Labeling & Pure LiDAR 3D Detection</span>
+                              <span class="ddp-meta">Production + Research Project · 2022.11–2024</span>
+                            </span>
+                          </a>
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/scene-flow-deployment/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/scene-flow-deployment/autoflow_vis.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">3D Scene Flow: Auto-Labeling & Production Deployment</span>
+                              <span class="ddp-meta">Research + Deployment Project · 2023.08–2023.12</span>
+                            </span>
+                          </a>
+                        
+                      </div>
+                      <a class="nav-dd-all" role="menuitem" href="/projects/">All projects<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+
+                    
+                  </div>
+                </div>
+              </div>
+            
+          
+            
+            
+
+            
+              <div class="nav-item has-menu" data-nav-item>
+                <a class="nav-trigger" href="/blog/"  aria-haspopup="true" aria-expanded="false" data-nav-trigger>
+                  Blog
+                  <svg class="nav-caret" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </a>
+
+                <div class="nav-dropdown" data-nav-menu role="menu">
+                  <div class="liquid-glass" aria-hidden="true">
+                    <span class="lg-refract"></span>
+                    <span class="lg-tint"></span>
+                    <span class="lg-shine"></span>
+                  </div>
+                  <div class="nav-dropdown-inner">
+                    <p class="nav-dd-blurb">Engineering notes and long-term practice.</p>
+
+                    
+                      <div class="nav-dd-list">
+                        
+                          <a class="nav-dd-link" role="menuitem" href="/blog/2026/07/01/ge-sim-2-closed-loop-simulator/">
+                            <span class="ddl-title">GE-Sim 2.0: a closed-loop video world simulator for manipulation</span>
+                            <span class="ddl-desc">Jul 1, 2026</span>
+                          </a>
+                        
+                          <a class="nav-dd-link" role="menuitem" href="/blog/2026/06/30/embodied-ai-full-stack/">
+                            <span class="ddl-title">Embodied AI, full stack: body, brain, and safety</span>
+                            <span class="ddl-desc">Jun 30, 2026</span>
+                          </a>
+                        
+                          <a class="nav-dd-link" role="menuitem" href="/blog/2026/06/29/full-stack-autonomous-driving/">
+                            <span class="ddl-title">Full-stack autonomous driving: from sensors to control</span>
+                            <span class="ddl-desc">Jun 29, 2026</span>
+                          </a>
+                        
+                      </div>
+                      <a class="nav-dd-all" role="menuitem" href="/blog/">All notes<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+
+                    
+                  </div>
+                </div>
+              </div>
+            
+          
+            
+            
+
+            
+              <div class="nav-item has-menu" data-nav-item>
+                <a class="nav-trigger" href="/contact/"  aria-haspopup="true" aria-expanded="false" data-nav-trigger>
+                  Contact
+                  <svg class="nav-caret" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </a>
+
+                <div class="nav-dropdown" data-nav-menu role="menu">
+                  <div class="liquid-glass" aria-hidden="true">
+                    <span class="lg-refract"></span>
+                    <span class="lg-tint"></span>
+                    <span class="lg-shine"></span>
+                  </div>
+                  <div class="nav-dropdown-inner">
+                    <p class="nav-dd-blurb">Collaboration, talks, and academic service.</p>
+
+                    
+                      <div class="nav-dd-list">
+                        <a class="nav-dd-link" role="menuitem" href="mailto:jck98@foxmail.com"><span class="ddl-title">Email</span><span class="ddl-desc">jck98@foxmail.com</span></a>
+                        <a class="nav-dd-link" role="menuitem" href="https://scholar.google.com/citations?user=6gZ8vloAAAAJ&hl=en" target="_blank" rel="noopener"><span class="ddl-title">Google Scholar</span><span class="ddl-desc">Publications & citations</span></a>
+                        <a class="nav-dd-link" role="menuitem" href="https://github.com/jiangchaokang" target="_blank" rel="noopener"><span class="ddl-title">GitHub</span><span class="ddl-desc">Open-source & code</span></a>
+                        <a class="nav-dd-link" role="menuitem" href="https://x.com/chaokangjiang1" target="_blank" rel="noopener"><span class="ddl-title">X</span><span class="ddl-desc">@chaokangjiang1</span></a>
+                      </div>
+                      <a class="nav-dd-all" role="menuitem" href="/contact/">Contact & service<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+
+                    
+                  </div>
+                </div>
+              </div>
+            
+          
+        </nav>
+
+        <button class="search-toggle" type="button" aria-label="Search the site" title="Search (⌘K)" data-search-open>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="m20 20-3.2-3.2"></path>
+          </svg>
+        </button>
+
+        <button class="theme-toggle" type="button" aria-label="Switch color theme" title="Switch color theme" data-theme-toggle>
+          <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+
+        <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <div class="page-grid ">
+      <main class="main-content" id="main" tabindex="-1">
+        <header class="page-title reveal">
+  <p class="eyebrow">News</p>
+  <h1>Latest research and engineering updates.</h1>
+  <p class="lead">
+    A lightweight timeline for papers, talks, releases, and long-term milestones.
+  </p>
+</header>
+
+<section class="news-list">
+  
+    <article class="news-card reveal">
+      <time datetime="2026-06">Jun 2026</time>
+      <h2>VectorWorld was highlighted and endorsed in a keynote by the President of Bosch Intelligent Driving Control China.</h2>
+      
+        <p>Our VectorWorld work was specifically referenced and recognized in the invited keynote “Beneath the Cornerstone, Toward the Future: Automotive Intelligence and Global Expansion in the AI Era” delivered by Wu Yongqiao, President of Bosch Intelligent Driving Control (XC) China.</p>
+      
+      
+        <div class="link-row">
+          
+            <a class="tiny-link" href="https://mp.weixin.qq.com/s/EmTkFPCjwiH0wKh_jvpUKQ" target="_blank" rel="noopener">Coverage</a>
+          
+        </div>
+      
+    </article>
+  
+    <article class="news-card reveal">
+      <time datetime="2026">2026</time>
+      <h2>VectorWorld was accepted to ICML as a Spotlight paper.</h2>
+      
+        <p>VectorWorld studies efficient streaming world models via diffusion flow on vector graphs.</p>
+      
+      
+        <div class="link-row">
+          
+            <a class="tiny-link" href="/publications/#jiang2026vectorworld" >Publication</a>
+          
+            <a class="tiny-link" href="https://arxiv.org/abs/2603.17652" target="_blank" rel="noopener">arXiv</a>
+          
+        </div>
+      
+    </article>
+  
+    <article class="news-card reveal">
+      <time datetime="2026">2026</time>
+      <h2>RegFormer++ is available as an arXiv preprint.</h2>
+      
+        <p>RegFormer++ extends large-scale 3D LiDAR point registration with projection-aware 2D transformer design.</p>
+      
+      
+        <div class="link-row">
+          
+            <a class="tiny-link" href="/publications/#liu2026regformerpp" >Publication</a>
+          
+            <a class="tiny-link" href="https://arxiv.org/abs/2603.14290" target="_blank" rel="noopener">arXiv</a>
+          
+        </div>
+      
+    </article>
+  
+    <article class="news-card reveal">
+      <time datetime="2026">2026</time>
+      <h2>DifFlow3D was published in IEEE Transactions on Pattern Analysis and Machine Intelligence.</h2>
+      
+        <p>The journal version studies hierarchical diffusion models for uncertainty-aware 3D scene flow estimation.</p>
+      
+      
+        <div class="link-row">
+          
+            <a class="tiny-link" href="/publications/#liu2026difflow3d" >Publication</a>
+          
+            <a class="tiny-link" href="https://doi.org/10.1109/TPAMI.2025.3629570" target="_blank" rel="noopener">DOI</a>
+          
+        </div>
+      
+    </article>
+  
+    <article class="news-card reveal">
+      <time datetime="2025">2025</time>
+      <h2>Unsupervised learning of 3D scene flow with LiDAR odometry assistance was published in IEEE T-ITS.</h2>
+      
+        <p>The work explores odometry-assisted unsupervised 3D scene flow learning.</p>
+      
+      
+        <div class="link-row">
+          
+            <a class="tiny-link" href="/publications/#wang2025unsupervised" >Publication</a>
+          
+            <a class="tiny-link" href="https://doi.org/10.1109/TITS.2025.3538765" target="_blank" rel="noopener">DOI</a>
+          
+        </div>
+      
+    </article>
+  
+    <article class="news-card reveal">
+      <time datetime="2025">2025</time>
+      <h2>Mamba4D was published at CVPR 2025.</h2>
+      
+        <p>Mamba4D studies efficient long-sequence point cloud video understanding with disentangled spatial-temporal state space models.</p>
+      
+      
+        <div class="link-row">
+          
+            <a class="tiny-link" href="/publications/#liu2025mamba4d" >Publication</a>
+          
+            <a class="tiny-link" href="https://doi.org/10.1109/CVPR52734.2025.01642" target="_blank" rel="noopener">DOI</a>
+          
+        </div>
+      
+    </article>
+  
+    <article class="news-card reveal">
+      <time datetime="2024-10">Oct. 2024</time>
+      <h2>NeuroGauss4D-PCI was accepted to NeurIPS 2024.</h2>
+      
+        <p>The paper studies 4D neural fields and Gaussian deformation fields for point cloud interpolation.</p>
+      
+      
+        <div class="link-row">
+          
+            <a class="tiny-link" href="/publications/#jiang2024neurogauss4d" >Publication</a>
+          
+            <a class="tiny-link" href="https://github.com/jiangchaokang/NeuroGauss4D-PCI" target="_blank" rel="noopener">Code</a>
+          
+        </div>
+      
+    </article>
+  
+    <article class="news-card reveal">
+      <time datetime="2024-05">May. 2024</time>
+      <h2>NeuroGauss4D-PCI became available online.</h2>
+      
+        <p>A 4D point cloud interpolation framework based on neural fields and Gaussian deformation fields.</p>
+      
+      
+        <div class="link-row">
+          
+            <a class="tiny-link" href="/publications/#jiang2024neurogauss4d" >Publication</a>
+          
+        </div>
+      
+    </article>
+  
+    <article class="news-card reveal">
+      <time datetime="2024-05">May. 2024</time>
+      <h2>MAMBA4D became available online.</h2>
+      
+        <p>An efficient long-sequence point cloud video understanding model.</p>
+      
+      
+        <div class="link-row">
+          
+            <a class="tiny-link" href="/publications/#liu2025mamba4d" >Publication</a>
+          
+        </div>
+      
+    </article>
+  
+    <article class="news-card reveal">
+      <time datetime="2024-03-23">Mar. 23, 2024</time>
+      <h2>Invited talk by AutoDriver: CVPR 2024 work on 3DSFLabelling.</h2>
+      
+        <p>Invited by AutoDriver to share the CVPR 2024 work on 3D scene flow estimation and 3DSFLabelling.</p>
+      
+      
+        <div class="link-row">
+          
+            <a class="tiny-link" href="https://www.bilibili.com/video/BV1Wx421k7Pa/?spm_id_from=333.337.search-card.all.click&vd_source=d0360ec294850417abbfb0760708ab11" target="_blank" rel="noopener">Bilibili Talk</a>
+          
+            <a class="tiny-link" href="/publications/#jiang20243dsflabelling" >Publication</a>
+          
+        </div>
+      
+    </article>
+  
+    <article class="news-card reveal">
+      <time datetime="2024-02">Feb. 2024</time>
+      <h2>3DSFLabelling was accepted to CVPR 2024.</h2>
+      
+        <p>The paper boosts 3D scene flow estimation by pseudo auto-labeling.</p>
+      
+      
+        <div class="link-row">
+          
+            <a class="tiny-link" href="/publications/#jiang20243dsflabelling" >Publication</a>
+          
+            <a class="tiny-link" href="https://github.com/jiangchaokang/3DSFLabelling" target="_blank" rel="noopener">Code</a>
+          
+        </div>
+      
+    </article>
+  
+    <article class="news-card reveal">
+      <time datetime="2024-02">Feb. 2024</time>
+      <h2>DifFlow3D was accepted to CVPR 2024.</h2>
+      
+        <p>The paper studies robust uncertainty-aware scene flow estimation with iterative diffusion-based refinement.</p>
+      
+      
+        <div class="link-row">
+          
+            <a class="tiny-link" href="/publications/#liu2024difflow3d" >Publication</a>
+          
+            <a class="tiny-link" href="https://doi.org/10.1109/CVPR52733.2024.01431" target="_blank" rel="noopener">DOI</a>
+          
+        </div>
+      
+    </article>
+  
+</section>
+
+      </main>
+
+      
+      <aside class="news-rail" aria-label="Latest news" data-news-rail>
+        <button class="news-rail-toggle" type="button" aria-expanded="true" data-news-toggle aria-label="Toggle news panel">
+          <span class="news-rail-title"><span class="news-live" aria-hidden="true"></span>News</span>
+          <svg class="news-chevron" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg>
+        </button>
+
+        <div class="news-panel">
+          <p class="rail-eyebrow"><span class="news-live" aria-hidden="true"></span>Latest Signal</p>
+
+          <div class="news-scroll" data-news-scroll>
+            <ol class="rail-news-list" data-news-track>
+              
+                <li>
+                  <time datetime="2026-06">Jun 2026</time>
+                  <p>VectorWorld was highlighted and endorsed in a keynote by the President of Bosch Intelligent Driving Control China.</p>
+                  
+                    
+                    <a href="https://mp.weixin.qq.com/s/EmTkFPCjwiH0wKh_jvpUKQ" target="_blank" rel="noopener">Coverage →</a>
+                  
+                </li>
+              
+                <li>
+                  <time datetime="2026">2026</time>
+                  <p>VectorWorld was accepted to ICML as a Spotlight paper.</p>
+                  
+                    
+                    <a href="/publications/#jiang2026vectorworld" >Publication →</a>
+                  
+                </li>
+              
+                <li>
+                  <time datetime="2026">2026</time>
+                  <p>RegFormer++ is available as an arXiv preprint.</p>
+                  
+                    
+                    <a href="/publications/#liu2026regformerpp" >Publication →</a>
+                  
+                </li>
+              
+                <li>
+                  <time datetime="2026">2026</time>
+                  <p>DifFlow3D was published in IEEE Transactions on Pattern Analysis and Machine Intelligence.</p>
+                  
+                    
+                    <a href="/publications/#liu2026difflow3d" >Publication →</a>
+                  
+                </li>
+              
+                <li>
+                  <time datetime="2025">2025</time>
+                  <p>Unsupervised learning of 3D scene flow with LiDAR odometry assistance was published in IEEE T-ITS.</p>
+                  
+                    
+                    <a href="/publications/#wang2025unsupervised" >Publication →</a>
+                  
+                </li>
+              
+                <li>
+                  <time datetime="2025">2025</time>
+                  <p>Mamba4D was published at CVPR 2025.</p>
+                  
+                    
+                    <a href="/publications/#liu2025mamba4d" >Publication →</a>
+                  
+                </li>
+              
+                <li>
+                  <time datetime="2024-10">Oct. 2024</time>
+                  <p>NeuroGauss4D-PCI was accepted to NeurIPS 2024.</p>
+                  
+                    
+                    <a href="/publications/#jiang2024neurogauss4d" >Publication →</a>
+                  
+                </li>
+              
+                <li>
+                  <time datetime="2024-05">May. 2024</time>
+                  <p>NeuroGauss4D-PCI became available online.</p>
+                  
+                    
+                    <a href="/publications/#jiang2024neurogauss4d" >Publication →</a>
+                  
+                </li>
+              
+                <li>
+                  <time datetime="2024-05">May. 2024</time>
+                  <p>MAMBA4D became available online.</p>
+                  
+                    
+                    <a href="/publications/#liu2025mamba4d" >Publication →</a>
+                  
+                </li>
+              
+                <li>
+                  <time datetime="2024-03-23">Mar. 23, 2024</time>
+                  <p>Invited talk by AutoDriver: CVPR 2024 work on 3DSFLabelling.</p>
+                  
+                    
+                    <a href="https://www.bilibili.com/video/BV1Wx421k7Pa/?spm_id_from=333.337.search-card.all.click&vd_source=d0360ec294850417abbfb0760708ab11" target="_blank" rel="noopener">Bilibili Talk →</a>
+                  
+                </li>
+              
+                <li>
+                  <time datetime="2024-02">Feb. 2024</time>
+                  <p>3DSFLabelling was accepted to CVPR 2024.</p>
+                  
+                    
+                    <a href="/publications/#jiang20243dsflabelling" >Publication →</a>
+                  
+                </li>
+              
+                <li>
+                  <time datetime="2024-02">Feb. 2024</time>
+                  <p>DifFlow3D was accepted to CVPR 2024.</p>
+                  
+                    
+                    <a href="/publications/#liu2024difflow3d" >Publication →</a>
+                  
+                </li>
+              
+            </ol>
+          </div>
+
+          <a class="rail-more" href="/news/">View all news →</a>
+        </div>
+      </aside>
+      
+    </div>
+
+    <footer class="site-footer">
+      <div>
+        <strong>Jiang Chaokang</strong>
+        <span>World Models Algorithm Engineer · Bosch (XC-CN)</span>
+      </div>
+      <div class="footer-links" aria-label="Profile links">
+        <a href="mailto:jck98@foxmail.com" aria-label="Email" title="Email · jck98@foxmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/></svg>
+        </a>
+        <a href="https://github.com/jiangchaokang" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.6a10.4 10.4 0 0 0-3.29 20.27c.52.1.71-.23.71-.5v-1.96c-2.9.63-3.51-1.23-3.51-1.23-.47-1.2-1.16-1.52-1.16-1.52-.95-.65.07-.64.07-.64 1.05.08 1.6 1.08 1.6 1.08.93 1.6 2.45 1.14 3.05.87.09-.68.36-1.14.66-1.4-2.32-.26-4.76-1.16-4.76-5.16 0-1.14.41-2.07 1.08-2.8-.11-.27-.47-1.33.1-2.78 0 0 .88-.28 2.88 1.07a9.96 9.96 0 0 1 5.24 0c2-1.35 2.87-1.07 2.87-1.07.57 1.45.21 2.51.1 2.78.67.73 1.08 1.66 1.08 2.8 0 4.01-2.45 4.9-4.78 5.16.38.32.71.95.71 1.92v2.85c0 .28.19.61.72.5A10.4 10.4 0 0 0 12 1.6Z"/></svg>
+        </a>
+        <a href="https://scholar.google.com/citations?user=6gZ8vloAAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Google Scholar" title="Google Scholar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4 2 9l10 5 8-4v6"/><path d="M6 11.5V16c0 1.2 2.7 3 6 3s6-1.8 6-3v-4.5"/></svg>
+        </a>
+        <a href="https://x.com/chaokangjiang1" target="_blank" rel="noopener" aria-label="X" title="X (Twitter)">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 3h3.1l-6.77 7.74L21.8 21h-6.2l-4.86-6.36L5.18 21H2.07l7.24-8.28L2.2 3h6.36l4.4 5.81L17.5 3Zm-1.09 16.13h1.72L7.66 4.78H5.82l10.59 14.35Z"/></svg>
+        </a>
+        <a href="/sitemap.xml" aria-label="Sitemap" title="Sitemap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="5" rx="1.2"/><rect x="3" y="16" width="6" height="5" rx="1.2"/><rect x="15" y="16" width="6" height="5" rx="1.2"/><path d="M12 8v4M6 16v-2.5a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1V16"/></svg>
+        </a>
+      </div>
+    </footer>
+  </div>
+
+  <div class="search-modal" data-search-modal data-search-url="/search.json" hidden>
+    <div class="search-backdrop" data-search-close></div>
+    <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search the site">
+      <div class="search-field">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle>
+          <path d="m20 20-3.2-3.2"></path>
+        </svg>
+        <input type="search" placeholder="Search publications, projects, notes…" autocomplete="off" spellcheck="false" aria-label="Search query" data-search-input>
+        <kbd data-search-close>Esc</kbd>
+      </div>
+      <ul class="search-results" data-search-results role="listbox" aria-label="Search results"></ul>
+      <p class="search-hint" data-search-hint>Type to search across publications, projects, and blog notes.</p>
+    </div>
+  </div>
+
+  <script src="/assets/js/main.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,1188 @@
+<!doctype html>
+<html lang="en">
+<head>
+  
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem("theme");
+        var dark = stored === "dark" || stored === "light"
+          ? stored === "dark"
+          : window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+      } catch (e) {}
+    })();
+  </script>
+  
+    <title>Publications — Jiang Chaokang</title>
+  
+  <meta name="description" content="Publications by Jiang Chaokang across world models, 3D/4D perception, scene flow, LiDAR odometry, and autonomous driving.">
+  <meta name="author" content="Jiang Chaokang">
+  <meta name="theme-color" content="#101114">
+  <link rel="canonical" href="https://jiangchaokang.github.io/publications/">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/assets/img/chaokang_jiang/logo-mark.svg">
+  <link rel="icon" type="image/png" href="/assets/img/chaokang_jiang/favicon-dark.png">
+  <link rel="apple-touch-icon" href="/assets/img/chaokang_jiang/favicon-dark.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Jiang Chaokang">
+  <meta property="og:title" content="Publications">
+  <meta property="og:description" content="Publications by Jiang Chaokang across world models, 3D/4D perception, scene flow, LiDAR odometry, and autonomous driving.">
+  <meta property="og:url" content="https://jiangchaokang.github.io/publications/">
+  <meta property="og:image" content="https://jiangchaokang.github.io/assets/img/chaokang_jiang/avatar.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Publications">
+  <meta name="twitter:description" content="Publications by Jiang Chaokang across world models, 3D/4D perception, scene flow, LiDAR odometry, and autonomous driving.">
+  <meta name="twitter:image" content="https://jiangchaokang.github.io/assets/img/chaokang_jiang/avatar.png">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Jiang Chaokang",
+    "jobTitle": "World Models Algorithm Engineer",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Bosch (XC-CN)"
+    },
+    "email": "jck98@foxmail.com",
+    "url": "https://jiangchaokang.github.io",
+    "sameAs": [
+      "https://github.com/jiangchaokang"
+    ],
+    "knowsAbout": [
+      "World Models",
+      "Generative Models",
+      "Vision-Language-Action",
+      "Autonomous Driving",
+      "3D Scene Flow",
+      "LiDAR Odometry",
+      "3D/4D Perception"
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <svg class="lg-svg" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="liquid-glass" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+        <feTurbulence type="fractalNoise" baseFrequency="0.009 0.013" numOctaves="2" seed="7" result="noise"/>
+        <feGaussianBlur in="noise" stdDeviation="1.4" result="soft"/>
+        <feDisplacementMap in="SourceGraphic" in2="soft" scale="42" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <div class="site-shell">
+    <header class="site-header" data-site-header>
+      <a class="brand" href="/" aria-label="Jiang Chaokang home">
+        <img src="/assets/img/chaokang_jiang/logo-mark.svg" alt="" width="49" height="38">
+        <span>
+          <strong>Jiang Chaokang</strong>
+          <small>World Models · Generative Driving · 3D/4D Perception</small>
+        </span>
+      </a>
+
+      <div class="header-right">
+        <nav class="site-nav" id="site-nav" aria-label="Primary navigation" data-site-nav>
+          
+            
+            
+
+            
+              <a class="nav-link" href="/" >Home</a>
+            
+          
+            
+            
+
+            
+              <div class="nav-item has-menu" data-nav-item>
+                <a class="nav-trigger" href="/publications/" aria-current="page" aria-haspopup="true" aria-expanded="false" data-nav-trigger>
+                  Publications
+                  <svg class="nav-caret" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </a>
+
+                <div class="nav-dropdown" data-nav-menu role="menu">
+                  <div class="liquid-glass" aria-hidden="true">
+                    <span class="lg-refract"></span>
+                    <span class="lg-tint"></span>
+                    <span class="lg-shine"></span>
+                  </div>
+                  <div class="nav-dropdown-inner">
+                    <p class="nav-dd-blurb">Peer-reviewed work on world models, generative driving, and 3D/4D perception.</p>
+
+                    
+                      
+                      <div class="nav-dd-pubs">
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#jiang2026vectorworld">
+                            <span class="ndp-venue venue-icml">ICML</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">VectorWorld: Efficient Streaming World Model via Diffusion Fl...</span>
+                              <span class="ndp-meta">2026 · Accepted · Spotlight</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#liu2026regformerpp">
+                            <span class="ndp-venue venue-arxiv">arXiv</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">RegFormer++: An Efficient Large-Scale 3D LiDAR Point Registra...</span>
+                              <span class="ndp-meta">2026 · Preprint</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#liu2026difflow3d">
+                            <span class="ndp-venue venue-t-pami">T-PAMI</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">DifFlow3D: Hierarchical Diffusion Models for Uncertainty-Awar...</span>
+                              <span class="ndp-meta">2026 · Published</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#liu2025mamba4d">
+                            <span class="ndp-venue venue-cvpr">CVPR</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">Mamba4D: Efficient 4D Point Cloud Video Understanding with Di...</span>
+                              <span class="ndp-meta">2025 · Published</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#jiang20243dsflabelling">
+                            <span class="ndp-venue venue-cvpr">CVPR</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">3DSFLabelling: Boosting 3D Scene Flow Estimation by Pseudo Au...</span>
+                              <span class="ndp-meta">2024 · Published</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#jiang2024neurogauss4d">
+                            <span class="ndp-venue venue-neurips">NeurIPS</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">NeuroGauss4D-PCI: 4D Neural Fields and Gaussian Deformation F...</span>
+                              <span class="ndp-meta">2024 · Published</span>
+                            </span>
+                          </a>
+                        
+                      </div>
+                      <a class="nav-dd-all" role="menuitem" href="/publications/">All publications<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+
+                    
+                  </div>
+                </div>
+              </div>
+            
+          
+            
+            
+
+            
+              <div class="nav-item has-menu" data-nav-item>
+                <a class="nav-trigger" href="/projects/"  aria-haspopup="true" aria-expanded="false" data-nav-trigger>
+                  Projects
+                  <svg class="nav-caret" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </a>
+
+                <div class="nav-dropdown" data-nav-menu role="menu">
+                  <div class="liquid-glass" aria-hidden="true">
+                    <span class="lg-refract"></span>
+                    <span class="lg-tint"></span>
+                    <span class="lg-shine"></span>
+                  </div>
+                  <div class="nav-dropdown-inner">
+                    <p class="nav-dd-blurb">Production systems and research platforms, shown as interactive logic maps.</p>
+
+                    
+                      
+                      <div class="nav-dd-projects">
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/generative-ad-simulation-platform/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/gen_ad_sim/ingolstadt_gen_video_grid.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">Generative Autonomous-Driving Simulation Platform</span>
+                              <span class="ddp-meta">Research Platform · 2025.03–Present</span>
+                            </span>
+                          </a>
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/traffic-sensor-level-ctrl/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/recon_gen_simulation/1.Gen_fg_bg_Diff_light.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">Vector Traffic Generation & Sensor-Level Closed-Loop Simulation</span>
+                              <span class="ddp-meta">Research Platform · 2025.05–Present</span>
+                            </span>
+                          </a>
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/phigent-gen-model/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/phigent_gen_model/phigent_gen_7V_video2.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">Controllable Surround-View Driving Generation</span>
+                              <span class="ddp-meta">Research Project · 2023.05–2024</span>
+                            </span>
+                          </a>
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/auto-labeling-4d-lidar/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/offline-4d-labeling/offline_visual_auto_labeling.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">4D Auto-Labeling & Pure LiDAR 3D Detection</span>
+                              <span class="ddp-meta">Production + Research Project · 2022.11–2024</span>
+                            </span>
+                          </a>
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/scene-flow-deployment/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/scene-flow-deployment/autoflow_vis.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">3D Scene Flow: Auto-Labeling & Production Deployment</span>
+                              <span class="ddp-meta">Research + Deployment Project · 2023.08–2023.12</span>
+                            </span>
+                          </a>
+                        
+                      </div>
+                      <a class="nav-dd-all" role="menuitem" href="/projects/">All projects<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+
+                    
+                  </div>
+                </div>
+              </div>
+            
+          
+            
+            
+
+            
+              <div class="nav-item has-menu" data-nav-item>
+                <a class="nav-trigger" href="/blog/"  aria-haspopup="true" aria-expanded="false" data-nav-trigger>
+                  Blog
+                  <svg class="nav-caret" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </a>
+
+                <div class="nav-dropdown" data-nav-menu role="menu">
+                  <div class="liquid-glass" aria-hidden="true">
+                    <span class="lg-refract"></span>
+                    <span class="lg-tint"></span>
+                    <span class="lg-shine"></span>
+                  </div>
+                  <div class="nav-dropdown-inner">
+                    <p class="nav-dd-blurb">Engineering notes and long-term practice.</p>
+
+                    
+                      <div class="nav-dd-list">
+                        
+                          <a class="nav-dd-link" role="menuitem" href="/blog/2026/07/01/ge-sim-2-closed-loop-simulator/">
+                            <span class="ddl-title">GE-Sim 2.0: a closed-loop video world simulator for manipulation</span>
+                            <span class="ddl-desc">Jul 1, 2026</span>
+                          </a>
+                        
+                          <a class="nav-dd-link" role="menuitem" href="/blog/2026/06/30/embodied-ai-full-stack/">
+                            <span class="ddl-title">Embodied AI, full stack: body, brain, and safety</span>
+                            <span class="ddl-desc">Jun 30, 2026</span>
+                          </a>
+                        
+                          <a class="nav-dd-link" role="menuitem" href="/blog/2026/06/29/full-stack-autonomous-driving/">
+                            <span class="ddl-title">Full-stack autonomous driving: from sensors to control</span>
+                            <span class="ddl-desc">Jun 29, 2026</span>
+                          </a>
+                        
+                      </div>
+                      <a class="nav-dd-all" role="menuitem" href="/blog/">All notes<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+
+                    
+                  </div>
+                </div>
+              </div>
+            
+          
+            
+            
+
+            
+              <div class="nav-item has-menu" data-nav-item>
+                <a class="nav-trigger" href="/contact/"  aria-haspopup="true" aria-expanded="false" data-nav-trigger>
+                  Contact
+                  <svg class="nav-caret" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </a>
+
+                <div class="nav-dropdown" data-nav-menu role="menu">
+                  <div class="liquid-glass" aria-hidden="true">
+                    <span class="lg-refract"></span>
+                    <span class="lg-tint"></span>
+                    <span class="lg-shine"></span>
+                  </div>
+                  <div class="nav-dropdown-inner">
+                    <p class="nav-dd-blurb">Collaboration, talks, and academic service.</p>
+
+                    
+                      <div class="nav-dd-list">
+                        <a class="nav-dd-link" role="menuitem" href="mailto:jck98@foxmail.com"><span class="ddl-title">Email</span><span class="ddl-desc">jck98@foxmail.com</span></a>
+                        <a class="nav-dd-link" role="menuitem" href="https://scholar.google.com/citations?user=6gZ8vloAAAAJ&hl=en" target="_blank" rel="noopener"><span class="ddl-title">Google Scholar</span><span class="ddl-desc">Publications & citations</span></a>
+                        <a class="nav-dd-link" role="menuitem" href="https://github.com/jiangchaokang" target="_blank" rel="noopener"><span class="ddl-title">GitHub</span><span class="ddl-desc">Open-source & code</span></a>
+                        <a class="nav-dd-link" role="menuitem" href="https://x.com/chaokangjiang1" target="_blank" rel="noopener"><span class="ddl-title">X</span><span class="ddl-desc">@chaokangjiang1</span></a>
+                      </div>
+                      <a class="nav-dd-all" role="menuitem" href="/contact/">Contact & service<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+
+                    
+                  </div>
+                </div>
+              </div>
+            
+          
+        </nav>
+
+        <button class="search-toggle" type="button" aria-label="Search the site" title="Search (⌘K)" data-search-open>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="m20 20-3.2-3.2"></path>
+          </svg>
+        </button>
+
+        <button class="theme-toggle" type="button" aria-label="Switch color theme" title="Switch color theme" data-theme-toggle>
+          <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+
+        <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <div class="page-grid no-news">
+      <main class="main-content" id="main" tabindex="-1">
+        <header class="page-title reveal">
+  <p class="eyebrow">Publications</p>
+  <h1>Research with visual evidence.</h1>
+  <p class="lead">
+    My research centers on <strong>generative world models</strong>, scene flow, LiDAR odometry,
+    3D/4D perception, and end-to-end driving. Looking ahead, I am building toward
+    closed-loop simulation that couples reconstruction with one-step generation,
+    streaming generation, and one-step video / image synthesis.
+  </p>
+  <ul class="direction-chips" aria-label="Research directions">
+    <li>Generative World Models</li>
+    <li>Scene Flow</li>
+    <li>LiDAR Odometry</li>
+    <li>3D / 4D Perception</li>
+    <li>End-to-End Driving</li>
+  </ul>
+</header>
+
+<div class="filter-bar reveal" data-filter-group="publications" aria-label="Publication filters">
+  <button class="filter-button is-active" type="button" data-filter="all">All</button>
+  <button class="filter-button" type="button" data-filter="world-model">World Models</button>
+  <button class="filter-button" type="button" data-filter="generative">Generative</button>
+  <button class="filter-button" type="button" data-filter="scene-flow">Scene Flow</button>
+  <button class="filter-button" type="button" data-filter="lidar-odometry">LiDAR Odometry</button>
+  <button class="filter-button" type="button" data-filter="perception">Perception</button>
+  <button class="filter-button" type="button" data-filter="e2e">E2E Driving</button>
+</div>
+
+<section class="pub-list" data-filter-list="publications">
+  
+    
+    
+    <article class="pub-card reveal" id="jiang2026vectorworld" data-tags="world-model generative e2e">
+      <div class="pub-media">
+        
+          <img src="/assets/media/papers/VectorWorld.gif" alt="VectorWorld: Efficient Streaming World Model via Diffusion Flow on Vector Graphs preview" loading="lazy">
+        
+      </div>
+
+      <div class="pub-body">
+        <div class="pub-topline">
+          <span class="venue-mark venue-icml">ICML</span>
+          <span class="status-pill">Accepted · Spotlight</span>
+          <span class="org-pill">2026</span>
+        </div>
+
+        <h2>VectorWorld: Efficient Streaming World Model via Diffusion Flow on Vector Graphs</h2>
+
+        <p class="pub-authors">
+          <strong>Chaokang Jiang</strong>, Desen Zhou, Jiuming Liu, Kevin Li Sun
+        </p>
+
+        
+          <div class="org-row">
+            
+              <span class="org-pill">Bosch China</span>
+            
+              <span class="org-pill">Research Collaboration</span>
+            
+          </div>
+        
+
+        <p class="pub-summary">A streaming world model for autonomous-driving scenarios built on vector-graph diffusion flow.</p>
+        <p class="pub-contribution"><strong>Contribution.</strong> It aims to make future scene evolution modeling more efficient by operating on compact vectorized scene representations.</p>
+
+        <div class="link-row">
+          
+            <a class="tiny-link" href="https://jiangchaokang.github.io/VectorWorld/" target="_blank" rel="noopener">Project Page</a>
+          
+            <a class="tiny-link" href="https://arxiv.org/pdf/2603.17652" target="_blank" rel="noopener">PDF</a>
+          
+            <a class="tiny-link" href="https://arxiv.org/abs/2603.17652" target="_blank" rel="noopener">arXiv</a>
+          
+            <a class="tiny-link" href="https://github.com/jiangchaokang/VectorWorld" target="_blank" rel="noopener">Code</a>
+          
+          <a class="tiny-link" href="/assets/bib/papers.bib">BibTeX</a>
+        </div>
+      </div>
+    </article>
+  
+    
+    
+    <article class="pub-card reveal" id="liu2026regformerpp" data-tags="lidar-odometry perception">
+      <div class="pub-media">
+        
+          <img src="/assets/media/papers/paper_06_regformer.gif" alt="RegFormer++: An Efficient Large-Scale 3D LiDAR Point Registration Network with Projection-Aware 2D Transformer preview" loading="lazy">
+        
+      </div>
+
+      <div class="pub-body">
+        <div class="pub-topline">
+          <span class="venue-mark venue-arxiv">arXiv</span>
+          <span class="status-pill">Preprint</span>
+          <span class="org-pill">2026</span>
+        </div>
+
+        <h2>RegFormer++: An Efficient Large-Scale 3D LiDAR Point Registration Network with Projection-Aware 2D Transformer</h2>
+
+        <p class="pub-authors">
+          Jiuming Liu, Guangming Wang, Zhe Liu, <strong>Chaokang Jiang</strong>, Haoang Li, Mengmeng Liu, Tianchen Deng, Marc Pollefeys, Michael Ying Yang, Hesheng Wang
+        </p>
+
+        
+          <div class="org-row">
+            
+              <span class="org-pill">Research Collaboration</span>
+            
+          </div>
+        
+
+        <p class="pub-summary">A large-scale 3D LiDAR point registration network with projection-aware transformer design.</p>
+        <p class="pub-contribution"><strong>Contribution.</strong> It improves registration efficiency and scalability by coupling 3D point registration with projection-aware 2D transformer modeling.</p>
+
+        <div class="link-row">
+          
+            <a class="tiny-link" href="https://arxiv.org/pdf/2603.14290" target="_blank" rel="noopener">PDF</a>
+          
+            <a class="tiny-link" href="https://arxiv.org/abs/2603.14290" target="_blank" rel="noopener">arXiv</a>
+          
+            <a class="tiny-link" href="https://doi.org/10.48550/arXiv.2603.14290" target="_blank" rel="noopener">DOI</a>
+          
+          <a class="tiny-link" href="/assets/bib/papers.bib">BibTeX</a>
+        </div>
+      </div>
+    </article>
+  
+    
+    
+    <article class="pub-card reveal" id="liu2026difflow3d" data-tags="scene-flow generative perception">
+      <div class="pub-media">
+        
+          <img src="/assets/media/papers/paper_02_difflow3d.gif" alt="DifFlow3D: Hierarchical Diffusion Models for Uncertainty-Aware 3D Scene Flow Estimation preview" loading="lazy">
+        
+      </div>
+
+      <div class="pub-body">
+        <div class="pub-topline">
+          <span class="venue-mark venue-t-pami">T-PAMI</span>
+          <span class="status-pill">Published</span>
+          <span class="org-pill">2026</span>
+        </div>
+
+        <h2>DifFlow3D: Hierarchical Diffusion Models for Uncertainty-Aware 3D Scene Flow Estimation</h2>
+
+        <p class="pub-authors">
+          Jiuming Liu, Weicai Ye, Guangming Wang, <strong>Chaokang Jiang</strong>, Lei Pan, Jinru Han, Zhe Liu, Guofeng Zhang, Hesheng Wang
+        </p>
+
+        
+          <div class="org-row">
+            
+              <span class="org-pill">Research Collaboration</span>
+            
+          </div>
+        
+
+        <p class="pub-summary">A journal version of diffusion-based uncertainty-aware 3D scene flow estimation.</p>
+        <p class="pub-contribution"><strong>Contribution.</strong> It extends the diffusion formulation into a hierarchical framework for more robust and uncertainty-aware point motion estimation.</p>
+
+        <div class="link-row">
+          
+            <a class="tiny-link" href="https://doi.org/10.1109/TPAMI.2025.3629570" target="_blank" rel="noopener">DOI</a>
+          
+          <a class="tiny-link" href="/assets/bib/papers.bib">BibTeX</a>
+        </div>
+      </div>
+    </article>
+  
+    
+    
+    <article class="pub-card reveal" id="wang2025unsupervised" data-tags="scene-flow lidar-odometry perception">
+      <div class="pub-media">
+        
+          <img src="/assets/media/papers/paper_09_psfnet.gif" alt="Unsupervised Learning of 3D Scene Flow With LiDAR Odometry Assistance preview" loading="lazy">
+        
+      </div>
+
+      <div class="pub-body">
+        <div class="pub-topline">
+          <span class="venue-mark venue-tits">TITS</span>
+          <span class="status-pill">Published</span>
+          <span class="org-pill">2025</span>
+        </div>
+
+        <h2>Unsupervised Learning of 3D Scene Flow With LiDAR Odometry Assistance</h2>
+
+        <p class="pub-authors">
+          Guangming Wang, Zhiheng Feng, <strong>Chaokang Jiang</strong>, Jiuming Liu, Hesheng Wang
+        </p>
+
+        
+          <div class="org-row">
+            
+              <span class="org-pill">SJTU IRMV</span>
+            
+              <span class="org-pill">Research Collaboration</span>
+            
+          </div>
+        
+
+        <p class="pub-summary">An unsupervised 3D scene flow learning method assisted by LiDAR odometry.</p>
+        <p class="pub-contribution"><strong>Contribution.</strong> It leverages odometry cues to reduce the dependency on dense point-level motion labels.</p>
+
+        <div class="link-row">
+          
+            <a class="tiny-link" href="https://doi.org/10.1109/TITS.2025.3538765" target="_blank" rel="noopener">DOI</a>
+          
+          <a class="tiny-link" href="/assets/bib/papers.bib">BibTeX</a>
+        </div>
+      </div>
+    </article>
+  
+    
+    
+    <article class="pub-card reveal" id="liu2025mamba4d" data-tags="perception 3d-4d">
+      <div class="pub-media">
+        
+          <img src="/assets/media/papers/paper_04_mamba4d.gif" alt="Mamba4D: Efficient 4D Point Cloud Video Understanding with Disentangled Spatial-Temporal State Space Models preview" loading="lazy">
+        
+      </div>
+
+      <div class="pub-body">
+        <div class="pub-topline">
+          <span class="venue-mark venue-cvpr">CVPR</span>
+          <span class="status-pill">Published</span>
+          <span class="org-pill">2025</span>
+        </div>
+
+        <h2>Mamba4D: Efficient 4D Point Cloud Video Understanding with Disentangled Spatial-Temporal State Space Models</h2>
+
+        <p class="pub-authors">
+          Jiuming Liu, Jinru Han, Lihao Liu, Angelica I. Avilés-Rivero, <strong>Chaokang Jiang</strong>, Zhe Liu, Hesheng Wang
+        </p>
+
+        
+          <div class="org-row">
+            
+              <span class="org-pill">Research Collaboration</span>
+            
+          </div>
+        
+
+        <p class="pub-summary">A 4D point cloud video understanding framework based on disentangled spatial-temporal state space modeling.</p>
+        <p class="pub-contribution"><strong>Contribution.</strong> It improves long-sequence point cloud video modeling efficiency through separate spatial and temporal sequence reasoning.</p>
+
+        <div class="link-row">
+          
+            <a class="tiny-link" href="https://doi.org/10.1109/CVPR52734.2025.01642" target="_blank" rel="noopener">DOI</a>
+          
+          <a class="tiny-link" href="/assets/bib/papers.bib">BibTeX</a>
+        </div>
+      </div>
+    </article>
+  
+    
+    
+    <article class="pub-card reveal" id="wang2025gmfdrive" data-tags="e2e perception world-model">
+      <div class="pub-media">
+        
+          <img src="/assets/media/papers/GMF-Drive.gif" alt="GMF-Drive: Gated Mamba Fusion with Spatial-Aware BEV Representation for End-to-End Autonomous Driving preview" loading="lazy">
+        
+      </div>
+
+      <div class="pub-body">
+        <div class="pub-topline">
+          <span class="venue-mark venue-arxiv">arXiv</span>
+          <span class="status-pill">Preprint</span>
+          <span class="org-pill">2025</span>
+        </div>
+
+        <h2>GMF-Drive: Gated Mamba Fusion with Spatial-Aware BEV Representation for End-to-End Autonomous Driving</h2>
+
+        <p class="pub-authors">
+          Jian Wang, <strong>Chaokang Jiang</strong>, Haitao Xu
+        </p>
+
+        
+          <div class="org-row">
+            
+              <span class="org-pill">Research Collaboration</span>
+            
+          </div>
+        
+
+        <p class="pub-summary">An end-to-end autonomous-driving model with gated Mamba fusion and spatial-aware BEV representation.</p>
+        <p class="pub-contribution"><strong>Contribution.</strong> It explores sequence modeling and BEV feature fusion for integrated autonomous-driving decision pipelines.</p>
+
+        <div class="link-row">
+          
+            <a class="tiny-link" href="https://arxiv.org/pdf/2508.06113" target="_blank" rel="noopener">PDF</a>
+          
+            <a class="tiny-link" href="https://arxiv.org/abs/2508.06113" target="_blank" rel="noopener">arXiv</a>
+          
+            <a class="tiny-link" href="https://doi.org/10.48550/arXiv.2508.06113" target="_blank" rel="noopener">DOI</a>
+          
+          <a class="tiny-link" href="/assets/bib/papers.bib">BibTeX</a>
+        </div>
+      </div>
+    </article>
+  
+    
+    
+    <article class="pub-card reveal" id="zhu2025d2gslam" data-tags="generative perception lidar-odometry">
+      <div class="pub-media">
+        
+          <img src="/assets/media/papers/D2GSLAM.gif" alt="D^2GSLAM: 4D Dynamic Gaussian Splatting SLAM preview" loading="lazy">
+        
+      </div>
+
+      <div class="pub-body">
+        <div class="pub-topline">
+          <span class="venue-mark venue-arxiv">arXiv</span>
+          <span class="status-pill">Preprint</span>
+          <span class="org-pill">2025</span>
+        </div>
+
+        <h2>D^2GSLAM: 4D Dynamic Gaussian Splatting SLAM</h2>
+
+        <p class="pub-authors">
+          Siting Zhu, Yuxiang Huang, Wenhua Wu, <strong>Chaokang Jiang</strong>, Yongbo Chen, I-Ming Chen, Hesheng Wang
+        </p>
+
+        
+          <div class="org-row">
+            
+              <span class="org-pill">Research Collaboration</span>
+            
+          </div>
+        
+
+        <p class="pub-summary">A dynamic SLAM framework based on 4D Gaussian splatting.</p>
+        <p class="pub-contribution"><strong>Contribution.</strong> It models dynamic scene structure with Gaussian representations for SLAM in changing environments.</p>
+
+        <div class="link-row">
+          
+            <a class="tiny-link" href="https://arxiv.org/pdf/2512.09411" target="_blank" rel="noopener">PDF</a>
+          
+            <a class="tiny-link" href="https://arxiv.org/abs/2512.09411" target="_blank" rel="noopener">arXiv</a>
+          
+            <a class="tiny-link" href="https://doi.org/10.48550/arXiv.2512.09411" target="_blank" rel="noopener">DOI</a>
+          
+          <a class="tiny-link" href="/assets/bib/papers.bib">BibTeX</a>
+        </div>
+      </div>
+    </article>
+  
+    
+    
+    <article class="pub-card reveal" id="liu2024difflow3d" data-tags="scene-flow generative perception">
+      <div class="pub-media">
+        
+          <img src="/assets/media/papers/paper_02_difflow3d.gif" alt="DifFlow3D: Toward Robust Uncertainty-Aware Scene Flow Estimation with Iterative Diffusion-Based Refinement preview" loading="lazy">
+        
+      </div>
+
+      <div class="pub-body">
+        <div class="pub-topline">
+          <span class="venue-mark venue-cvpr">CVPR</span>
+          <span class="status-pill">Published</span>
+          <span class="org-pill">2024</span>
+        </div>
+
+        <h2>DifFlow3D: Toward Robust Uncertainty-Aware Scene Flow Estimation with Iterative Diffusion-Based Refinement</h2>
+
+        <p class="pub-authors">
+          Jiuming Liu, Guangming Wang, Weicai Ye, <strong>Chaokang Jiang</strong>, Jinru Han, Zhe Liu, Guofeng Zhang, Dalong Du, Hesheng Wang
+        </p>
+
+        
+          <div class="org-row">
+            
+              <span class="org-pill">SJTU IRMV</span>
+            
+              <span class="org-pill">Research Collaboration</span>
+            
+          </div>
+        
+
+        <p class="pub-summary">A diffusion-based 3D scene flow method for robust and uncertainty-aware point motion estimation.</p>
+        <p class="pub-contribution"><strong>Contribution.</strong> It formulates scene flow refinement as an iterative diffusion process to better handle uncertainty and challenging motion.</p>
+
+        <div class="link-row">
+          
+            <a class="tiny-link" href="https://doi.org/10.1109/CVPR52733.2024.01431" target="_blank" rel="noopener">DOI</a>
+          
+          <a class="tiny-link" href="/assets/bib/papers.bib">BibTeX</a>
+        </div>
+      </div>
+    </article>
+  
+    
+    
+    <article class="pub-card reveal" id="jiang20243dsflabelling" data-tags="scene-flow perception 3d-4d">
+      <div class="pub-media">
+        
+          <img src="/assets/media/papers/paper_01_3dsf_labelling.gif" alt="3DSFLabelling: Boosting 3D Scene Flow Estimation by Pseudo Auto-labelling preview" loading="lazy">
+        
+      </div>
+
+      <div class="pub-body">
+        <div class="pub-topline">
+          <span class="venue-mark venue-cvpr">CVPR</span>
+          <span class="status-pill">Published</span>
+          <span class="org-pill">2024</span>
+        </div>
+
+        <h2>3DSFLabelling: Boosting 3D Scene Flow Estimation by Pseudo Auto-labelling</h2>
+
+        <p class="pub-authors">
+          <strong>Chaokang Jiang</strong>, Guangming Wang, Jiuming Liu, Hesheng Wang, Zhuang Ma, Zhenqiang Liu, Zhujin Liang, Yi Shan, Dalong Du
+        </p>
+
+        
+          <div class="org-row">
+            
+              <span class="org-pill">SJTU IRMV</span>
+            
+              <span class="org-pill">PhiGent Robotics</span>
+            
+              <span class="org-pill">Research Collaboration</span>
+            
+          </div>
+        
+
+        <p class="pub-summary">A pseudo auto-labeling framework that provides high-quality 3D motion flow labels for LiDAR point clouds.</p>
+        <p class="pub-contribution"><strong>Contribution.</strong> It reduces the scarcity of point-level 3D motion labels and improves downstream scene flow estimation.</p>
+
+        <div class="link-row">
+          
+            <a class="tiny-link" href="https://doi.org/10.1109/CVPR52733.2024.01437" target="_blank" rel="noopener">DOI</a>
+          
+            <a class="tiny-link" href="https://github.com/jiangchaokang/3DSFLabelling" target="_blank" rel="noopener">Code</a>
+          
+          <a class="tiny-link" href="/assets/bib/papers.bib">BibTeX</a>
+        </div>
+      </div>
+    </article>
+  
+    
+    
+    <article class="pub-card reveal" id="jiang2024neurogauss4d" data-tags="generative perception 3d-4d">
+      <div class="pub-media">
+        
+          <img src="/assets/media/papers/paper_05_neurogauss4d.png" alt="NeuroGauss4D-PCI: 4D Neural Fields and Gaussian Deformation Fields for Point Cloud Interpolation preview" loading="lazy">
+        
+      </div>
+
+      <div class="pub-body">
+        <div class="pub-topline">
+          <span class="venue-mark venue-neurips">NeurIPS</span>
+          <span class="status-pill">Published</span>
+          <span class="org-pill">2024</span>
+        </div>
+
+        <h2>NeuroGauss4D-PCI: 4D Neural Fields and Gaussian Deformation Fields for Point Cloud Interpolation</h2>
+
+        <p class="pub-authors">
+          <strong>Chaokang Jiang</strong>, Dalong Du, Jiuming Liu, Siting Zhu, Zhenqiang Liu, Zhuang Ma, Zhujin Liang, Jie Zhou
+        </p>
+
+        
+          <div class="org-row">
+            
+              <span class="org-pill">Research Collaboration</span>
+            
+          </div>
+        
+
+        <p class="pub-summary">A 4D point cloud interpolation framework using neural fields and Gaussian deformation fields.</p>
+        <p class="pub-contribution"><strong>Contribution.</strong> It reconstructs temporally continuous point clouds by combining neural field representation with deformation-aware Gaussian modeling.</p>
+
+        <div class="link-row">
+          
+            <a class="tiny-link" href="https://doi.org/10.52202/079017-2979" target="_blank" rel="noopener">DOI</a>
+          
+            <a class="tiny-link" href="https://github.com/jiangchaokang/NeuroGauss4D-PCI" target="_blank" rel="noopener">Code</a>
+          
+          <a class="tiny-link" href="/assets/bib/papers.bib">BibTeX</a>
+        </div>
+      </div>
+    </article>
+  
+    
+    
+    <article class="pub-card reveal" id="jiang2023scene" data-tags="scene-flow perception">
+      <div class="pub-media">
+        
+          <img src="/assets/media/papers/paper_07_scene_flow_on_pseudo_point.gif" alt="3-D Scene Flow Estimation on Pseudo-LiDAR: Bridging the Gap on Estimating Point Motion preview" loading="lazy">
+        
+      </div>
+
+      <div class="pub-body">
+        <div class="pub-topline">
+          <span class="venue-mark venue-tii">TII</span>
+          <span class="status-pill">Published</span>
+          <span class="org-pill">2023</span>
+        </div>
+
+        <h2>3-D Scene Flow Estimation on Pseudo-LiDAR: Bridging the Gap on Estimating Point Motion</h2>
+
+        <p class="pub-authors">
+          <strong>Chaokang Jiang</strong>, Guangming Wang, Yanzi Miao, Hesheng Wang
+        </p>
+
+        
+          <div class="org-row">
+            
+              <span class="org-pill">CUMT</span>
+            
+              <span class="org-pill">SJTU IRMV</span>
+            
+          </div>
+        
+
+        <p class="pub-summary">A 3D scene flow estimation study on pseudo-LiDAR point representations.</p>
+        <p class="pub-contribution"><strong>Contribution.</strong> It bridges image-derived pseudo-LiDAR representations and point motion estimation for 3D scene understanding.</p>
+
+        <div class="link-row">
+          
+            <a class="tiny-link" href="https://doi.org/10.1109/TII.2022.3210560" target="_blank" rel="noopener">DOI</a>
+          
+          <a class="tiny-link" href="/assets/bib/papers.bib">BibTeX</a>
+        </div>
+      </div>
+    </article>
+  
+    
+    
+    <article class="pub-card reveal" id="miao2023pseudo" data-tags="lidar-odometry perception">
+      <div class="pub-media">
+        
+          <img src="/assets/media/papers/paper_08_vslam_pseudolidar.gif" alt="Pseudo-LiDAR for Visual Odometry preview" loading="lazy">
+        
+      </div>
+
+      <div class="pub-body">
+        <div class="pub-topline">
+          <span class="venue-mark venue-tim">TIM</span>
+          <span class="status-pill">Published</span>
+          <span class="org-pill">2023</span>
+        </div>
+
+        <h2>Pseudo-LiDAR for Visual Odometry</h2>
+
+        <p class="pub-authors">
+          Yanzi Miao, Huiying Deng, <strong>Chaokang Jiang</strong>, Zhiheng Feng, Xinrui Wu, Guangming Wang, Hesheng Wang
+        </p>
+
+        
+          <div class="org-row">
+            
+              <span class="org-pill">CUMT</span>
+            
+              <span class="org-pill">SJTU IRMV</span>
+            
+          </div>
+        
+
+        <p class="pub-summary">A visual odometry method using pseudo-LiDAR representations.</p>
+        <p class="pub-contribution"><strong>Contribution.</strong> It leverages pseudo-LiDAR geometry to improve visual odometry estimation.</p>
+
+        <div class="link-row">
+          
+            <a class="tiny-link" href="https://doi.org/10.1109/TIM.2023.3315416" target="_blank" rel="noopener">DOI</a>
+          
+          <a class="tiny-link" href="/assets/bib/papers.bib">BibTeX</a>
+        </div>
+      </div>
+    </article>
+  
+    
+    
+    <article class="pub-card reveal" id="liu2023translo" data-tags="lidar-odometry perception">
+      <div class="pub-media">
+        
+          <img src="/assets/media/papers/paper_11_translo.gif" alt="TransLO: A Window-Based Masked Point Transformer Framework for Large-Scale LiDAR Odometry preview" loading="lazy">
+        
+      </div>
+
+      <div class="pub-body">
+        <div class="pub-topline">
+          <span class="venue-mark venue-aaai">AAAI</span>
+          <span class="status-pill">Published</span>
+          <span class="org-pill">2023</span>
+        </div>
+
+        <h2>TransLO: A Window-Based Masked Point Transformer Framework for Large-Scale LiDAR Odometry</h2>
+
+        <p class="pub-authors">
+          Jiuming Liu, Guangming Wang, <strong>Chaokang Jiang</strong>, Liu Zhe, Hesheng Wang
+        </p>
+
+        
+          <div class="org-row">
+            
+              <span class="org-pill">SJTU IRMV</span>
+            
+              <span class="org-pill">Research Collaboration</span>
+            
+          </div>
+        
+
+        <p class="pub-summary">A masked point transformer framework for large-scale LiDAR odometry.</p>
+        <p class="pub-contribution"><strong>Contribution.</strong> It introduces window-based transformer modeling to improve LiDAR odometry scalability.</p>
+
+        <div class="link-row">
+          
+            <a class="tiny-link" href="https://doi.org/10.1609/aaai.v37i2.25256" target="_blank" rel="noopener">DOI</a>
+          
+          <a class="tiny-link" href="/assets/bib/papers.bib">BibTeX</a>
+        </div>
+      </div>
+    </article>
+  
+    
+    
+    <article class="pub-card reveal" id="liu2023regformer" data-tags="lidar-odometry perception">
+      <div class="pub-media">
+        
+          <img src="/assets/media/papers/paper_06_regformer.gif" alt="RegFormer: An Efficient Projection-Aware Transformer Network for Large-Scale Point Cloud Registration preview" loading="lazy">
+        
+      </div>
+
+      <div class="pub-body">
+        <div class="pub-topline">
+          <span class="venue-mark venue-iccv">ICCV</span>
+          <span class="status-pill">Published</span>
+          <span class="org-pill">2023</span>
+        </div>
+
+        <h2>RegFormer: An Efficient Projection-Aware Transformer Network for Large-Scale Point Cloud Registration</h2>
+
+        <p class="pub-authors">
+          Jiuming Liu, Guangming Wang, Zhe Liu, <strong>Chaokang Jiang</strong>, Marc Pollefeys, Hesheng Wang
+        </p>
+
+        
+          <div class="org-row">
+            
+              <span class="org-pill">SJTU IRMV</span>
+            
+              <span class="org-pill">Research Collaboration</span>
+            
+          </div>
+        
+
+        <p class="pub-summary">A projection-aware transformer network for large-scale point cloud registration.</p>
+        <p class="pub-contribution"><strong>Contribution.</strong> It improves point cloud registration by combining projection-aware representation with efficient transformer reasoning.</p>
+
+        <div class="link-row">
+          
+            <a class="tiny-link" href="https://doi.org/10.1109/ICCV51070.2023.00776" target="_blank" rel="noopener">DOI</a>
+          
+          <a class="tiny-link" href="/assets/bib/papers.bib">BibTeX</a>
+        </div>
+      </div>
+    </article>
+  
+    
+    
+    <article class="pub-card reveal" id="wang2022sfgan" data-tags="scene-flow generative perception">
+      <div class="pub-media">
+        
+          <img src="/assets/media/papers/paper_10_sfgan.gif" alt="SFGAN: Unsupervised Generative Adversarial Learning of 3D Scene Flow from the 3D Scene Self preview" loading="lazy">
+        
+      </div>
+
+      <div class="pub-body">
+        <div class="pub-topline">
+          <span class="venue-mark venue-ais">AIS</span>
+          <span class="status-pill">Published</span>
+          <span class="org-pill">2022</span>
+        </div>
+
+        <h2>SFGAN: Unsupervised Generative Adversarial Learning of 3D Scene Flow from the 3D Scene Self</h2>
+
+        <p class="pub-authors">
+          Guangming Wang, <strong>Chaokang Jiang</strong>, Zehang Shen, Yanzi Miao, Hesheng Wang
+        </p>
+
+        
+          <div class="org-row">
+            
+              <span class="org-pill">CUMT</span>
+            
+              <span class="org-pill">SJTU IRMV</span>
+            
+          </div>
+        
+
+        <p class="pub-summary">An unsupervised adversarial learning framework for 3D scene flow.</p>
+        <p class="pub-contribution"><strong>Contribution.</strong> It learns scene flow from self-structured 3D scene signals without dense supervised motion labels.</p>
+
+        <div class="link-row">
+          
+            <a class="tiny-link" href="https://doi.org/10.1002/aisy.202100197" target="_blank" rel="noopener">DOI</a>
+          
+          <a class="tiny-link" href="/assets/bib/papers.bib">BibTeX</a>
+        </div>
+      </div>
+    </article>
+  
+    
+    
+    <article class="pub-card reveal" id="jiang2022ffpanet" data-tags="perception">
+      <div class="pub-media">
+        
+          <img src="/assets/media/papers/paper_03_icra2023_ffpanet.gif" alt="FFPA-Net: Efficient Feature Fusion with Projection Awareness for 3D Object Detection preview" loading="lazy">
+        
+      </div>
+
+      <div class="pub-body">
+        <div class="pub-topline">
+          <span class="venue-mark venue-arxiv">arXiv</span>
+          <span class="status-pill">Preprint</span>
+          <span class="org-pill">2022</span>
+        </div>
+
+        <h2>FFPA-Net: Efficient Feature Fusion with Projection Awareness for 3D Object Detection</h2>
+
+        <p class="pub-authors">
+          <strong>Chaokang Jiang</strong>, Guangming Wang, Jinxing Wu, Yanzi Miao, Hesheng Wang
+        </p>
+
+        
+          <div class="org-row">
+            
+              <span class="org-pill">CUMT</span>
+            
+              <span class="org-pill">SJTU IRMV</span>
+            
+          </div>
+        
+
+        <p class="pub-summary">A projection-aware feature fusion method for 3D object detection.</p>
+        <p class="pub-contribution"><strong>Contribution.</strong> It improves multi-modal 3D detection by indexing and fusing image and point cloud features more efficiently.</p>
+
+        <div class="link-row">
+          
+            <a class="tiny-link" href="https://arxiv.org/pdf/2209.07419" target="_blank" rel="noopener">PDF</a>
+          
+            <a class="tiny-link" href="https://arxiv.org/abs/2209.07419" target="_blank" rel="noopener">arXiv</a>
+          
+            <a class="tiny-link" href="https://doi.org/10.48550/arXiv.2209.07419" target="_blank" rel="noopener">DOI</a>
+          
+          <a class="tiny-link" href="/assets/bib/papers.bib">BibTeX</a>
+        </div>
+      </div>
+    </article>
+  
+</section>
+
+      </main>
+
+      
+    </div>
+
+    <footer class="site-footer">
+      <div>
+        <strong>Jiang Chaokang</strong>
+        <span>World Models Algorithm Engineer · Bosch (XC-CN)</span>
+      </div>
+      <div class="footer-links" aria-label="Profile links">
+        <a href="mailto:jck98@foxmail.com" aria-label="Email" title="Email · jck98@foxmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/></svg>
+        </a>
+        <a href="https://github.com/jiangchaokang" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.6a10.4 10.4 0 0 0-3.29 20.27c.52.1.71-.23.71-.5v-1.96c-2.9.63-3.51-1.23-3.51-1.23-.47-1.2-1.16-1.52-1.16-1.52-.95-.65.07-.64.07-.64 1.05.08 1.6 1.08 1.6 1.08.93 1.6 2.45 1.14 3.05.87.09-.68.36-1.14.66-1.4-2.32-.26-4.76-1.16-4.76-5.16 0-1.14.41-2.07 1.08-2.8-.11-.27-.47-1.33.1-2.78 0 0 .88-.28 2.88 1.07a9.96 9.96 0 0 1 5.24 0c2-1.35 2.87-1.07 2.87-1.07.57 1.45.21 2.51.1 2.78.67.73 1.08 1.66 1.08 2.8 0 4.01-2.45 4.9-4.78 5.16.38.32.71.95.71 1.92v2.85c0 .28.19.61.72.5A10.4 10.4 0 0 0 12 1.6Z"/></svg>
+        </a>
+        <a href="https://scholar.google.com/citations?user=6gZ8vloAAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Google Scholar" title="Google Scholar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4 2 9l10 5 8-4v6"/><path d="M6 11.5V16c0 1.2 2.7 3 6 3s6-1.8 6-3v-4.5"/></svg>
+        </a>
+        <a href="https://x.com/chaokangjiang1" target="_blank" rel="noopener" aria-label="X" title="X (Twitter)">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 3h3.1l-6.77 7.74L21.8 21h-6.2l-4.86-6.36L5.18 21H2.07l7.24-8.28L2.2 3h6.36l4.4 5.81L17.5 3Zm-1.09 16.13h1.72L7.66 4.78H5.82l10.59 14.35Z"/></svg>
+        </a>
+        <a href="/sitemap.xml" aria-label="Sitemap" title="Sitemap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="5" rx="1.2"/><rect x="3" y="16" width="6" height="5" rx="1.2"/><rect x="15" y="16" width="6" height="5" rx="1.2"/><path d="M12 8v4M6 16v-2.5a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1V16"/></svg>
+        </a>
+      </div>
+    </footer>
+  </div>
+
+  <div class="search-modal" data-search-modal data-search-url="/search.json" hidden>
+    <div class="search-backdrop" data-search-close></div>
+    <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search the site">
+      <div class="search-field">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle>
+          <path d="m20 20-3.2-3.2"></path>
+        </svg>
+        <input type="search" placeholder="Search publications, projects, notes…" autocomplete="off" spellcheck="false" aria-label="Search query" data-search-input>
+        <kbd data-search-close>Esc</kbd>
+      </div>
+      <ul class="search-results" data-search-results role="listbox" aria-label="Search results"></ul>
+      <p class="search-hint" data-search-hint>Type to search across publications, projects, and blog notes.</p>
+    </div>
+  </div>
+
+  <script src="/assets/js/main.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,1067 @@
+<!doctype html>
+<html lang="en">
+<head>
+  
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem("theme");
+        var dark = stored === "dark" || stored === "light"
+          ? stored === "dark"
+          : window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+      } catch (e) {}
+    })();
+  </script>
+  
+    <title>Integrated Perception, Planning, and Decision-Making Network — Jiang Chaokang</title>
+  
+  <meta name="description" content="A unified multi-task network fusing RGB, LiDAR, and infrared for closed-loop perception, planning, and decision-making, trained end-to-end in simulation.">
+  <meta name="author" content="Jiang Chaokang">
+  <meta name="theme-color" content="#101114">
+  <link rel="canonical" href="https://jiangchaokang.github.io/projects/integrated-perception-planning-decision/">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/assets/img/chaokang_jiang/logo-mark.svg">
+  <link rel="icon" type="image/png" href="/assets/img/chaokang_jiang/favicon-dark.png">
+  <link rel="apple-touch-icon" href="/assets/img/chaokang_jiang/favicon-dark.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Jiang Chaokang">
+  <meta property="og:title" content="Integrated Perception, Planning, and Decision-Making Network">
+  <meta property="og:description" content="A unified multi-task network fusing RGB, LiDAR, and infrared for closed-loop perception, planning, and decision-making, trained end-to-end in simulation.">
+  <meta property="og:url" content="https://jiangchaokang.github.io/projects/integrated-perception-planning-decision/">
+  <meta property="og:image" content="https://jiangchaokang.github.io/assets/img/chaokang_jiang/avatar.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Integrated Perception, Planning, and Decision-Making Network">
+  <meta name="twitter:description" content="A unified multi-task network fusing RGB, LiDAR, and infrared for closed-loop perception, planning, and decision-making, trained end-to-end in simulation.">
+  <meta name="twitter:image" content="https://jiangchaokang.github.io/assets/img/chaokang_jiang/avatar.png">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Jiang Chaokang",
+    "jobTitle": "World Models Algorithm Engineer",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Bosch (XC-CN)"
+    },
+    "email": "jck98@foxmail.com",
+    "url": "https://jiangchaokang.github.io",
+    "sameAs": [
+      "https://github.com/jiangchaokang"
+    ],
+    "knowsAbout": [
+      "World Models",
+      "Generative Models",
+      "Vision-Language-Action",
+      "Autonomous Driving",
+      "3D Scene Flow",
+      "LiDAR Odometry",
+      "3D/4D Perception"
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <svg class="lg-svg" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="liquid-glass" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+        <feTurbulence type="fractalNoise" baseFrequency="0.009 0.013" numOctaves="2" seed="7" result="noise"/>
+        <feGaussianBlur in="noise" stdDeviation="1.4" result="soft"/>
+        <feDisplacementMap in="SourceGraphic" in2="soft" scale="42" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <div class="site-shell">
+    <header class="site-header" data-site-header>
+      <a class="brand" href="/" aria-label="Jiang Chaokang home">
+        <img src="/assets/img/chaokang_jiang/logo-mark.svg" alt="" width="49" height="38">
+        <span>
+          <strong>Jiang Chaokang</strong>
+          <small>World Models · Generative Driving · 3D/4D Perception</small>
+        </span>
+      </a>
+
+      <div class="header-right">
+        <nav class="site-nav" id="site-nav" aria-label="Primary navigation" data-site-nav>
+          
+            
+            
+
+            
+              <a class="nav-link" href="/" >Home</a>
+            
+          
+            
+            
+
+            
+              <div class="nav-item has-menu" data-nav-item>
+                <a class="nav-trigger" href="/publications/"  aria-haspopup="true" aria-expanded="false" data-nav-trigger>
+                  Publications
+                  <svg class="nav-caret" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </a>
+
+                <div class="nav-dropdown" data-nav-menu role="menu">
+                  <div class="liquid-glass" aria-hidden="true">
+                    <span class="lg-refract"></span>
+                    <span class="lg-tint"></span>
+                    <span class="lg-shine"></span>
+                  </div>
+                  <div class="nav-dropdown-inner">
+                    <p class="nav-dd-blurb">Peer-reviewed work on world models, generative driving, and 3D/4D perception.</p>
+
+                    
+                      
+                      <div class="nav-dd-pubs">
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#jiang2026vectorworld">
+                            <span class="ndp-venue venue-icml">ICML</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">VectorWorld: Efficient Streaming World Model via Diffusion Fl...</span>
+                              <span class="ndp-meta">2026 · Accepted · Spotlight</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#liu2026regformerpp">
+                            <span class="ndp-venue venue-arxiv">arXiv</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">RegFormer++: An Efficient Large-Scale 3D LiDAR Point Registra...</span>
+                              <span class="ndp-meta">2026 · Preprint</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#liu2026difflow3d">
+                            <span class="ndp-venue venue-t-pami">T-PAMI</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">DifFlow3D: Hierarchical Diffusion Models for Uncertainty-Awar...</span>
+                              <span class="ndp-meta">2026 · Published</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#liu2025mamba4d">
+                            <span class="ndp-venue venue-cvpr">CVPR</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">Mamba4D: Efficient 4D Point Cloud Video Understanding with Di...</span>
+                              <span class="ndp-meta">2025 · Published</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#jiang20243dsflabelling">
+                            <span class="ndp-venue venue-cvpr">CVPR</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">3DSFLabelling: Boosting 3D Scene Flow Estimation by Pseudo Au...</span>
+                              <span class="ndp-meta">2024 · Published</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#jiang2024neurogauss4d">
+                            <span class="ndp-venue venue-neurips">NeurIPS</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">NeuroGauss4D-PCI: 4D Neural Fields and Gaussian Deformation F...</span>
+                              <span class="ndp-meta">2024 · Published</span>
+                            </span>
+                          </a>
+                        
+                      </div>
+                      <a class="nav-dd-all" role="menuitem" href="/publications/">All publications<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+
+                    
+                  </div>
+                </div>
+              </div>
+            
+          
+            
+            
+
+            
+              <div class="nav-item has-menu" data-nav-item>
+                <a class="nav-trigger" href="/projects/" aria-current="page" aria-haspopup="true" aria-expanded="false" data-nav-trigger>
+                  Projects
+                  <svg class="nav-caret" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </a>
+
+                <div class="nav-dropdown" data-nav-menu role="menu">
+                  <div class="liquid-glass" aria-hidden="true">
+                    <span class="lg-refract"></span>
+                    <span class="lg-tint"></span>
+                    <span class="lg-shine"></span>
+                  </div>
+                  <div class="nav-dropdown-inner">
+                    <p class="nav-dd-blurb">Production systems and research platforms, shown as interactive logic maps.</p>
+
+                    
+                      
+                      <div class="nav-dd-projects">
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/generative-ad-simulation-platform/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/gen_ad_sim/ingolstadt_gen_video_grid.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">Generative Autonomous-Driving Simulation Platform</span>
+                              <span class="ddp-meta">Research Platform · 2025.03–Present</span>
+                            </span>
+                          </a>
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/traffic-sensor-level-ctrl/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/recon_gen_simulation/1.Gen_fg_bg_Diff_light.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">Vector Traffic Generation & Sensor-Level Closed-Loop Simulation</span>
+                              <span class="ddp-meta">Research Platform · 2025.05–Present</span>
+                            </span>
+                          </a>
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/phigent-gen-model/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/phigent_gen_model/phigent_gen_7V_video2.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">Controllable Surround-View Driving Generation</span>
+                              <span class="ddp-meta">Research Project · 2023.05–2024</span>
+                            </span>
+                          </a>
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/auto-labeling-4d-lidar/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/offline-4d-labeling/offline_visual_auto_labeling.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">4D Auto-Labeling & Pure LiDAR 3D Detection</span>
+                              <span class="ddp-meta">Production + Research Project · 2022.11–2024</span>
+                            </span>
+                          </a>
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/scene-flow-deployment/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/scene-flow-deployment/autoflow_vis.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">3D Scene Flow: Auto-Labeling & Production Deployment</span>
+                              <span class="ddp-meta">Research + Deployment Project · 2023.08–2023.12</span>
+                            </span>
+                          </a>
+                        
+                      </div>
+                      <a class="nav-dd-all" role="menuitem" href="/projects/">All projects<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+
+                    
+                  </div>
+                </div>
+              </div>
+            
+          
+            
+            
+
+            
+              <div class="nav-item has-menu" data-nav-item>
+                <a class="nav-trigger" href="/blog/"  aria-haspopup="true" aria-expanded="false" data-nav-trigger>
+                  Blog
+                  <svg class="nav-caret" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </a>
+
+                <div class="nav-dropdown" data-nav-menu role="menu">
+                  <div class="liquid-glass" aria-hidden="true">
+                    <span class="lg-refract"></span>
+                    <span class="lg-tint"></span>
+                    <span class="lg-shine"></span>
+                  </div>
+                  <div class="nav-dropdown-inner">
+                    <p class="nav-dd-blurb">Engineering notes and long-term practice.</p>
+
+                    
+                      <div class="nav-dd-list">
+                        
+                          <a class="nav-dd-link" role="menuitem" href="/blog/2026/07/01/ge-sim-2-closed-loop-simulator/">
+                            <span class="ddl-title">GE-Sim 2.0: a closed-loop video world simulator for manipulation</span>
+                            <span class="ddl-desc">Jul 1, 2026</span>
+                          </a>
+                        
+                          <a class="nav-dd-link" role="menuitem" href="/blog/2026/06/30/embodied-ai-full-stack/">
+                            <span class="ddl-title">Embodied AI, full stack: body, brain, and safety</span>
+                            <span class="ddl-desc">Jun 30, 2026</span>
+                          </a>
+                        
+                          <a class="nav-dd-link" role="menuitem" href="/blog/2026/06/29/full-stack-autonomous-driving/">
+                            <span class="ddl-title">Full-stack autonomous driving: from sensors to control</span>
+                            <span class="ddl-desc">Jun 29, 2026</span>
+                          </a>
+                        
+                      </div>
+                      <a class="nav-dd-all" role="menuitem" href="/blog/">All notes<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+
+                    
+                  </div>
+                </div>
+              </div>
+            
+          
+            
+            
+
+            
+              <div class="nav-item has-menu" data-nav-item>
+                <a class="nav-trigger" href="/contact/"  aria-haspopup="true" aria-expanded="false" data-nav-trigger>
+                  Contact
+                  <svg class="nav-caret" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </a>
+
+                <div class="nav-dropdown" data-nav-menu role="menu">
+                  <div class="liquid-glass" aria-hidden="true">
+                    <span class="lg-refract"></span>
+                    <span class="lg-tint"></span>
+                    <span class="lg-shine"></span>
+                  </div>
+                  <div class="nav-dropdown-inner">
+                    <p class="nav-dd-blurb">Collaboration, talks, and academic service.</p>
+
+                    
+                      <div class="nav-dd-list">
+                        <a class="nav-dd-link" role="menuitem" href="mailto:jck98@foxmail.com"><span class="ddl-title">Email</span><span class="ddl-desc">jck98@foxmail.com</span></a>
+                        <a class="nav-dd-link" role="menuitem" href="https://scholar.google.com/citations?user=6gZ8vloAAAAJ&hl=en" target="_blank" rel="noopener"><span class="ddl-title">Google Scholar</span><span class="ddl-desc">Publications & citations</span></a>
+                        <a class="nav-dd-link" role="menuitem" href="https://github.com/jiangchaokang" target="_blank" rel="noopener"><span class="ddl-title">GitHub</span><span class="ddl-desc">Open-source & code</span></a>
+                        <a class="nav-dd-link" role="menuitem" href="https://x.com/chaokangjiang1" target="_blank" rel="noopener"><span class="ddl-title">X</span><span class="ddl-desc">@chaokangjiang1</span></a>
+                      </div>
+                      <a class="nav-dd-all" role="menuitem" href="/contact/">Contact & service<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+
+                    
+                  </div>
+                </div>
+              </div>
+            
+          
+        </nav>
+
+        <button class="search-toggle" type="button" aria-label="Search the site" title="Search (⌘K)" data-search-open>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="m20 20-3.2-3.2"></path>
+          </svg>
+        </button>
+
+        <button class="theme-toggle" type="button" aria-label="Switch color theme" title="Switch color theme" data-theme-toggle>
+          <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+
+        <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <div class="page-grid no-news">
+      <main class="main-content" id="main" tabindex="-1">
+        <article class="project-detail">
+  <header class="project-hero reveal">
+    <div class="project-hero-intro">
+      <p class="eyebrow">Research Project</p>
+      <h1>Integrated Perception, Planning, and Decision-Making Network</h1>
+      <p class="lead">A unified multi-task network that fuses RGB, LiDAR, and infrared for closed-loop perception, planning, and decision-making in simulation.</p>
+    </div>
+
+    <figure class="project-cover project-banner spotlight-card">
+      
+        <img src="/assets/media/projects/integrated-driving/project_11_simulation_exploration.gif" alt="Integrated Perception, Planning, and Decision-Making Network preview" loading="eager">
+      
+    </figure>
+
+    <dl class="project-meta-bar">
+      <div class="pm-item"><dt>Timeline</dt><dd>2021.08–2022.10</dd></div>
+      <div class="pm-item"><dt>Context</dt><dd>The Future Laboratory of the Second Aerospace Academy</dd></div>
+      <div class="pm-item"><dt>Role</dt><dd>Perception and Simulation Developer</dd></div>
+      <div class="pm-item"><dt>Stage</dt><dd>Pre-research</dd></div>
+    </dl>
+  </header>
+
+  <div class="project-body" data-proj-shell>
+    <aside class="proj-toc" data-proj-toc aria-label="On this page">
+      <button class="proj-toc-toggle" type="button" data-toc-toggle aria-expanded="true" aria-label="Toggle contents">
+        <span class="toc-title">Contents</span>
+        <svg class="toc-chevron" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <nav class="proj-toc-nav"><ol data-toc-list></ol></nav>
+    </aside>
+
+    <div class="project-body-main">
+
+  <section class="section reveal">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Overview</p>
+        <h2>What is this project about?</h2>
+      </div>
+    </div>
+    <p class="large-text">A unified multi-task framework that fuses multi-modal sensors (RGB, LiDAR, infrared) through attention-based feature fusion — jointly solving geometric–semantic mapping, unsupervised depth and odometry, multi-object detection and tracking, and closed-loop behavior decisions inside one end-to-end trainable network.</p>
+    
+    <div class="tag-row project-tags">
+      
+        <span class="tag">research</span>
+      
+        <span class="tag">e2e</span>
+      
+        <span class="tag">perception</span>
+      
+    </div>
+    
+  </section>
+
+  
+
+  
+
+  <section class="section reveal ">
+    <div class="lawn-modules">
+
+  <!-- ===================== SYSTEM ARCHITECTURE ===================== -->
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">System Architecture</p>
+      <h2>One model, four interdependent abilities</h2>
+    </div>
+  </div>
+
+  <p class="module-intro">
+    Heterogeneous sensor streams are encoded by modality-specific extractors, then fused by interactive
+    cross- and self-attention into a single representation that drives perception, reconstruction, and decision
+    heads — forming a closed-loop <strong>perception → planning → decision</strong> pipeline.
+  </p>
+
+  <section class="atlas reveal" data-atlas="" style="--atlas-cols: 4" aria-label="Interactive logic map">
+  <div class="atlas-bar">
+    <div class="atlas-bar-head">
+      <p class="eyebrow">Logic map</p>
+      <h2>One model, four abilities, one closed loop</h2>
+      <p class="atlas-caption">Heterogeneous sensors fuse into a shared representation that drives perception, mapping, planning, and decisions — then the action loops back. Hover a node.</p>
+    </div>
+    <div class="atlas-tour" data-atlas-tour="" hidden="">
+      <button class="atlas-tour-btn" type="button" data-atlas-toggle="" aria-label="Toggle auto tour">
+        <svg class="ico-play" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+        <svg class="ico-pause" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z" /></svg>
+        <span data-atlas-status="">Auto&nbsp;Tour</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="atlas-stage" data-atlas-stage="">
+    <div class="atlas-scene" data-atlas-scene="">
+    <svg class="atlas-edges" data-atlas-edges="" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"></svg>
+    <div class="atlas-grid" data-atlas-grid="">
+      
+        <button class="atlas-node acc-ink kind-input is-start" type="button" data-node="sensors" style="grid-column: 1 / span 4; grid-row: 1;">
+          <span class="node-tag">Input</span>
+          <span class="node-title">Multi-Modal Sensors</span>
+          <span class="node-desc">RGB · LiDAR · Infrared</span>
+          
+          <span class="node-spark" aria-hidden="true"></span>
+        </button>
+      
+        <button class="atlas-node acc-purple kind-process" type="button" data-node="fusion" style="grid-column: 1 / span 4; grid-row: 2;">
+          <span class="node-tag">Fuse</span>
+          <span class="node-title">Attention Fusion</span>
+          <span class="node-desc">Cross + self attention</span>
+          
+          <span class="node-spark" aria-hidden="true"></span>
+        </button>
+      
+        <button class="atlas-node acc-cyan kind-process" type="button" data-node="detect" style="grid-column: 1 / span 2; grid-row: 3;">
+          <span class="node-tag">Perceive</span>
+          <span class="node-title">Detection &amp; Tracking</span>
+          <span class="node-desc">Stable IDs + trajectories</span>
+          
+          <span class="node-spark" aria-hidden="true"></span>
+        </button>
+      
+        <button class="atlas-node acc-cyan kind-process" type="button" data-node="estimate" style="grid-column: 3 / span 2; grid-row: 3;">
+          <span class="node-tag">Perceive</span>
+          <span class="node-title">Geometry–Semantic</span>
+          <span class="node-desc">Depth · seg · odometry</span>
+          
+          <span class="node-spark" aria-hidden="true"></span>
+        </button>
+      
+        <button class="atlas-node acc-blue kind-reason" type="button" data-node="slam" style="grid-column: 2 / span 2; grid-row: 4;">
+          <span class="node-tag">Map</span>
+          <span class="node-title">Dense SLAM + Map</span>
+          <span class="node-desc">Track → optimize → fuse</span>
+          
+          <span class="node-spark" aria-hidden="true"></span>
+        </button>
+      
+        <button class="atlas-node acc-warn kind-process" type="button" data-node="planning" style="grid-column: 1 / span 2; grid-row: 5;">
+          <span class="node-tag">Plan</span>
+          <span class="node-title">Planning</span>
+          <span class="node-desc">Global + local path</span>
+          
+          <span class="node-spark" aria-hidden="true"></span>
+        </button>
+      
+        <button class="atlas-node acc-green kind-contribution" type="button" data-node="decision" style="grid-column: 3 / span 2; grid-row: 5;">
+          <span class="node-tag">Decide</span>
+          <span class="node-title">Decision (FSM / RL)</span>
+          <span class="node-desc">Act and evaluate</span>
+          
+          <span class="node-spark" aria-hidden="true"></span>
+        </button>
+      
+    </div>
+    </div>
+  </div>
+
+  <aside class="atlas-panel" data-atlas-panel="" aria-live="polite">
+    <div class="ap-head">
+      <span class="ap-dot" data-ap-dot=""></span>
+      <div>
+        <p class="ap-tag" data-ap-tag="">Logic map</p>
+        <h3 class="ap-title" data-ap-title="">Heterogeneous sensors fuse into a shared representation that drives perception, mapping, planning, and decisions — then the action loops back. Hover a node.</h3>
+      </div>
+    </div>
+    <dl class="ap-io" data-ap-io="">
+      <div class="ap-row"><dt>Input</dt><dd data-ap-receives="">—</dd></div>
+      <div class="ap-row"><dt>Logic</dt><dd data-ap-logic="">—</dd></div>
+      <div class="ap-row"><dt>Output</dt><dd data-ap-sends="">—</dd></div>
+      <div class="ap-row ap-give"><dt>Gives</dt><dd data-ap-gives="">—</dd></div>
+    </dl>
+    <div class="ap-rel" data-ap-rel="" hidden="">
+      <span class="ap-rel-group" data-ap-up="" hidden=""><b>Upstream</b><span></span></span>
+      <span class="ap-rel-group" data-ap-down="" hidden=""><b>Downstream</b><span></span></span>
+    </div>
+    <p class="ap-note" data-ap-note="" hidden=""></p>
+    <figure class="ap-media" data-ap-media="" hidden=""></figure>
+  </aside>
+
+  <script type="application/json" data-atlas-data="">{"eyebrow":"Logic map","title":"One model, four abilities, one closed loop","caption":"Heterogeneous sensors fuse into a shared representation that drives perception, mapping, planning, and decisions — then the action loops back. Hover a node.","cols":4,"nodes":[{"id":"sensors","col":1,"span":4,"row":1,"kind":"input","accent":"ink","tag":"Input","title":"Multi-Modal Sensors","desc":"RGB · LiDAR · Infrared","receives":"Heterogeneous sensor streams","logic":"Modality-specific encoders","sends":"Per-modality features","gives":"Robust to lighting / weather"},{"id":"fusion","col":1,"span":4,"row":2,"kind":"process","accent":"purple","tag":"Fuse","title":"Attention Fusion","desc":"Cross + self attention","receives":"Per-modality features","logic":"Align and merge interactively","sends":"Shared representation","gives":"One feature, many heads"},{"id":"detect","col":1,"span":2,"row":3,"kind":"process","accent":"cyan","tag":"Perceive","title":"Detection & Tracking","desc":"Stable IDs + trajectories","receives":"Shared representation","logic":"Detect → Hungarian + Kalman","sends":"Targets and velocities","gives":"Knows the dynamic agents"},{"id":"estimate","col":3,"span":2,"row":3,"kind":"process","accent":"cyan","tag":"Perceive","title":"Geometry–Semantic","desc":"Depth · seg · odometry","receives":"Shared representation","logic":"Four co-trained auxiliary tasks","sends":"Dense scene + ego motion","gives":"Knows the static structure"},{"id":"slam","col":2,"span":2,"row":4,"kind":"reason","accent":"blue","tag":"Map","title":"Dense SLAM + Map","desc":"Track → optimize → fuse","receives":"Geometry + ego pose","logic":"Front-end / back-end / dense map","sends":"Global 3D map","gives":"A consistent world to plan in"},{"id":"planning","col":1,"span":2,"row":5,"kind":"process","accent":"warn","tag":"Plan","title":"Planning","desc":"Global + local path","receives":"Targets + map","logic":"A* / Dijkstra → DWA / MPC","sends":"Collision-free path","gives":"A safe route to follow"},{"id":"decision","col":3,"span":2,"row":5,"kind":"contribution","accent":"green","tag":"Decide","title":"Decision (FSM / RL)","desc":"Act and evaluate","receives":"Planned path + state","logic":"Reward-shaped agent acts","sends":"Accelerate / brake / steer","gives":"Closes the loop"}],"edges":[{"from":"sensors","to":"fusion","kind":"flow"},{"from":"fusion","to":"detect","kind":"flow"},{"from":"fusion","to":"estimate","kind":"flow"},{"from":"detect","to":"slam","kind":"flow"},{"from":"estimate","to":"slam","kind":"flow"},{"from":"detect","to":"planning","kind":"solid"},{"from":"slam","to":"planning","kind":"flow"},{"from":"planning","to":"decision","kind":"flow"},{"from":"decision","to":"sensors","kind":"dashed"}]}</script>
+</section>
+
+  <div class="proj-figure">
+    <img src="/assets/media/projects/integrated-driving/unified_rl_network_framework.png" alt="Unified multi-task network architecture" loading="lazy" />
+    <figcaption><strong>Unified network.</strong> Camera / LiDAR / infrared are independently encoded, dynamically fused via cross- and self-attention, then decoded into structure reconstruction, uncertainty-aware segmentation, and multi-target detection — while feeding a hierarchically pre-trained branch for state perception and behavior decisions.</figcaption>
+  </div>
+
+  <!-- ===================== FOUR MODULES (TABS) ===================== -->
+  <div class="section-heading" style="margin-top:2rem">
+    <div>
+      <p class="eyebrow">Module Breakdown</p>
+      <h2>Four research modules</h2>
+    </div>
+  </div>
+
+  <p class="module-intro">
+    Switch between the four modules to see <strong>what each one does</strong>, the <strong>pipeline</strong> behind it,
+    and the <strong>simulation result</strong>.
+  </p>
+
+  <div class="tech-modules" data-tabs="">
+    <div class="tech-tabs" role="tablist" aria-label="Network modules">
+      <button class="tech-tab is-active" type="button" role="tab" data-tab="detect" aria-selected="true">
+        <span class="tab-index">01</span>
+        <span class="tab-label"><strong>Detection &amp; Tracking</strong><small>Webots × deep learning</small></span>
+      </button>
+      <button class="tech-tab" type="button" role="tab" data-tab="estimate" aria-selected="false">
+        <span class="tab-index">02</span>
+        <span class="tab-label"><strong>Geometry–Semantic Estimation</strong><small>Depth · Seg · Odometry · Map</small></span>
+      </button>
+      <button class="tech-tab" type="button" role="tab" data-tab="slam" aria-selected="false">
+        <span class="tab-index">03</span>
+        <span class="tab-label"><strong>Monocular Dense SLAM</strong><small>Real-time on ROS</small></span>
+      </button>
+      <button class="tech-tab" type="button" role="tab" data-tab="decision" aria-selected="false">
+        <span class="tab-index">04</span>
+        <span class="tab-label"><strong>Planning &amp; Decision</strong><small>Closed-loop simulation</small></span>
+      </button>
+    </div>
+
+    <!-- MODULE 01 -->
+    <div class="tech-panel is-active" role="tabpanel" data-panel="detect">
+      <div class="module-head">
+        <p class="eyebrow">Module 01 · Webots + YOLOv8</p>
+        <h3>2D detection and multi-object tracking</h3>
+        <p class="module-oneliner">Render a virtual scene in Webots, detect objects per frame, then keep stable IDs and trajectories across time.</p>
+      </div>
+      <div class="module-grid">
+        <div class="flow">
+          <div class="flow-step">
+            <span class="step-tag">01 · Input</span>
+            <h4>Webots simulation</h4>
+            <ul><li>Virtual scene → sensor model → RGB camera → frame stream</li></ul>
+          </div>
+          <div class="flow-arrow" aria-hidden="true"></div>
+          <div class="flow-step">
+            <span class="step-tag">02 · Detection</span>
+            <h4>YOLOv8 inference</h4>
+            <ul><li>Preprocess / normalize → inference → confidence filter + <span class="mono">NMS</span> → boxes + class + score</li></ul>
+          </div>
+          <div class="flow-arrow" aria-hidden="true"></div>
+          <div class="flow-step">
+            <span class="step-tag">03 · Tracking</span>
+            <h4>Hungarian + Kalman</h4>
+            <ul><li>IoU / feature matching → Kalman predict &amp; update → ID assignment and track management</li></ul>
+          </div>
+          <div class="flow-arrow" aria-hidden="true"></div>
+          <div class="flow-step">
+            <span class="step-tag">04 · Output</span>
+            <h4>ID + trajectory + velocity</h4>
+            <ul><li>ID-tagged video stream with trajectories overlaid in the simulator</li></ul>
+          </div>
+        </div>
+        <div class="viz-box">
+          <div class="viz-head">Simulation result</div>
+          <div class="viz-media">
+            <figure>
+              <img src="/assets/media/projects/integrated-driving/project_11_simulation_exploration.gif" alt="Simulation exploration with detection and tracking" loading="lazy" />
+              <figcaption>Detection and tracking during simulation exploration.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 02 -->
+    <div class="tech-panel" role="tabpanel" data-panel="estimate">
+      <div class="module-head">
+        <p class="eyebrow">Module 02 · 2D ResNet ‖ 3D Sparse CNN</p>
+        <h3>Joint geometry–semantic estimation</h3>
+        <p class="module-oneliner">Encode image and point cloud separately, fuse them with dual-channel attention, and co-train four auxiliary tasks for a geometry–semantic consistent representation.</p>
+        <div class="tool-chips">
+          <span class="chip">Unsup. depth</span>
+          <span class="chip">Self-sup. segmentation</span>
+          <span class="chip">Point-distance odometry</span>
+          <span class="chip">Metric-learning recognition</span>
+        </div>
+      </div>
+      <div class="module-grid">
+        <div class="flow">
+          <div class="flow-inputs">
+            <div class="flow-step">
+              <span class="step-tag">Input</span>
+              <h4>Image (2D)</h4>
+              <ul><li>2D residual CNN encoder</li></ul>
+            </div>
+            <div class="flow-step">
+              <span class="step-tag">Input</span>
+              <h4>Point cloud (3D)</h4>
+              <ul><li>3D sparse CNN encoder</li></ul>
+            </div>
+          </div>
+          <div class="flow-arrow" aria-hidden="true"></div>
+          <div class="flow-step">
+            <span class="step-tag">Fusion</span>
+            <h4>Dual-channel attention</h4>
+            <ul><li>Align &amp; merge features → joint geometry–semantic representation</li></ul>
+          </div>
+          <div class="flow-arrow" aria-hidden="true"></div>
+          <div class="flow-branch">
+            <div class="flow-step">
+              <span class="step-tag">Depth + Seg</span>
+              <h4>Dense scene</h4>
+              <ul><li>Depth-aware semantics</li></ul>
+            </div>
+            <div class="flow-step">
+              <span class="step-tag">Odometry + Map</span>
+              <h4>Ego motion</h4>
+              <ul><li>Scaled pose → 3D map</li></ul>
+            </div>
+          </div>
+        </div>
+        <div class="viz-box">
+          <div class="viz-head">Architecture &amp; demo</div>
+          <div class="viz-media">
+            <figure>
+              <img src="/assets/media/projects/integrated-driving/slam.png" alt="Multi-modal fusion network architecture" loading="lazy" />
+              <figcaption>2D / 3D dual-encoder fusion with four parallel auxiliary tasks.</figcaption>
+            </figure>
+            <figure>
+              <img src="/assets/media/projects/integrated-driving/project_12_slam_demo.gif" alt="Multi-task estimation demo" loading="lazy" />
+              <figcaption>Geometry–semantic estimation in motion.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 03 -->
+    <div class="tech-panel" role="tabpanel" data-panel="slam">
+      <div class="module-head">
+        <p class="eyebrow">Module 03 · ROS</p>
+        <h3>Monocular visual SLAM with dense mapping</h3>
+        <p class="module-oneliner">A real-time ROS pipeline: track the camera, optimize the graph, and reconstruct a dense map from a single camera.</p>
+      </div>
+      <div class="module-grid">
+        <div class="flow">
+          <div class="flow-step">
+            <span class="step-tag">01 · Front-end</span>
+            <h4>Tracking</h4>
+            <ul><li>ORB features → init → keyframe selection → pose optimization (+ relocalization)</li></ul>
+          </div>
+          <div class="flow-arrow" aria-hidden="true"></div>
+          <div class="flow-step">
+            <span class="step-tag">02 · Back-end</span>
+            <h4>Graph optimization</h4>
+            <ul><li>Local BA ↔ loop closure (<span class="mono">DBoW</span>) ↔ global pose-graph</li></ul>
+          </div>
+          <div class="flow-arrow" aria-hidden="true"></div>
+          <div class="flow-step">
+            <span class="step-tag">03 · Dense map</span>
+            <h4>Reconstruction</h4>
+            <ul><li>Monocular depth → reprojection → <span class="mono">TSDF / OctoMap</span> fusion + voxel denoising</li></ul>
+          </div>
+          <div class="flow-arrow" aria-hidden="true"></div>
+          <div class="flow-step">
+            <span class="step-tag">04 · Output</span>
+            <h4>Three map products</h4>
+            <ul><li><span class="mono">/dense_pointcloud</span> · <span class="mono">/octomap_3d</span> · <span class="mono">/map_2d_grid</span></li></ul>
+          </div>
+        </div>
+        <div class="viz-box">
+          <div class="viz-head">Real-time result</div>
+          <div class="viz-media">
+            <figure>
+              <img src="/assets/media/projects/integrated-driving/project_07_auto_driving2.gif" alt="Monocular SLAM dense mapping" loading="lazy" />
+              <figcaption>Real-time monocular SLAM with dense mapping.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 04 -->
+    <div class="tech-panel" role="tabpanel" data-panel="decision">
+      <div class="module-head">
+        <p class="eyebrow">Module 04 · Webots closed-loop</p>
+        <h3>Perception → planning → decision</h3>
+        <p class="module-oneliner">Perception feeds planning, planning feeds an FSM / RL decision agent, and the action loops back to the vehicle in simulation.</p>
+      </div>
+      <div class="module-grid">
+        <div class="flow">
+          <div class="flow-step">
+            <span class="step-tag">Perception layer</span>
+            <h4>Understand the scene</h4>
+            <ul><li>Detection → obstacles · segmentation → drivable area · depth → distance · SLAM → map · odometry → ego pose</li></ul>
+          </div>
+          <div class="flow-arrow" aria-hidden="true"></div>
+          <div class="flow-step">
+            <span class="step-tag">Planning layer</span>
+            <h4>Find a path</h4>
+            <ul><li>Global <span class="mono">A* / Dijkstra</span> → local <span class="mono">DWA / MPC</span> → collision check &amp; avoidance</li></ul>
+          </div>
+          <div class="flow-arrow" aria-hidden="true"></div>
+          <div class="flow-step">
+            <span class="step-tag">Decision layer</span>
+            <h4>Choose an action</h4>
+            <ul><li>FSM / RL agent with reward shaping → accelerate / brake / steer</li></ul>
+          </div>
+          <div class="flow-arrow" aria-hidden="true"></div>
+          <div class="flow-step">
+            <span class="step-tag">Closed loop</span>
+            <h4>Act &amp; evaluate</h4>
+            <ul><li>Vehicle executes → metrics (success / collision rate, ATE, map IoU) → iterate</li></ul>
+          </div>
+        </div>
+        <div class="viz-box">
+          <div class="viz-head">Closed-loop roadmap</div>
+          <div class="viz-media">
+            <figure>
+              <img src="/assets/media/projects/integrated-driving/technology_roadmap.png" alt="Closed-loop perception-planning-decision roadmap" loading="lazy" />
+              <figcaption>System roadmap: four modules forming a closed perception–planning–decision loop.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== LOGIC OVERVIEW ===================== -->
+  <div class="ref-note" style="margin-top:1.6rem">
+    <strong>How they connect.</strong>
+    <span>Detection &amp; tracking and geometry–semantic estimation supply targets and structure; dense SLAM builds the global map; planning &amp; decision close the loop and feed evaluation back into every module.</span>
+  </div>
+
+</div>
+
+
+  </section>
+
+  
+  <section class="section reveal">
+    <div class="privacy-note">
+      <strong>Confidentiality note.</strong>
+      <span>Only high-level system modules are shown. Mission-specific and customer-specific details are omitted.</span>
+    </div>
+  </section>
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  <nav class="project-nav reveal" aria-label="Project navigation">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Keep exploring</p>
+        <h2>Jump to another project</h2>
+      </div>
+      <a class="tiny-link" href="/projects/">All projects</a>
+    </div>
+
+    <div class="project-nav-grid">
+      <a class="project-nav-card prev" href="/projects/autonomous-lawn-mower-robot/">
+        <span class="dir">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+          Previous
+        </span>
+        <span class="t">Autonomous Lawn-Mower Robot Perception</span>
+        <small>Production + Research Project · 2021.09–2023.03</small>
+      </a>
+      <a class="project-nav-card next" href="/projects/generative-ad-simulation-platform/">
+        <span class="dir">
+          Next
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+        <span class="t">Generative Autonomous-Driving Simulation Platform</span>
+        <small>Research Platform · 2025.03–Present</small>
+      </a>
+    </div>
+
+    <div class="more-projects">
+      <div class="more-strip reveal-stagger">
+        
+          <a class="more-chip " href="/projects/generative-ad-simulation-platform/">
+            <span class="thumb">
+              
+                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/gen_ad_sim/ingolstadt_gen_video_grid.mp4" type="video/mp4"></video>
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">Generative Autonomous-Driving Simulation Platform</span>
+              <span class="mc-meta">2025.03–Present</span>
+            </span>
+          </a>
+        
+          <a class="more-chip " href="/projects/traffic-sensor-level-ctrl/">
+            <span class="thumb">
+              
+                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/recon_gen_simulation/1.Gen_fg_bg_Diff_light.mp4" type="video/mp4"></video>
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">Vector Traffic Generation & Sensor-Level Closed-Loop Simulation</span>
+              <span class="mc-meta">2025.05–Present</span>
+            </span>
+          </a>
+        
+          <a class="more-chip " href="/projects/e2e-7v-vision/">
+            <span class="thumb">
+              
+                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/e2e_one_stage/E2E_vis.mp4" type="video/mp4"></video>
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">One-Stage End-to-End Driving — 8V Pure Vision</span>
+              <span class="mc-meta">2025.12–2026.04</span>
+            </span>
+          </a>
+        
+          <a class="more-chip " href="/projects/j6m-static-dynamic-perception/">
+            <span class="thumb">
+              
+                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/perception_onemodel/st_vis_single_fream.mp4" type="video/mp4"></video>
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">J6M Static & Dynamic Perception</span>
+              <span class="mc-meta">2025.04–2026.03</span>
+            </span>
+          </a>
+        
+          <a class="more-chip " href="/projects/e2e-lidar-11v-fusion/">
+            <span class="thumb">
+              
+                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/e2e/video_turn_around_e2e.mp4" type="video/mp4"></video>
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">End-to-End Driving: 11V + LiDAR Fusion</span>
+              <span class="mc-meta">2024 · Collaboration</span>
+            </span>
+          </a>
+        
+          <a class="more-chip " href="/projects/phigent-gen-model/">
+            <span class="thumb">
+              
+                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/phigent_gen_model/phigent_gen_7V_video2.mp4" type="video/mp4"></video>
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">Controllable Surround-View Driving Generation</span>
+              <span class="mc-meta">2023.05–2024</span>
+            </span>
+          </a>
+        
+          <a class="more-chip " href="/projects/auto-labeling-4d-lidar/">
+            <span class="thumb">
+              
+                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/offline-4d-labeling/offline_visual_auto_labeling.mp4" type="video/mp4"></video>
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">4D Auto-Labeling & Pure LiDAR 3D Detection</span>
+              <span class="mc-meta">2022.11–2024</span>
+            </span>
+          </a>
+        
+          <a class="more-chip " href="/projects/scene-flow-deployment/">
+            <span class="thumb">
+              
+                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/scene-flow-deployment/autoflow_vis.mp4" type="video/mp4"></video>
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">3D Scene Flow: Auto-Labeling & Production Deployment</span>
+              <span class="mc-meta">2023.08–2023.12</span>
+            </span>
+          </a>
+        
+          <a class="more-chip " href="/projects/road-preview-disparity/">
+            <span class="thumb">
+              
+                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/magic-carpet/badcase_vis_waterstains.mp4" type="video/mp4"></video>
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">Road Preview: Surface-Element Segmentation</span>
+              <span class="mc-meta">2023.05–2023.11</span>
+            </span>
+          </a>
+        
+          <a class="more-chip " href="/projects/graduation-intro-video/">
+            <span class="thumb">
+              
+                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/graduation-intro-video/cv_jck.mp4" type="video/mp4"></video>
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">Master's Graduation — Introduction Film</span>
+              <span class="mc-meta">2023.06</span>
+            </span>
+          </a>
+        
+          <a class="more-chip " href="/projects/autonomous-lawn-mower-robot/">
+            <span class="thumb">
+              
+                <img src="/assets/media/projects/lawn-mower/project_05_up_down_slope.gif" alt="" loading="lazy">
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">Autonomous Lawn-Mower Robot Perception</span>
+              <span class="mc-meta">2021.09–2023.03</span>
+            </span>
+          </a>
+        
+          <a class="more-chip is-current" href="/projects/integrated-perception-planning-decision/" aria-current="page">
+            <span class="thumb">
+              
+                <img src="/assets/media/projects/integrated-driving/project_11_simulation_exploration.gif" alt="" loading="lazy">
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">Integrated Perception, Planning, and Decision-Making Network</span>
+              <span class="mc-meta">2021.08–2022.10</span>
+            </span>
+          </a>
+        
+      </div>
+    </div>
+  </nav>
+  </div>
+  </div>
+</article>
+
+      </main>
+
+      
+    </div>
+
+    <footer class="site-footer">
+      <div>
+        <strong>Jiang Chaokang</strong>
+        <span>World Models Algorithm Engineer · Bosch (XC-CN)</span>
+      </div>
+      <div class="footer-links" aria-label="Profile links">
+        <a href="mailto:jck98@foxmail.com" aria-label="Email" title="Email · jck98@foxmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/></svg>
+        </a>
+        <a href="https://github.com/jiangchaokang" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.6a10.4 10.4 0 0 0-3.29 20.27c.52.1.71-.23.71-.5v-1.96c-2.9.63-3.51-1.23-3.51-1.23-.47-1.2-1.16-1.52-1.16-1.52-.95-.65.07-.64.07-.64 1.05.08 1.6 1.08 1.6 1.08.93 1.6 2.45 1.14 3.05.87.09-.68.36-1.14.66-1.4-2.32-.26-4.76-1.16-4.76-5.16 0-1.14.41-2.07 1.08-2.8-.11-.27-.47-1.33.1-2.78 0 0 .88-.28 2.88 1.07a9.96 9.96 0 0 1 5.24 0c2-1.35 2.87-1.07 2.87-1.07.57 1.45.21 2.51.1 2.78.67.73 1.08 1.66 1.08 2.8 0 4.01-2.45 4.9-4.78 5.16.38.32.71.95.71 1.92v2.85c0 .28.19.61.72.5A10.4 10.4 0 0 0 12 1.6Z"/></svg>
+        </a>
+        <a href="https://scholar.google.com/citations?user=6gZ8vloAAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Google Scholar" title="Google Scholar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4 2 9l10 5 8-4v6"/><path d="M6 11.5V16c0 1.2 2.7 3 6 3s6-1.8 6-3v-4.5"/></svg>
+        </a>
+        <a href="https://x.com/chaokangjiang1" target="_blank" rel="noopener" aria-label="X" title="X (Twitter)">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 3h3.1l-6.77 7.74L21.8 21h-6.2l-4.86-6.36L5.18 21H2.07l7.24-8.28L2.2 3h6.36l4.4 5.81L17.5 3Zm-1.09 16.13h1.72L7.66 4.78H5.82l10.59 14.35Z"/></svg>
+        </a>
+        <a href="/sitemap.xml" aria-label="Sitemap" title="Sitemap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="5" rx="1.2"/><rect x="3" y="16" width="6" height="5" rx="1.2"/><rect x="15" y="16" width="6" height="5" rx="1.2"/><path d="M12 8v4M6 16v-2.5a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1V16"/></svg>
+        </a>
+      </div>
+    </footer>
+  </div>
+
+  <div class="search-modal" data-search-modal data-search-url="/search.json" hidden>
+    <div class="search-backdrop" data-search-close></div>
+    <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search the site">
+      <div class="search-field">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle>
+          <path d="m20 20-3.2-3.2"></path>
+        </svg>
+        <input type="search" placeholder="Search publications, projects, notes…" autocomplete="off" spellcheck="false" aria-label="Search query" data-search-input>
+        <kbd data-search-close>Esc</kbd>
+      </div>
+      <ul class="search-results" data-search-results role="listbox" aria-label="Search results"></ul>
+      <p class="search-hint" data-search-hint>Type to search across publications, projects, and blog notes.</p>
+    </div>
+  </div>
+
+  <script src="/assets/js/main.js" defer></script>
+</body>
+</html>

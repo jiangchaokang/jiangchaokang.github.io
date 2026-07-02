@@ -1,0 +1,849 @@
+<!doctype html>
+<html lang="en">
+<head>
+  
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem("theme");
+        var dark = stored === "dark" || stored === "light"
+          ? stored === "dark"
+          : window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+      } catch (e) {}
+    })();
+  </script>
+  
+    <title>Projects — Jiang Chaokang</title>
+  
+  <meta name="description" content="Engineering projects by Jiang Chaokang, including autonomous driving, 3D/4D auto-labeling, robotics, scene flow deployment, road preview, and generative world models.">
+  <meta name="author" content="Jiang Chaokang">
+  <meta name="theme-color" content="#101114">
+  <link rel="canonical" href="https://jiangchaokang.github.io/projects/">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/assets/img/chaokang_jiang/logo-mark.svg">
+  <link rel="icon" type="image/png" href="/assets/img/chaokang_jiang/favicon-dark.png">
+  <link rel="apple-touch-icon" href="/assets/img/chaokang_jiang/favicon-dark.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Jiang Chaokang">
+  <meta property="og:title" content="Projects">
+  <meta property="og:description" content="Engineering projects by Jiang Chaokang, including autonomous driving, 3D/4D auto-labeling, robotics, scene flow deployment, road preview, and generative world models.">
+  <meta property="og:url" content="https://jiangchaokang.github.io/projects/">
+  <meta property="og:image" content="https://jiangchaokang.github.io/assets/img/chaokang_jiang/avatar.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Projects">
+  <meta name="twitter:description" content="Engineering projects by Jiang Chaokang, including autonomous driving, 3D/4D auto-labeling, robotics, scene flow deployment, road preview, and generative world models.">
+  <meta name="twitter:image" content="https://jiangchaokang.github.io/assets/img/chaokang_jiang/avatar.png">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Jiang Chaokang",
+    "jobTitle": "World Models Algorithm Engineer",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Bosch (XC-CN)"
+    },
+    "email": "jck98@foxmail.com",
+    "url": "https://jiangchaokang.github.io",
+    "sameAs": [
+      "https://github.com/jiangchaokang"
+    ],
+    "knowsAbout": [
+      "World Models",
+      "Generative Models",
+      "Vision-Language-Action",
+      "Autonomous Driving",
+      "3D Scene Flow",
+      "LiDAR Odometry",
+      "3D/4D Perception"
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <svg class="lg-svg" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="liquid-glass" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+        <feTurbulence type="fractalNoise" baseFrequency="0.009 0.013" numOctaves="2" seed="7" result="noise"/>
+        <feGaussianBlur in="noise" stdDeviation="1.4" result="soft"/>
+        <feDisplacementMap in="SourceGraphic" in2="soft" scale="42" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <div class="site-shell">
+    <header class="site-header" data-site-header>
+      <a class="brand" href="/" aria-label="Jiang Chaokang home">
+        <img src="/assets/img/chaokang_jiang/logo-mark.svg" alt="" width="49" height="38">
+        <span>
+          <strong>Jiang Chaokang</strong>
+          <small>World Models · Generative Driving · 3D/4D Perception</small>
+        </span>
+      </a>
+
+      <div class="header-right">
+        <nav class="site-nav" id="site-nav" aria-label="Primary navigation" data-site-nav>
+          
+            
+            
+
+            
+              <a class="nav-link" href="/" >Home</a>
+            
+          
+            
+            
+
+            
+              <div class="nav-item has-menu" data-nav-item>
+                <a class="nav-trigger" href="/publications/"  aria-haspopup="true" aria-expanded="false" data-nav-trigger>
+                  Publications
+                  <svg class="nav-caret" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </a>
+
+                <div class="nav-dropdown" data-nav-menu role="menu">
+                  <div class="liquid-glass" aria-hidden="true">
+                    <span class="lg-refract"></span>
+                    <span class="lg-tint"></span>
+                    <span class="lg-shine"></span>
+                  </div>
+                  <div class="nav-dropdown-inner">
+                    <p class="nav-dd-blurb">Peer-reviewed work on world models, generative driving, and 3D/4D perception.</p>
+
+                    
+                      
+                      <div class="nav-dd-pubs">
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#jiang2026vectorworld">
+                            <span class="ndp-venue venue-icml">ICML</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">VectorWorld: Efficient Streaming World Model via Diffusion Fl...</span>
+                              <span class="ndp-meta">2026 · Accepted · Spotlight</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#liu2026regformerpp">
+                            <span class="ndp-venue venue-arxiv">arXiv</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">RegFormer++: An Efficient Large-Scale 3D LiDAR Point Registra...</span>
+                              <span class="ndp-meta">2026 · Preprint</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#liu2026difflow3d">
+                            <span class="ndp-venue venue-t-pami">T-PAMI</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">DifFlow3D: Hierarchical Diffusion Models for Uncertainty-Awar...</span>
+                              <span class="ndp-meta">2026 · Published</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#liu2025mamba4d">
+                            <span class="ndp-venue venue-cvpr">CVPR</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">Mamba4D: Efficient 4D Point Cloud Video Understanding with Di...</span>
+                              <span class="ndp-meta">2025 · Published</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#jiang20243dsflabelling">
+                            <span class="ndp-venue venue-cvpr">CVPR</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">3DSFLabelling: Boosting 3D Scene Flow Estimation by Pseudo Au...</span>
+                              <span class="ndp-meta">2024 · Published</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#jiang2024neurogauss4d">
+                            <span class="ndp-venue venue-neurips">NeurIPS</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">NeuroGauss4D-PCI: 4D Neural Fields and Gaussian Deformation F...</span>
+                              <span class="ndp-meta">2024 · Published</span>
+                            </span>
+                          </a>
+                        
+                      </div>
+                      <a class="nav-dd-all" role="menuitem" href="/publications/">All publications<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+
+                    
+                  </div>
+                </div>
+              </div>
+            
+          
+            
+            
+
+            
+              <div class="nav-item has-menu" data-nav-item>
+                <a class="nav-trigger" href="/projects/" aria-current="page" aria-haspopup="true" aria-expanded="false" data-nav-trigger>
+                  Projects
+                  <svg class="nav-caret" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </a>
+
+                <div class="nav-dropdown" data-nav-menu role="menu">
+                  <div class="liquid-glass" aria-hidden="true">
+                    <span class="lg-refract"></span>
+                    <span class="lg-tint"></span>
+                    <span class="lg-shine"></span>
+                  </div>
+                  <div class="nav-dropdown-inner">
+                    <p class="nav-dd-blurb">Production systems and research platforms, shown as interactive logic maps.</p>
+
+                    
+                      
+                      <div class="nav-dd-projects">
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/generative-ad-simulation-platform/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/gen_ad_sim/ingolstadt_gen_video_grid.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">Generative Autonomous-Driving Simulation Platform</span>
+                              <span class="ddp-meta">Research Platform · 2025.03–Present</span>
+                            </span>
+                          </a>
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/traffic-sensor-level-ctrl/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/recon_gen_simulation/1.Gen_fg_bg_Diff_light.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">Vector Traffic Generation & Sensor-Level Closed-Loop Simulation</span>
+                              <span class="ddp-meta">Research Platform · 2025.05–Present</span>
+                            </span>
+                          </a>
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/phigent-gen-model/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/phigent_gen_model/phigent_gen_7V_video2.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">Controllable Surround-View Driving Generation</span>
+                              <span class="ddp-meta">Research Project · 2023.05–2024</span>
+                            </span>
+                          </a>
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/auto-labeling-4d-lidar/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/offline-4d-labeling/offline_visual_auto_labeling.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">4D Auto-Labeling & Pure LiDAR 3D Detection</span>
+                              <span class="ddp-meta">Production + Research Project · 2022.11–2024</span>
+                            </span>
+                          </a>
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/scene-flow-deployment/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/scene-flow-deployment/autoflow_vis.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">3D Scene Flow: Auto-Labeling & Production Deployment</span>
+                              <span class="ddp-meta">Research + Deployment Project · 2023.08–2023.12</span>
+                            </span>
+                          </a>
+                        
+                      </div>
+                      <a class="nav-dd-all" role="menuitem" href="/projects/">All projects<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+
+                    
+                  </div>
+                </div>
+              </div>
+            
+          
+            
+            
+
+            
+              <div class="nav-item has-menu" data-nav-item>
+                <a class="nav-trigger" href="/blog/"  aria-haspopup="true" aria-expanded="false" data-nav-trigger>
+                  Blog
+                  <svg class="nav-caret" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </a>
+
+                <div class="nav-dropdown" data-nav-menu role="menu">
+                  <div class="liquid-glass" aria-hidden="true">
+                    <span class="lg-refract"></span>
+                    <span class="lg-tint"></span>
+                    <span class="lg-shine"></span>
+                  </div>
+                  <div class="nav-dropdown-inner">
+                    <p class="nav-dd-blurb">Engineering notes and long-term practice.</p>
+
+                    
+                      <div class="nav-dd-list">
+                        
+                          <a class="nav-dd-link" role="menuitem" href="/blog/2026/07/01/ge-sim-2-closed-loop-simulator/">
+                            <span class="ddl-title">GE-Sim 2.0: a closed-loop video world simulator for manipulation</span>
+                            <span class="ddl-desc">Jul 1, 2026</span>
+                          </a>
+                        
+                          <a class="nav-dd-link" role="menuitem" href="/blog/2026/06/30/embodied-ai-full-stack/">
+                            <span class="ddl-title">Embodied AI, full stack: body, brain, and safety</span>
+                            <span class="ddl-desc">Jun 30, 2026</span>
+                          </a>
+                        
+                          <a class="nav-dd-link" role="menuitem" href="/blog/2026/06/29/full-stack-autonomous-driving/">
+                            <span class="ddl-title">Full-stack autonomous driving: from sensors to control</span>
+                            <span class="ddl-desc">Jun 29, 2026</span>
+                          </a>
+                        
+                      </div>
+                      <a class="nav-dd-all" role="menuitem" href="/blog/">All notes<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+
+                    
+                  </div>
+                </div>
+              </div>
+            
+          
+            
+            
+
+            
+              <div class="nav-item has-menu" data-nav-item>
+                <a class="nav-trigger" href="/contact/"  aria-haspopup="true" aria-expanded="false" data-nav-trigger>
+                  Contact
+                  <svg class="nav-caret" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </a>
+
+                <div class="nav-dropdown" data-nav-menu role="menu">
+                  <div class="liquid-glass" aria-hidden="true">
+                    <span class="lg-refract"></span>
+                    <span class="lg-tint"></span>
+                    <span class="lg-shine"></span>
+                  </div>
+                  <div class="nav-dropdown-inner">
+                    <p class="nav-dd-blurb">Collaboration, talks, and academic service.</p>
+
+                    
+                      <div class="nav-dd-list">
+                        <a class="nav-dd-link" role="menuitem" href="mailto:jck98@foxmail.com"><span class="ddl-title">Email</span><span class="ddl-desc">jck98@foxmail.com</span></a>
+                        <a class="nav-dd-link" role="menuitem" href="https://scholar.google.com/citations?user=6gZ8vloAAAAJ&hl=en" target="_blank" rel="noopener"><span class="ddl-title">Google Scholar</span><span class="ddl-desc">Publications & citations</span></a>
+                        <a class="nav-dd-link" role="menuitem" href="https://github.com/jiangchaokang" target="_blank" rel="noopener"><span class="ddl-title">GitHub</span><span class="ddl-desc">Open-source & code</span></a>
+                        <a class="nav-dd-link" role="menuitem" href="https://x.com/chaokangjiang1" target="_blank" rel="noopener"><span class="ddl-title">X</span><span class="ddl-desc">@chaokangjiang1</span></a>
+                      </div>
+                      <a class="nav-dd-all" role="menuitem" href="/contact/">Contact & service<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+
+                    
+                  </div>
+                </div>
+              </div>
+            
+          
+        </nav>
+
+        <button class="search-toggle" type="button" aria-label="Search the site" title="Search (⌘K)" data-search-open>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="m20 20-3.2-3.2"></path>
+          </svg>
+        </button>
+
+        <button class="theme-toggle" type="button" aria-label="Switch color theme" title="Switch color theme" data-theme-toggle>
+          <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+
+        <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <div class="page-grid no-news">
+      <main class="main-content" id="main" tabindex="-1">
+        <header class="page-title reveal">
+  <p class="eyebrow">Projects</p>
+  <h1>Production, POC, and research engineering.</h1>
+  <p class="lead">
+    Projects are maintained as independent pages. Public descriptions are intentionally high-level
+    and sanitized for enterprise confidentiality.
+  </p>
+</header>
+
+<div class="filter-bar reveal" data-filter-group="projects" aria-label="Project filters">
+  <button class="filter-button is-active" type="button" data-filter="all">All</button>
+  <button class="filter-button" type="button" data-filter="production">Production</button>
+  <button class="filter-button" type="button" data-filter="research">Research</button>
+  <button class="filter-button" type="button" data-filter="world-model">World Models</button>
+  <button class="filter-button" type="button" data-filter="3d-4d">3D/4D</button>
+  <button class="filter-button" type="button" data-filter="robotics">Robotics</button>
+  <button class="filter-button" type="button" data-filter="e2e">E2E</button>
+  <button class="filter-button" type="button" data-filter="deployment">Deployment</button>
+</div>
+
+<section class="project-list" data-filter-list="projects">
+  
+  
+    <article class="project-card reveal" data-tags="research world-model generative e2e">
+      <div class="project-media">
+        
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="/assets/media/projects/gen_ad_sim/ingolstadt_gen_video_grid.mp4" type="video/mp4">
+          </video>
+        
+      </div>
+
+      <div class="project-body">
+        <div class="project-topline">
+          <span class="status-pill">Research Platform</span>
+          <span class="org-pill">2025.03–Present</span>
+        </div>
+
+        <h2><a class="card-link" href="/projects/generative-ad-simulation-platform/">Generative Autonomous-Driving Simulation Platform</a></h2>
+        <p class="project-meta">Bosch (XC-CN) · World Models Algorithm Engineer</p>
+        <p class="project-summary">Built a Cosmos-Transfer2.5-based generative simulation platform: a 7V surround world model validated on internal data, real-map (Ingolstadt OSM → layout → 7V) scenario generation, a gRPC semantic bridge between WorldSim and the world model, the first 4-step distillation of 7V surround video (rCM + DMD2) for up to ~13.9× speedup, an editable platform for rare interaction data, and an all-in-one OneModel that serves layout generation, Gaussian-Splatting fix, and harmonization from a single denoiser.</p>
+
+        <div class="tag-row">
+          
+            <span class="tag">research</span>
+          
+            <span class="tag">world-model</span>
+          
+            <span class="tag">generative</span>
+          
+            <span class="tag">e2e</span>
+          
+        </div>
+      </div>
+    </article>
+  
+    <article class="project-card reveal" data-tags="research world-model generative e2e">
+      <div class="project-media">
+        
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="/assets/media/projects/recon_gen_simulation/1.Gen_fg_bg_Diff_light.mp4" type="video/mp4">
+          </video>
+        
+      </div>
+
+      <div class="project-body">
+        <div class="project-topline">
+          <span class="status-pill">Research Platform</span>
+          <span class="org-pill">2025.05–Present</span>
+        </div>
+
+        <h2><a class="card-link" href="/projects/traffic-sensor-level-ctrl/">Vector Traffic Generation & Sensor-Level Closed-Loop Simulation</a></h2>
+        <p class="project-meta">Bosch (XC-CN) · World Models Algorithm Engineer</p>
+        <p class="project-summary">Built a two-level controllable driving simulator: a structure-aware temporal vector VAE (STAR-AE) that compresses sparse, variable agents and lanes into fixed latents, a conditional latent-diffusion generator (STRIDENet) that produces history-consistent future traffic, and a sensor-level closed-loop WorldSim that fuses Gaussian-Splatting reconstruction, traffic-flow generation, and a mask-guided DiT video editor (built on MagicDrive-V2) into photorealistic surround rollouts.</p>
+
+        <div class="tag-row">
+          
+            <span class="tag">research</span>
+          
+            <span class="tag">world-model</span>
+          
+            <span class="tag">generative</span>
+          
+            <span class="tag">e2e</span>
+          
+        </div>
+      </div>
+    </article>
+  
+    <article class="project-card reveal" data-tags="research e2e world-model perception">
+      <div class="project-media">
+        
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="/assets/media/projects/e2e_one_stage/E2E_vis.mp4" type="video/mp4">
+          </video>
+        
+      </div>
+
+      <div class="project-body">
+        <div class="project-topline">
+          <span class="status-pill">POC Project</span>
+          <span class="org-pill">2025.12–2026.04</span>
+        </div>
+
+        <h2><a class="card-link" href="/projects/e2e-7v-vision/">One-Stage End-to-End Driving — 8V Pure Vision</a></h2>
+        <p class="project-meta">Bosch (XC-CN) · World Models Algorithm Engineer</p>
+        <p class="project-summary">A one-stage, pure-vision end-to-end driving POC that lifts 8 surround cameras into a single BEV feature, reads three structured perception heads (3D detection, HD map, occupancy) from it, predicts the next-frame BEV under generative scoring, and tokenizes everything into a Diffusion-Flow planner that emits the ego trajectory and neighbouring-agent states — perception, prediction, and planning optimised jointly.</p>
+
+        <div class="tag-row">
+          
+            <span class="tag">research</span>
+          
+            <span class="tag">e2e</span>
+          
+            <span class="tag">world-model</span>
+          
+            <span class="tag">perception</span>
+          
+        </div>
+      </div>
+    </article>
+  
+    <article class="project-card reveal" data-tags="production perception bev deployment quantization">
+      <div class="project-media">
+        
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="/assets/media/projects/perception_onemodel/st_vis_single_fream.mp4" type="video/mp4">
+          </video>
+        
+      </div>
+
+      <div class="project-body">
+        <div class="project-topline">
+          <span class="status-pill">Production Project</span>
+          <span class="org-pill">2025.04–2026.03</span>
+        </div>
+
+        <h2><a class="card-link" href="/projects/j6m-static-dynamic-perception/">J6M Static & Dynamic Perception</a></h2>
+        <p class="project-meta">Bosch (XC-CN) · Perception Algorithm Engineer</p>
+        <p class="project-summary">End-to-end production perception on a mid-trim (J6E / J6M) platform, organised around three shipped systems: a multi-task static OneModel that drives every static element from one shared BEV feature, a 4D-sparse dynamic model that unifies detection and tracking, and an on-board latency-compression effort that cut inference from ~42.65 ms to ~13.88 ms. My work spans architecture, a unified data pipeline, heterogeneous multi-task training, release engineering, and quantization-aware deployment.</p>
+
+        <div class="tag-row">
+          
+            <span class="tag">production</span>
+          
+            <span class="tag">perception</span>
+          
+            <span class="tag">bev</span>
+          
+            <span class="tag">deployment</span>
+          
+            <span class="tag">quantization</span>
+          
+        </div>
+      </div>
+    </article>
+  
+    <article class="project-card reveal" data-tags="research e2e perception 3d-4d">
+      <div class="project-media">
+        
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="/assets/media/projects/e2e/video_turn_around_e2e.mp4" type="video/mp4">
+          </video>
+        
+      </div>
+
+      <div class="project-body">
+        <div class="project-topline">
+          <span class="status-pill">POC Project</span>
+          <span class="org-pill">2024 · Collaboration</span>
+        </div>
+
+        <h2><a class="card-link" href="/projects/e2e-lidar-11v-fusion/">End-to-End Driving: 11V + LiDAR Fusion</a></h2>
+        <p class="project-meta">Lantu · BEV Fusion & AI-Planner Engineer</p>
+        <p class="project-summary">An end-to-end autonomous-driving system that fuses 11 surround cameras (7 pinhole + 4 fisheye) with LiDAR under a sparse-centric (SparseDrive-style) paradigm. My two core deliverables: a fused BEV-fusion CUDA operator that aligns 11-camera and LiDAR features in a single kernel, and the training of an AI planner that outputs motion and planning in parallel from a shared query decoder.</p>
+
+        <div class="tag-row">
+          
+            <span class="tag">research</span>
+          
+            <span class="tag">e2e</span>
+          
+            <span class="tag">perception</span>
+          
+            <span class="tag">3d-4d</span>
+          
+        </div>
+      </div>
+    </article>
+  
+    <article class="project-card reveal" data-tags="research world-model generative e2e">
+      <div class="project-media">
+        
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="/assets/media/projects/phigent_gen_model/phigent_gen_7V_video2.mp4" type="video/mp4">
+          </video>
+        
+      </div>
+
+      <div class="project-body">
+        <div class="project-topline">
+          <span class="status-pill">Research Project</span>
+          <span class="org-pill">2023.05–2024</span>
+        </div>
+
+        <h2><a class="card-link" href="/projects/phigent-gen-model/">Controllable Surround-View Driving Generation</a></h2>
+        <p class="project-meta">PhiGent Robotics · Generative Driving Algorithm Engineer</p>
+        <p class="project-summary">Built a controllable surround-view driving generator that compresses 3D boxes and maps into spatial conditions, encodes text / reference frames / lanes / camera calibration into condition tokens, and injects them into a UNet diffusion backbone — producing cross-camera-consistent 4V / 7V / 11V images and video for data augmentation and open-loop simulation, evolving from OpenSora 1.0 + SD 3.5 to a MagicDrive-fused in-house model.</p>
+
+        <div class="tag-row">
+          
+            <span class="tag">research</span>
+          
+            <span class="tag">world-model</span>
+          
+            <span class="tag">generative</span>
+          
+            <span class="tag">e2e</span>
+          
+        </div>
+      </div>
+    </article>
+  
+    <article class="project-card reveal" data-tags="production research 3d-4d perception deployment">
+      <div class="project-media">
+        
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="/assets/media/projects/offline-4d-labeling/offline_visual_auto_labeling.mp4" type="video/mp4">
+          </video>
+        
+      </div>
+
+      <div class="project-body">
+        <div class="project-topline">
+          <span class="status-pill">Production + Research Project</span>
+          <span class="org-pill">2022.11–2024</span>
+        </div>
+
+        <h2><a class="card-link" href="/projects/auto-labeling-4d-lidar/">4D Auto-Labeling & Pure LiDAR 3D Detection</a></h2>
+        <p class="project-meta">Hozon Auto × SJTU IRMV · PhiGent Robotics · Perception Team Leader · 3D Perception Algorithm Engineer</p>
+        <p class="project-summary">A two-phase journey in autonomous-driving auto-labeling: first a Tesla-AI-Day-inspired vision-only 4D auto-labeling pipeline with Hozon Auto and SJTU IRMV, then a multi-modal 4D auto-labeling and production pure-LiDAR 3D detection system at PhiGent Robotics — optimized at the data, model, and loss levels.</p>
+
+        <div class="tag-row">
+          
+            <span class="tag">production</span>
+          
+            <span class="tag">research</span>
+          
+            <span class="tag">3d-4d</span>
+          
+            <span class="tag">perception</span>
+          
+            <span class="tag">deployment</span>
+          
+        </div>
+      </div>
+    </article>
+  
+    <article class="project-card reveal" data-tags="research 3d-4d scene-flow deployment">
+      <div class="project-media">
+        
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="/assets/media/projects/scene-flow-deployment/autoflow_vis.mp4" type="video/mp4">
+          </video>
+        
+      </div>
+
+      <div class="project-body">
+        <div class="project-topline">
+          <span class="status-pill">Research + Deployment Project</span>
+          <span class="org-pill">2023.08–2023.12</span>
+        </div>
+
+        <h2><a class="card-link" href="/projects/scene-flow-deployment/">3D Scene Flow: Auto-Labeling & Production Deployment</a></h2>
+        <p class="project-meta">PhiGent Robotics · 3D Scene Flow Algorithm Engineer</p>
+        <p class="project-summary">A 3D motion-estimation stack for autonomous driving: an unsupervised auto-labeling system that assigns a 3D scene-flow vector to every LiDAR point and every occupancy cell, validated by lifting the accuracy of existing flow estimators, distilled into an ultra-light production head, and deployed end-to-end through ONNX, TensorRT (Orin) and the Horizon J6E toolchain.</p>
+
+        <div class="tag-row">
+          
+            <span class="tag">research</span>
+          
+            <span class="tag">3d-4d</span>
+          
+            <span class="tag">scene-flow</span>
+          
+            <span class="tag">deployment</span>
+          
+        </div>
+      </div>
+    </article>
+  
+    <article class="project-card reveal" data-tags="production perception deployment">
+      <div class="project-media">
+        
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="/assets/media/projects/magic-carpet/badcase_vis_waterstains.mp4" type="video/mp4">
+          </video>
+        
+      </div>
+
+      <div class="project-body">
+        <div class="project-topline">
+          <span class="status-pill">Production Project</span>
+          <span class="org-pill">2023.05–2023.11</span>
+        </div>
+
+        <h2><a class="card-link" href="/projects/road-preview-disparity/">Road Preview: Surface-Element Segmentation</a></h2>
+        <p class="project-meta">BYD · Perception Model Optimization Engineer</p>
+        <p class="project-summary">A road-surface perception project for the road-preview ('magic-carpet') suspension feature: segment safety-critical small road elements — manhole covers and speed bumps — reliably under hard real-world conditions (tiny targets, water and oil stains, textureless surfaces), then compress and quantize the model to INT8 for efficient TDA4 edge inference, reaching an initial mass-production quality bar.</p>
+
+        <div class="tag-row">
+          
+            <span class="tag">production</span>
+          
+            <span class="tag">perception</span>
+          
+            <span class="tag">deployment</span>
+          
+        </div>
+      </div>
+    </article>
+  
+    <article class="project-card reveal" data-tags="profile">
+      <div class="project-media">
+        
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="/assets/media/projects/graduation-intro-video/cv_jck.mp4" type="video/mp4">
+          </video>
+        
+      </div>
+
+      <div class="project-body">
+        <div class="project-topline">
+          <span class="status-pill">Profile Video</span>
+          <span class="org-pill">2023.06</span>
+        </div>
+
+        <h2><a class="card-link" href="/projects/graduation-intro-video/">Master's Graduation — Introduction Film</a></h2>
+        <p class="project-meta">CUMT × SJTU · Joint Master's Program (2020–2023) · Author & Presenter</p>
+        <p class="project-summary">A short introduction film I made for my 2023 master's graduation — a compact tour of my research focus, the labs and mentors I worked with, and the perception and 3D/4D systems I built along the way.</p>
+
+        <div class="tag-row">
+          
+            <span class="tag">profile</span>
+          
+        </div>
+      </div>
+    </article>
+  
+    <article class="project-card reveal" data-tags="production research robotics 3d-4d deployment">
+      <div class="project-media">
+        
+          <img src="/assets/media/projects/lawn-mower/project_05_up_down_slope.gif" alt="Autonomous Lawn-Mower Robot Perception preview" loading="lazy">
+        
+      </div>
+
+      <div class="project-body">
+        <div class="project-topline">
+          <span class="status-pill">Production + Research Project</span>
+          <span class="org-pill">2021.09–2023.03</span>
+        </div>
+
+        <h2><a class="card-link" href="/projects/autonomous-lawn-mower-robot/">Autonomous Lawn-Mower Robot Perception</a></h2>
+        <p class="project-meta">SJTU IRMV × Positec Technology · Perception Algorithm Developer · 2D–3D Fusion Researcher</p>
+        <p class="project-summary">The robot has to drive itself off a transport vehicle, reach the lawn, mow, and return — so I built its safety-critical perception stack across four modules: ramp detection for self loading/unloading, 3D grass-obstacle detection (geometry first, then camera–LiDAR fusion), an MCU-deployed 2D BEV safety detector, and a dual-attention LiDAR–vision fusion study.</p>
+
+        <div class="tag-row">
+          
+            <span class="tag">production</span>
+          
+            <span class="tag">research</span>
+          
+            <span class="tag">robotics</span>
+          
+            <span class="tag">3d-4d</span>
+          
+            <span class="tag">deployment</span>
+          
+        </div>
+      </div>
+    </article>
+  
+    <article class="project-card reveal" data-tags="research e2e perception">
+      <div class="project-media">
+        
+          <img src="/assets/media/projects/integrated-driving/project_11_simulation_exploration.gif" alt="Integrated Perception, Planning, and Decision-Making Network preview" loading="lazy">
+        
+      </div>
+
+      <div class="project-body">
+        <div class="project-topline">
+          <span class="status-pill">Research Project</span>
+          <span class="org-pill">2021.08–2022.10</span>
+        </div>
+
+        <h2><a class="card-link" href="/projects/integrated-perception-planning-decision/">Integrated Perception, Planning, and Decision-Making Network</a></h2>
+        <p class="project-meta">The Future Laboratory of the Second Aerospace Academy · Perception and Simulation Developer</p>
+        <p class="project-summary">A unified multi-task framework that fuses multi-modal sensors (RGB, LiDAR, infrared) through attention-based feature fusion — jointly solving geometric–semantic mapping, unsupervised depth and odometry, multi-object detection and tracking, and closed-loop behavior decisions inside one end-to-end trainable network.</p>
+
+        <div class="tag-row">
+          
+            <span class="tag">research</span>
+          
+            <span class="tag">e2e</span>
+          
+            <span class="tag">perception</span>
+          
+        </div>
+      </div>
+    </article>
+  
+</section>
+
+      </main>
+
+      
+    </div>
+
+    <footer class="site-footer">
+      <div>
+        <strong>Jiang Chaokang</strong>
+        <span>World Models Algorithm Engineer · Bosch (XC-CN)</span>
+      </div>
+      <div class="footer-links" aria-label="Profile links">
+        <a href="mailto:jck98@foxmail.com" aria-label="Email" title="Email · jck98@foxmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/></svg>
+        </a>
+        <a href="https://github.com/jiangchaokang" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.6a10.4 10.4 0 0 0-3.29 20.27c.52.1.71-.23.71-.5v-1.96c-2.9.63-3.51-1.23-3.51-1.23-.47-1.2-1.16-1.52-1.16-1.52-.95-.65.07-.64.07-.64 1.05.08 1.6 1.08 1.6 1.08.93 1.6 2.45 1.14 3.05.87.09-.68.36-1.14.66-1.4-2.32-.26-4.76-1.16-4.76-5.16 0-1.14.41-2.07 1.08-2.8-.11-.27-.47-1.33.1-2.78 0 0 .88-.28 2.88 1.07a9.96 9.96 0 0 1 5.24 0c2-1.35 2.87-1.07 2.87-1.07.57 1.45.21 2.51.1 2.78.67.73 1.08 1.66 1.08 2.8 0 4.01-2.45 4.9-4.78 5.16.38.32.71.95.71 1.92v2.85c0 .28.19.61.72.5A10.4 10.4 0 0 0 12 1.6Z"/></svg>
+        </a>
+        <a href="https://scholar.google.com/citations?user=6gZ8vloAAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Google Scholar" title="Google Scholar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4 2 9l10 5 8-4v6"/><path d="M6 11.5V16c0 1.2 2.7 3 6 3s6-1.8 6-3v-4.5"/></svg>
+        </a>
+        <a href="https://x.com/chaokangjiang1" target="_blank" rel="noopener" aria-label="X" title="X (Twitter)">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 3h3.1l-6.77 7.74L21.8 21h-6.2l-4.86-6.36L5.18 21H2.07l7.24-8.28L2.2 3h6.36l4.4 5.81L17.5 3Zm-1.09 16.13h1.72L7.66 4.78H5.82l10.59 14.35Z"/></svg>
+        </a>
+        <a href="/sitemap.xml" aria-label="Sitemap" title="Sitemap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="5" rx="1.2"/><rect x="3" y="16" width="6" height="5" rx="1.2"/><rect x="15" y="16" width="6" height="5" rx="1.2"/><path d="M12 8v4M6 16v-2.5a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1V16"/></svg>
+        </a>
+      </div>
+    </footer>
+  </div>
+
+  <div class="search-modal" data-search-modal data-search-url="/search.json" hidden>
+    <div class="search-backdrop" data-search-close></div>
+    <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search the site">
+      <div class="search-field">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle>
+          <path d="m20 20-3.2-3.2"></path>
+        </svg>
+        <input type="search" placeholder="Search publications, projects, notes…" autocomplete="off" spellcheck="false" aria-label="Search query" data-search-input>
+        <kbd data-search-close>Esc</kbd>
+      </div>
+      <ul class="search-results" data-search-results role="listbox" aria-label="Search results"></ul>
+      <p class="search-hint" data-search-hint>Type to search across publications, projects, and blog notes.</p>
+    </div>
+  </div>
+
+  <script src="/assets/js/main.js" defer></script>
+</body>
+</html>

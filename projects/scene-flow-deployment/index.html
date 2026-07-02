@@ -1,0 +1,1065 @@
+<!doctype html>
+<html lang="en">
+<head>
+  
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem("theme");
+        var dark = stored === "dark" || stored === "light"
+          ? stored === "dark"
+          : window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+      } catch (e) {}
+    })();
+  </script>
+  
+    <title>3D Scene Flow: Auto-Labeling & Production Deployment — Jiang Chaokang</title>
+  
+  <meta name="description" content="An unsupervised 3D scene-flow auto-labeling system, two deployable flow networks, an ultra-light production head, and full ONNX → TensorRT / Horizon J6E deployment.">
+  <meta name="author" content="Jiang Chaokang">
+  <meta name="theme-color" content="#101114">
+  <link rel="canonical" href="https://jiangchaokang.github.io/projects/scene-flow-deployment/">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/assets/img/chaokang_jiang/logo-mark.svg">
+  <link rel="icon" type="image/png" href="/assets/img/chaokang_jiang/favicon-dark.png">
+  <link rel="apple-touch-icon" href="/assets/img/chaokang_jiang/favicon-dark.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Jiang Chaokang">
+  <meta property="og:title" content="3D Scene Flow: Auto-Labeling & Production Deployment">
+  <meta property="og:description" content="An unsupervised 3D scene-flow auto-labeling system, two deployable flow networks, an ultra-light production head, and full ONNX → TensorRT / Horizon J6E deployment.">
+  <meta property="og:url" content="https://jiangchaokang.github.io/projects/scene-flow-deployment/">
+  <meta property="og:image" content="https://jiangchaokang.github.io/assets/img/chaokang_jiang/avatar.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="3D Scene Flow: Auto-Labeling & Production Deployment">
+  <meta name="twitter:description" content="An unsupervised 3D scene-flow auto-labeling system, two deployable flow networks, an ultra-light production head, and full ONNX → TensorRT / Horizon J6E deployment.">
+  <meta name="twitter:image" content="https://jiangchaokang.github.io/assets/img/chaokang_jiang/avatar.png">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Jiang Chaokang",
+    "jobTitle": "World Models Algorithm Engineer",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Bosch (XC-CN)"
+    },
+    "email": "jck98@foxmail.com",
+    "url": "https://jiangchaokang.github.io",
+    "sameAs": [
+      "https://github.com/jiangchaokang"
+    ],
+    "knowsAbout": [
+      "World Models",
+      "Generative Models",
+      "Vision-Language-Action",
+      "Autonomous Driving",
+      "3D Scene Flow",
+      "LiDAR Odometry",
+      "3D/4D Perception"
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <svg class="lg-svg" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="liquid-glass" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+        <feTurbulence type="fractalNoise" baseFrequency="0.009 0.013" numOctaves="2" seed="7" result="noise"/>
+        <feGaussianBlur in="noise" stdDeviation="1.4" result="soft"/>
+        <feDisplacementMap in="SourceGraphic" in2="soft" scale="42" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <div class="site-shell">
+    <header class="site-header" data-site-header>
+      <a class="brand" href="/" aria-label="Jiang Chaokang home">
+        <img src="/assets/img/chaokang_jiang/logo-mark.svg" alt="" width="49" height="38">
+        <span>
+          <strong>Jiang Chaokang</strong>
+          <small>World Models · Generative Driving · 3D/4D Perception</small>
+        </span>
+      </a>
+
+      <div class="header-right">
+        <nav class="site-nav" id="site-nav" aria-label="Primary navigation" data-site-nav>
+          
+            
+            
+
+            
+              <a class="nav-link" href="/" >Home</a>
+            
+          
+            
+            
+
+            
+              <div class="nav-item has-menu" data-nav-item>
+                <a class="nav-trigger" href="/publications/"  aria-haspopup="true" aria-expanded="false" data-nav-trigger>
+                  Publications
+                  <svg class="nav-caret" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </a>
+
+                <div class="nav-dropdown" data-nav-menu role="menu">
+                  <div class="liquid-glass" aria-hidden="true">
+                    <span class="lg-refract"></span>
+                    <span class="lg-tint"></span>
+                    <span class="lg-shine"></span>
+                  </div>
+                  <div class="nav-dropdown-inner">
+                    <p class="nav-dd-blurb">Peer-reviewed work on world models, generative driving, and 3D/4D perception.</p>
+
+                    
+                      
+                      <div class="nav-dd-pubs">
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#jiang2026vectorworld">
+                            <span class="ndp-venue venue-icml">ICML</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">VectorWorld: Efficient Streaming World Model via Diffusion Fl...</span>
+                              <span class="ndp-meta">2026 · Accepted · Spotlight</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#liu2026regformerpp">
+                            <span class="ndp-venue venue-arxiv">arXiv</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">RegFormer++: An Efficient Large-Scale 3D LiDAR Point Registra...</span>
+                              <span class="ndp-meta">2026 · Preprint</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#liu2026difflow3d">
+                            <span class="ndp-venue venue-t-pami">T-PAMI</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">DifFlow3D: Hierarchical Diffusion Models for Uncertainty-Awar...</span>
+                              <span class="ndp-meta">2026 · Published</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#liu2025mamba4d">
+                            <span class="ndp-venue venue-cvpr">CVPR</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">Mamba4D: Efficient 4D Point Cloud Video Understanding with Di...</span>
+                              <span class="ndp-meta">2025 · Published</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#jiang20243dsflabelling">
+                            <span class="ndp-venue venue-cvpr">CVPR</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">3DSFLabelling: Boosting 3D Scene Flow Estimation by Pseudo Au...</span>
+                              <span class="ndp-meta">2024 · Published</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#jiang2024neurogauss4d">
+                            <span class="ndp-venue venue-neurips">NeurIPS</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">NeuroGauss4D-PCI: 4D Neural Fields and Gaussian Deformation F...</span>
+                              <span class="ndp-meta">2024 · Published</span>
+                            </span>
+                          </a>
+                        
+                      </div>
+                      <a class="nav-dd-all" role="menuitem" href="/publications/">All publications<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+
+                    
+                  </div>
+                </div>
+              </div>
+            
+          
+            
+            
+
+            
+              <div class="nav-item has-menu" data-nav-item>
+                <a class="nav-trigger" href="/projects/" aria-current="page" aria-haspopup="true" aria-expanded="false" data-nav-trigger>
+                  Projects
+                  <svg class="nav-caret" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </a>
+
+                <div class="nav-dropdown" data-nav-menu role="menu">
+                  <div class="liquid-glass" aria-hidden="true">
+                    <span class="lg-refract"></span>
+                    <span class="lg-tint"></span>
+                    <span class="lg-shine"></span>
+                  </div>
+                  <div class="nav-dropdown-inner">
+                    <p class="nav-dd-blurb">Production systems and research platforms, shown as interactive logic maps.</p>
+
+                    
+                      
+                      <div class="nav-dd-projects">
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/generative-ad-simulation-platform/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/gen_ad_sim/ingolstadt_gen_video_grid.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">Generative Autonomous-Driving Simulation Platform</span>
+                              <span class="ddp-meta">Research Platform · 2025.03–Present</span>
+                            </span>
+                          </a>
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/traffic-sensor-level-ctrl/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/recon_gen_simulation/1.Gen_fg_bg_Diff_light.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">Vector Traffic Generation & Sensor-Level Closed-Loop Simulation</span>
+                              <span class="ddp-meta">Research Platform · 2025.05–Present</span>
+                            </span>
+                          </a>
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/phigent-gen-model/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/phigent_gen_model/phigent_gen_7V_video2.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">Controllable Surround-View Driving Generation</span>
+                              <span class="ddp-meta">Research Project · 2023.05–2024</span>
+                            </span>
+                          </a>
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/auto-labeling-4d-lidar/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/offline-4d-labeling/offline_visual_auto_labeling.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">4D Auto-Labeling & Pure LiDAR 3D Detection</span>
+                              <span class="ddp-meta">Production + Research Project · 2022.11–2024</span>
+                            </span>
+                          </a>
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/scene-flow-deployment/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/scene-flow-deployment/autoflow_vis.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">3D Scene Flow: Auto-Labeling & Production Deployment</span>
+                              <span class="ddp-meta">Research + Deployment Project · 2023.08–2023.12</span>
+                            </span>
+                          </a>
+                        
+                      </div>
+                      <a class="nav-dd-all" role="menuitem" href="/projects/">All projects<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+
+                    
+                  </div>
+                </div>
+              </div>
+            
+          
+            
+            
+
+            
+              <div class="nav-item has-menu" data-nav-item>
+                <a class="nav-trigger" href="/blog/"  aria-haspopup="true" aria-expanded="false" data-nav-trigger>
+                  Blog
+                  <svg class="nav-caret" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </a>
+
+                <div class="nav-dropdown" data-nav-menu role="menu">
+                  <div class="liquid-glass" aria-hidden="true">
+                    <span class="lg-refract"></span>
+                    <span class="lg-tint"></span>
+                    <span class="lg-shine"></span>
+                  </div>
+                  <div class="nav-dropdown-inner">
+                    <p class="nav-dd-blurb">Engineering notes and long-term practice.</p>
+
+                    
+                      <div class="nav-dd-list">
+                        
+                          <a class="nav-dd-link" role="menuitem" href="/blog/2026/07/01/ge-sim-2-closed-loop-simulator/">
+                            <span class="ddl-title">GE-Sim 2.0: a closed-loop video world simulator for manipulation</span>
+                            <span class="ddl-desc">Jul 1, 2026</span>
+                          </a>
+                        
+                          <a class="nav-dd-link" role="menuitem" href="/blog/2026/06/30/embodied-ai-full-stack/">
+                            <span class="ddl-title">Embodied AI, full stack: body, brain, and safety</span>
+                            <span class="ddl-desc">Jun 30, 2026</span>
+                          </a>
+                        
+                          <a class="nav-dd-link" role="menuitem" href="/blog/2026/06/29/full-stack-autonomous-driving/">
+                            <span class="ddl-title">Full-stack autonomous driving: from sensors to control</span>
+                            <span class="ddl-desc">Jun 29, 2026</span>
+                          </a>
+                        
+                      </div>
+                      <a class="nav-dd-all" role="menuitem" href="/blog/">All notes<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+
+                    
+                  </div>
+                </div>
+              </div>
+            
+          
+            
+            
+
+            
+              <div class="nav-item has-menu" data-nav-item>
+                <a class="nav-trigger" href="/contact/"  aria-haspopup="true" aria-expanded="false" data-nav-trigger>
+                  Contact
+                  <svg class="nav-caret" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </a>
+
+                <div class="nav-dropdown" data-nav-menu role="menu">
+                  <div class="liquid-glass" aria-hidden="true">
+                    <span class="lg-refract"></span>
+                    <span class="lg-tint"></span>
+                    <span class="lg-shine"></span>
+                  </div>
+                  <div class="nav-dropdown-inner">
+                    <p class="nav-dd-blurb">Collaboration, talks, and academic service.</p>
+
+                    
+                      <div class="nav-dd-list">
+                        <a class="nav-dd-link" role="menuitem" href="mailto:jck98@foxmail.com"><span class="ddl-title">Email</span><span class="ddl-desc">jck98@foxmail.com</span></a>
+                        <a class="nav-dd-link" role="menuitem" href="https://scholar.google.com/citations?user=6gZ8vloAAAAJ&hl=en" target="_blank" rel="noopener"><span class="ddl-title">Google Scholar</span><span class="ddl-desc">Publications & citations</span></a>
+                        <a class="nav-dd-link" role="menuitem" href="https://github.com/jiangchaokang" target="_blank" rel="noopener"><span class="ddl-title">GitHub</span><span class="ddl-desc">Open-source & code</span></a>
+                        <a class="nav-dd-link" role="menuitem" href="https://x.com/chaokangjiang1" target="_blank" rel="noopener"><span class="ddl-title">X</span><span class="ddl-desc">@chaokangjiang1</span></a>
+                      </div>
+                      <a class="nav-dd-all" role="menuitem" href="/contact/">Contact & service<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+
+                    
+                  </div>
+                </div>
+              </div>
+            
+          
+        </nav>
+
+        <button class="search-toggle" type="button" aria-label="Search the site" title="Search (⌘K)" data-search-open>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="m20 20-3.2-3.2"></path>
+          </svg>
+        </button>
+
+        <button class="theme-toggle" type="button" aria-label="Switch color theme" title="Switch color theme" data-theme-toggle>
+          <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+
+        <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <div class="page-grid no-news">
+      <main class="main-content" id="main" tabindex="-1">
+        <article class="project-detail">
+  <header class="project-hero reveal">
+    <div class="project-hero-intro">
+      <p class="eyebrow">Research + Deployment Project</p>
+      <h1>3D Scene Flow: Auto-Labeling & Production Deployment</h1>
+      <p class="lead">An unsupervised point- and occupancy-level 3D scene-flow auto-labeling system, two deployable flow networks, an ultra-light production head, and full ONNX → TensorRT / Horizon J6E deployment.</p>
+    </div>
+
+    <figure class="project-cover project-banner spotlight-card">
+      
+        <video autoplay muted loop playsinline controls preload="auto" disablepictureinpicture disableremoteplayback>
+          <source src="/assets/media/projects/scene-flow-deployment/autoflow_vis.mp4" type="video/mp4">
+        </video>
+      
+    </figure>
+
+    <dl class="project-meta-bar">
+      <div class="pm-item"><dt>Timeline</dt><dd>2023.08–2023.12</dd></div>
+      <div class="pm-item"><dt>Context</dt><dd>PhiGent Robotics</dd></div>
+      <div class="pm-item"><dt>Role</dt><dd>3D Scene Flow Algorithm Engineer</dd></div>
+      <div class="pm-item"><dt>Stage</dt><dd>Deployment-oriented research</dd></div>
+    </dl>
+  </header>
+
+  <div class="project-body" data-proj-shell>
+    <aside class="proj-toc" data-proj-toc aria-label="On this page">
+      <button class="proj-toc-toggle" type="button" data-toc-toggle aria-expanded="true" aria-label="Toggle contents">
+        <span class="toc-title">Contents</span>
+        <svg class="toc-chevron" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <nav class="proj-toc-nav"><ol data-toc-list></ol></nav>
+    </aside>
+
+    <div class="project-body-main">
+
+  <section class="section reveal">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Overview</p>
+        <h2>What is this project about?</h2>
+      </div>
+    </div>
+    <p class="large-text">A 3D motion-estimation stack for autonomous driving: an unsupervised auto-labeling system that assigns a 3D scene-flow vector to every LiDAR point and every occupancy cell, validated by lifting the accuracy of existing flow estimators, distilled into an ultra-light production head, and deployed end-to-end through ONNX, TensorRT (Orin) and the Horizon J6E toolchain.</p>
+    
+    <div class="tag-row project-tags">
+      
+        <span class="tag">research</span>
+      
+        <span class="tag">3d-4d</span>
+      
+        <span class="tag">scene-flow</span>
+      
+        <span class="tag">deployment</span>
+      
+    </div>
+    
+  </section>
+
+  
+
+  
+
+  <section class="section reveal ">
+    <div class="lawn-modules">
+
+  <!-- ===================== OVERVIEW ===================== -->
+  <div class="section-heading">
+    <div>
+      <p class="eyebrow">Overview</p>
+      <h2>Give every point — and every occupancy cell — a motion vector, with no human labels</h2>
+    </div>
+  </div>
+
+  <p class="module-intro">
+    <strong>3D scene flow</strong> is the dense per-point 3D motion field between two LiDAR sweeps — the geometric
+    backbone for dynamic-object reasoning, velocity estimation and occupancy-flow prediction. Hand-labeling it is
+    effectively impossible. This project built an <strong>unsupervised auto-labeling system</strong> that assigns a
+    motion vector to <strong>every point and every occupancy (occ) cell</strong>, used those labels to
+    <strong>sharpen existing flow estimators</strong>, distilled the result into an <strong>ultra-light production
+    head</strong>, and shipped the whole stack through <strong>ONNX → TensorRT (NVIDIA Orin)</strong> and the
+    <strong>Horizon J6E</strong> toolchain.
+  </p>
+
+  <div class="tool-chips">
+    <span class="chip">Unsupervised auto-labeling</span>
+    <span class="chip">Point-level + Occ-level flow</span>
+    <span class="chip">Graph-conv + math constraints</span>
+    <span class="chip">ONNX · TensorRT · Horizon J6E</span>
+  </div>
+
+  <section class="atlas reveal" data-atlas="" style="--atlas-cols: 4" aria-label="Interactive logic map">
+  <div class="atlas-bar">
+    <div class="atlas-bar-head">
+      <p class="eyebrow">Logic map</p>
+      <h2>From unsupervised labels to on-vehicle occupancy flow</h2>
+      <p class="atlas-caption">One label engine feeds a tiny production head; a single ONNX source fans out to two silicon targets. Hover a node.</p>
+    </div>
+    <div class="atlas-tour" data-atlas-tour="" hidden="">
+      <button class="atlas-tour-btn" type="button" data-atlas-toggle="" aria-label="Toggle auto tour">
+        <svg class="ico-play" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+        <svg class="ico-pause" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z" /></svg>
+        <span data-atlas-status="">Auto&nbsp;Tour</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="atlas-stage" data-atlas-stage="">
+    <div class="atlas-scene" data-atlas-scene="">
+    <svg class="atlas-edges" data-atlas-edges="" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"></svg>
+    <div class="atlas-grid" data-atlas-grid="">
+      
+        <button class="atlas-node acc-ink kind-input is-start" type="button" data-node="sweeps" style="grid-column: 1 / span 4; grid-row: 1;">
+          <span class="node-tag">Input</span>
+          <span class="node-title">Consecutive LiDAR Sweeps</span>
+          <span class="node-desc">Paired clouds + ego-pose</span>
+          
+          <span class="node-spark" aria-hidden="true"></span>
+        </button>
+      
+        <button class="atlas-node acc-cyan kind-process" type="button" data-node="autolabel" style="grid-column: 1 / span 4; grid-row: 2;">
+          <span class="node-tag">Core IP</span>
+          <span class="node-title">Unsupervised Auto-Labeler</span>
+          <span class="node-desc">Point- + occ-level flow</span>
+          
+          <span class="node-spark" aria-hidden="true"></span>
+        </button>
+      
+        <button class="atlas-node acc-blue kind-reason" type="button" data-node="validate" style="grid-column: 1 / span 2; grid-row: 3;">
+          <span class="node-tag">Proof</span>
+          <span class="node-title">Lifts Existing Estimators</span>
+          <span class="node-desc">Labels make others better</span>
+          
+          <span class="node-spark" aria-hidden="true"></span>
+        </button>
+      
+        <button class="atlas-node acc-purple kind-process" type="button" data-node="head" style="grid-column: 3 / span 2; grid-row: 3;">
+          <span class="node-tag">Productize</span>
+          <span class="node-title">Ultra-Light Head</span>
+          <span class="node-desc">Graph-conv vs pure DL</span>
+          
+          <span class="node-spark" aria-hidden="true"></span>
+        </button>
+      
+        <button class="atlas-node acc-warn kind-process" type="button" data-node="export" style="grid-column: 1 / span 4; grid-row: 4;">
+          <span class="node-tag">Export</span>
+          <span class="node-title">Single ONNX Graph</span>
+          <span class="node-desc">One source of truth</span>
+          
+          <span class="node-spark" aria-hidden="true"></span>
+        </button>
+      
+        <button class="atlas-node acc-green kind-output" type="button" data-node="trt" style="grid-column: 1 / span 2; grid-row: 5;">
+          <span class="node-tag">Target A</span>
+          <span class="node-title">TensorRT · Orin</span>
+          <span class="node-desc">High-compute tier</span>
+          
+          <span class="node-spark" aria-hidden="true"></span>
+        </button>
+      
+        <button class="atlas-node acc-green kind-output" type="button" data-node="horizon" style="grid-column: 3 / span 2; grid-row: 5;">
+          <span class="node-tag">Target B</span>
+          <span class="node-title">Horizon J6E</span>
+          <span class="node-desc">Cost-optimized tier</span>
+          
+          <span class="node-spark" aria-hidden="true"></span>
+        </button>
+      
+        <button class="atlas-node acc-green kind-contribution" type="button" data-node="onvehicle" style="grid-column: 1 / span 4; grid-row: 6;">
+          <span class="node-tag">Output</span>
+          <span class="node-title">On-Vehicle Occupancy Flow</span>
+          <span class="node-desc">Live per-cell motion</span>
+          
+          <span class="node-spark" aria-hidden="true"></span>
+        </button>
+      
+    </div>
+    </div>
+  </div>
+
+  <aside class="atlas-panel" data-atlas-panel="" aria-live="polite">
+    <div class="ap-head">
+      <span class="ap-dot" data-ap-dot=""></span>
+      <div>
+        <p class="ap-tag" data-ap-tag="">Logic map</p>
+        <h3 class="ap-title" data-ap-title="">One label engine feeds a tiny production head; a single ONNX source fans out to two silicon targets. Hover a node.</h3>
+      </div>
+    </div>
+    <dl class="ap-io" data-ap-io="">
+      <div class="ap-row"><dt>Input</dt><dd data-ap-receives="">—</dd></div>
+      <div class="ap-row"><dt>Logic</dt><dd data-ap-logic="">—</dd></div>
+      <div class="ap-row"><dt>Output</dt><dd data-ap-sends="">—</dd></div>
+      <div class="ap-row ap-give"><dt>Gives</dt><dd data-ap-gives="">—</dd></div>
+    </dl>
+    <div class="ap-rel" data-ap-rel="" hidden="">
+      <span class="ap-rel-group" data-ap-up="" hidden=""><b>Upstream</b><span></span></span>
+      <span class="ap-rel-group" data-ap-down="" hidden=""><b>Downstream</b><span></span></span>
+    </div>
+    <p class="ap-note" data-ap-note="" hidden=""></p>
+    <figure class="ap-media" data-ap-media="" hidden=""></figure>
+  </aside>
+
+  <script type="application/json" data-atlas-data="">{"eyebrow":"Logic map","title":"From unsupervised labels to on-vehicle occupancy flow","caption":"One label engine feeds a tiny production head; a single ONNX source fans out to two silicon targets. Hover a node.","cols":4,"nodes":[{"id":"sweeps","col":1,"span":4,"row":1,"kind":"input","accent":"ink","tag":"Input","title":"Consecutive LiDAR Sweeps","desc":"Paired clouds + ego-pose","receives":"Raw LiDAR Pt, Pt+1","logic":"Compensate ego-motion","sends":"Aligned sweep pairs","gives":"Raw signal, zero labels"},{"id":"autolabel","col":1,"span":4,"row":2,"kind":"process","accent":"cyan","tag":"Core IP","title":"Unsupervised Auto-Labeler","desc":"Point- + occ-level flow","receives":"Aligned sweep pairs","logic":"Geometry / cycle / smoothness constraints","sends":"Dense 3D motion labels","gives":"Labels scale with mileage"},{"id":"validate","col":1,"span":2,"row":3,"kind":"reason","accent":"blue","tag":"Proof","title":"Lifts Existing Estimators","desc":"Labels make others better","receives":"Auto-labels → baselines","logic":"Retrain established methods","sends":"Consistent accuracy gains","gives":"Evidence the labels are right"},{"id":"head","col":3,"span":2,"row":3,"kind":"process","accent":"purple","tag":"Productize","title":"Ultra-Light Head","desc":"Graph-conv vs pure DL","receives":"Auto-labels as supervision","logic":"Distill into embedded-size net","sends":"Tiny flow predictor","gives":"On-vehicle compute budget"},{"id":"export","col":1,"span":4,"row":4,"kind":"process","accent":"warn","tag":"Export","title":"Single ONNX Graph","desc":"One source of truth","receives":"Trained / quantized head","logic":"Export portable .onnx","sends":"Graph to both runtimes","gives":"Train ↔ deploy stay aligned"},{"id":"trt","col":1,"span":2,"row":5,"kind":"output","accent":"green","tag":"Target A","title":"TensorRT · Orin","desc":"High-compute tier","receives":"ONNX graph","logic":"Graph + precision optimize","sends":"Orin runtime engine","gives":"Fast NVIDIA inference"},{"id":"horizon","col":3,"span":2,"row":5,"kind":"output","accent":"green","tag":"Target B","title":"Horizon J6E","desc":"Cost-optimized tier","receives":"ONNX graph","logic":"Convert + quantize via SDK","sends":"J6E runtime engine","gives":"Cheap embedded inference"},{"id":"onvehicle","col":1,"span":4,"row":6,"kind":"contribution","accent":"green","tag":"Output","title":"On-Vehicle Occupancy Flow","desc":"Live per-cell motion","receives":"Optimized runtime engine","logic":"Preprocess → infer → parse","sends":"Dense scene-flow field","gives":"Production motion estimation"}],"edges":[{"from":"sweeps","to":"autolabel","kind":"flow"},{"from":"autolabel","to":"validate","kind":"solid"},{"from":"autolabel","to":"head","kind":"flow"},{"from":"validate","to":"head","kind":"dashed"},{"from":"head","to":"export","kind":"flow"},{"from":"export","to":"trt","kind":"flow"},{"from":"export","to":"horizon","kind":"flow"},{"from":"trt","to":"onvehicle","kind":"flow"},{"from":"horizon","to":"onvehicle","kind":"flow"}]}</script>
+</section>
+
+  <div class="phase-track">
+
+    <!-- ===================== MODULE 01 · AUTO-LABELING ===================== -->
+    <section class="phase">
+      <div class="phase-head">
+        <span class="phase-step">01</span>
+        <span class="phase-badge">The core IP</span>
+        <span class="phase-org">Auto-Flow labeling</span>
+      </div>
+      <h3>An unsupervised 3D scene-flow &amp; occ-flow auto-labeler</h3>
+      <p class="phase-lead">
+        The heart of the project: a self-supervised system that takes raw LiDAR sweeps and produces a dense
+        3D motion label for <strong>every point</strong> and <strong>every occupancy cell</strong> — no manual
+        annotation in the loop. These auto-labels become the training signal for every downstream flow model.
+      </p>
+
+      <div class="proj-figure on-white" style="margin-top:1.1rem">
+        <img src="/assets/media/projects/scene-flow-deployment/flow_model_arch.jpg" alt="3D scene-flow and occupancy-flow auto-labeling architecture" loading="lazy" />
+        <figcaption><strong>Auto-labeling architecture.</strong> From consecutive LiDAR sweeps, the system jointly estimates a per-point 3D scene-flow field and a per-occ 3D motion field, supervised only by geometric and temporal consistency — so high-quality flow labels are generated automatically, at scale.</figcaption>
+      </div>
+
+      <div class="module-grid" style="margin-top:1.1rem">
+        <div class="flow">
+          <div class="flow-step">
+            <span class="step-tag">Step 1 · Input</span>
+            <h4>Consecutive LiDAR sweeps</h4>
+            <ul><li>Paired point clouds <span class="mono">P<sub>t</sub>, P<sub>t+1</sub></span> + ego-pose; no flow ground truth required</li></ul>
+          </div>
+          <div class="flow-arrow" aria-hidden="true"></div>
+          <div class="flow-step">
+            <span class="step-tag">Step 2 · Estimate</span>
+            <h4>Dense motion field</h4>
+            <ul><li>Predict a 3D vector per point and per occ cell; ego-motion compensated so only true object motion remains</li></ul>
+          </div>
+          <div class="flow-arrow" aria-hidden="true"></div>
+          <div class="flow-step">
+            <span class="step-tag">Step 3 · Self-supervise</span>
+            <h4>Consistency objectives</h4>
+            <ul><li>Nearest-neighbour / cycle / smoothness constraints replace human labels with geometry</li></ul>
+          </div>
+          <div class="flow-arrow" aria-hidden="true"></div>
+          <div class="flow-step">
+            <span class="step-tag">Step 4 · Emit</span>
+            <h4>Point- &amp; occ-flow labels</h4>
+            <ul><li>A reusable label bank that trains and stress-tests every downstream estimator</li></ul>
+          </div>
+        </div>
+
+        <div class="viz-box">
+          <div class="viz-head">Why unsupervised</div>
+          <div class="viz-media">
+            <figure>
+              <figcaption style="margin-top:0">
+                Dense 3D flow has no scalable human-labeling route — a single sweep holds <strong>100k+ points</strong>.
+                Driving geometry (rigid ego-motion, locally smooth object motion, cross-frame correspondence) supplies
+                the supervision instead, so labels scale with raw mileage rather than with annotation budget.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== MODULE 02 · VALIDATION ===================== -->
+    <section class="phase">
+      <div class="phase-head">
+        <span class="phase-step">02</span>
+        <span class="phase-badge">Does it actually help?</span>
+        <span class="phase-org">Validation</span>
+      </div>
+      <h3>Auto-labels lift existing flow estimators</h3>
+      <p class="phase-lead">
+        The acid test for a labeling system is whether its labels make <em>other</em> models better. Feeding our
+        auto-labels into established 3D scene-flow estimators improved their prediction accuracy
+        <strong>substantially</strong> — direct evidence that the generated supervision is both correct and useful.
+      </p>
+
+      <div class="compare" style="margin-top:1.1rem">
+        <div class="compare-col before">
+          <h5>Baseline estimators</h5>
+          <p class="big">Original supervision</p>
+          <p>Trained on their native, limited flow signals</p>
+          <p>Weaker on fast, distant and sparse objects</p>
+        </div>
+        <div class="compare-arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+        </div>
+        <div class="compare-col after">
+          <h5>+ our auto-labels</h5>
+          <p class="big">Substantially sharper</p>
+          <p>Same architectures, richer dense supervision</p>
+          <p>Consistent accuracy gains across methods</p>
+        </div>
+      </div>
+
+      <div class="proj-figure on-white" style="margin-top:1.1rem">
+        <img src="/assets/media/projects/scene-flow-deployment/flow_model_exp.jpg" alt="Accuracy improvement after applying our auto-labels to existing scene-flow methods" loading="lazy" />
+        <figcaption><strong>Result.</strong> Existing 3D scene-flow estimation methods, retrained with labels from our auto-labeling system, show a clear, consistent jump in prediction accuracy — the labeling system pays for itself across architectures.</figcaption>
+      </div>
+    </section>
+
+    <!-- ===================== MODULE 03 · PRODUCTION HEAD ===================== -->
+    <section class="phase">
+      <div class="phase-head">
+        <span class="phase-step">03</span>
+        <span class="phase-badge">From research to silicon</span>
+        <span class="phase-org">Production head</span>
+      </div>
+      <h3>An ultra-light 3D scene-flow head — two design routes</h3>
+      <p class="phase-lead">
+        For mass production the flow predictor must be tiny and embedded-friendly. We explored two routes for the
+        production head and compared them head-to-head: a <strong>graph-convolution + mathematical-constraint</strong>
+        design, and a <strong>pure point-cloud deep-learning</strong> design fit directly to supervision.
+      </p>
+
+      <div class="proj-figure on-white" style="margin:1.1rem auto 0;max-width:560px">
+        <img src="/assets/media/projects/scene-flow-deployment/m1_conv.png" alt="Ultra-light 3D scene-flow production head — graph-convolution variant (top) and pure deep-learning variant (bottom)" loading="lazy" />
+        <figcaption><strong>Two production heads.</strong> <em>Top</em> — graph convolution with explicit mathematical (rigidity / smoothness) constraints. <em>Bottom</em> — a pure point-cloud network that regresses flow directly from supervision. Both are budgeted for on-vehicle compute.</figcaption>
+      </div>
+
+      <div class="compare" style="margin-top:1.1rem">
+        <div class="compare-col before">
+          <h5>Route A · Graph-conv + math</h5>
+          <p class="big">Geometry-guided</p>
+          <p>Graph convolution over local neighbourhoods</p>
+          <p>Explicit rigidity / smoothness constraints</p>
+          <p>Robust &amp; interpretable on structured motion</p>
+        </div>
+        <div class="compare-arrow" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+        </div>
+        <div class="compare-col after">
+          <h5>Route B · Pure deep-learning</h5>
+          <p class="big">Data-driven</p>
+          <p>Point-cloud network regresses flow end-to-end</p>
+          <p>Fit directly to the auto-generated labels</p>
+          <p>Simplest graph to export and quantize</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== MODULE 04 · DEPLOYMENT ===================== -->
+    <section class="phase">
+      <div class="phase-head">
+        <span class="phase-step">04</span>
+        <span class="phase-badge">On-vehicle</span>
+        <span class="phase-org">Deployment</span>
+      </div>
+      <h3>ONNX → TensorRT / Horizon J6E, with occ-flow inference</h3>
+      <p class="phase-lead">
+        The trained head was exported to <strong>ONNX</strong>, optimized with <strong>TensorRT</strong> for NVIDIA
+        Orin, and converted with the <strong>Horizon</strong> SDK toolchain for J6E. Against existing production
+        options our solution held up well, and the same export produces the live occupancy-flow inference below.
+      </p>
+
+      <div class="proj-figure on-white" style="margin:1.1rem auto 0;max-width:720px">
+        <img src="/assets/media/projects/scene-flow-deployment/occ_flow_onnx_infer.png" alt="Production-solution comparison and occupancy-flow prediction visualized from ONNX inference" loading="lazy" />
+        <figcaption><strong>Deployment evidence.</strong> Our production flow solution compared against other existing options, alongside an occupancy-flow prediction visualized directly from the exported <span class="mono">ONNX</span> inference — confirming that the optimized graph behaves on-target as it does in training.</figcaption>
+      </div>
+
+      <div class="module-grid" style="margin-top:1.2rem">
+        <div class="flow">
+          <div class="flow-step">
+            <span class="step-tag">① Export</span>
+            <h4>Trained model → ONNX</h4>
+            <ul><li>Floating-point or quantized graph exported to a portable <span class="mono">.onnx</span></li></ul>
+          </div>
+          <div class="flow-arrow" aria-hidden="true"></div>
+          <div class="flow-branch">
+            <div class="flow-step">
+              <span class="step-tag">②A · NVIDIA</span>
+              <h4>TensorRT on Orin</h4>
+              <ul><li>Graph &amp; precision optimization for the Orin runtime</li></ul>
+            </div>
+            <div class="flow-step">
+              <span class="step-tag">②B · Horizon</span>
+              <h4>SDK on J6E</h4>
+              <ul><li>Convert &amp; quantize through the Horizon J6E toolchain</li></ul>
+            </div>
+          </div>
+          <div class="flow-arrow" aria-hidden="true"></div>
+          <div class="flow-step">
+            <span class="step-tag">③ Runtime</span>
+            <h4>On-vehicle inference loop</h4>
+            <ul><li>Point-cloud preprocess → cache init → normalize → inference → output parsing → perf stats</li></ul>
+          </div>
+        </div>
+
+        <div class="viz-box">
+          <div class="viz-head">Deployment targets</div>
+          <div class="viz-media">
+            <figure>
+              <figcaption style="margin-top:0">
+                One trained head, two silicon paths: <strong>TensorRT / Orin</strong> for the high-compute tier and
+                <strong>Horizon J6E</strong> for the cost-optimized tier — sharing a single ONNX source of truth so
+                training and on-vehicle behaviour stay aligned.
+              </figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /phase-track -->
+
+  <!-- ===================== DEMO ===================== -->
+  <div class="module-head" style="margin-top:2.4rem">
+    <p class="eyebrow">Visualization</p>
+    <h2>Auto-Flow, running</h2>
+    <p class="module-oneliner">The end-to-end result — dense 3D scene flow auto-labeled and predicted on real driving sequences. Plays automatically and loops.</p>
+  </div>
+
+  <div class="proj-figure" style="margin-top:1.1rem">
+    <video autoplay="" muted="" loop="" playsinline="" preload="metadata" disablepictureinpicture="" disableremoteplayback="">
+      <source src="/assets/media/projects/scene-flow-deployment/autoflow_vis.mp4" type="video/mp4" />
+    </video>
+    <figcaption><strong>Auto-Flow demo.</strong> Per-point 3D motion estimated across a full sequence — the colour field encodes the predicted scene-flow direction and magnitude.</figcaption>
+  </div>
+
+</div>
+
+  </section>
+
+  
+  <section class="section reveal">
+    <div class="privacy-note">
+      <strong>Confidentiality note.</strong>
+      <span>Only the general pipeline and deployment concepts are shown. Internal data, exact metrics, model parameters, and hardware-specific optimization details are omitted; any figures are illustrative.</span>
+    </div>
+  </section>
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  <nav class="project-nav reveal" aria-label="Project navigation">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Keep exploring</p>
+        <h2>Jump to another project</h2>
+      </div>
+      <a class="tiny-link" href="/projects/">All projects</a>
+    </div>
+
+    <div class="project-nav-grid">
+      <a class="project-nav-card prev" href="/projects/auto-labeling-4d-lidar/">
+        <span class="dir">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+          Previous
+        </span>
+        <span class="t">4D Auto-Labeling & Pure LiDAR 3D Detection</span>
+        <small>Production + Research Project · 2022.11–2024</small>
+      </a>
+      <a class="project-nav-card next" href="/projects/road-preview-disparity/">
+        <span class="dir">
+          Next
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+        <span class="t">Road Preview: Surface-Element Segmentation</span>
+        <small>Production Project · 2023.05–2023.11</small>
+      </a>
+    </div>
+
+    <div class="more-projects">
+      <div class="more-strip reveal-stagger">
+        
+          <a class="more-chip " href="/projects/generative-ad-simulation-platform/">
+            <span class="thumb">
+              
+                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/gen_ad_sim/ingolstadt_gen_video_grid.mp4" type="video/mp4"></video>
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">Generative Autonomous-Driving Simulation Platform</span>
+              <span class="mc-meta">2025.03–Present</span>
+            </span>
+          </a>
+        
+          <a class="more-chip " href="/projects/traffic-sensor-level-ctrl/">
+            <span class="thumb">
+              
+                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/recon_gen_simulation/1.Gen_fg_bg_Diff_light.mp4" type="video/mp4"></video>
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">Vector Traffic Generation & Sensor-Level Closed-Loop Simulation</span>
+              <span class="mc-meta">2025.05–Present</span>
+            </span>
+          </a>
+        
+          <a class="more-chip " href="/projects/e2e-7v-vision/">
+            <span class="thumb">
+              
+                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/e2e_one_stage/E2E_vis.mp4" type="video/mp4"></video>
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">One-Stage End-to-End Driving — 8V Pure Vision</span>
+              <span class="mc-meta">2025.12–2026.04</span>
+            </span>
+          </a>
+        
+          <a class="more-chip " href="/projects/j6m-static-dynamic-perception/">
+            <span class="thumb">
+              
+                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/perception_onemodel/st_vis_single_fream.mp4" type="video/mp4"></video>
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">J6M Static & Dynamic Perception</span>
+              <span class="mc-meta">2025.04–2026.03</span>
+            </span>
+          </a>
+        
+          <a class="more-chip " href="/projects/e2e-lidar-11v-fusion/">
+            <span class="thumb">
+              
+                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/e2e/video_turn_around_e2e.mp4" type="video/mp4"></video>
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">End-to-End Driving: 11V + LiDAR Fusion</span>
+              <span class="mc-meta">2024 · Collaboration</span>
+            </span>
+          </a>
+        
+          <a class="more-chip " href="/projects/phigent-gen-model/">
+            <span class="thumb">
+              
+                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/phigent_gen_model/phigent_gen_7V_video2.mp4" type="video/mp4"></video>
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">Controllable Surround-View Driving Generation</span>
+              <span class="mc-meta">2023.05–2024</span>
+            </span>
+          </a>
+        
+          <a class="more-chip " href="/projects/auto-labeling-4d-lidar/">
+            <span class="thumb">
+              
+                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/offline-4d-labeling/offline_visual_auto_labeling.mp4" type="video/mp4"></video>
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">4D Auto-Labeling & Pure LiDAR 3D Detection</span>
+              <span class="mc-meta">2022.11–2024</span>
+            </span>
+          </a>
+        
+          <a class="more-chip is-current" href="/projects/scene-flow-deployment/" aria-current="page">
+            <span class="thumb">
+              
+                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/scene-flow-deployment/autoflow_vis.mp4" type="video/mp4"></video>
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">3D Scene Flow: Auto-Labeling & Production Deployment</span>
+              <span class="mc-meta">2023.08–2023.12</span>
+            </span>
+          </a>
+        
+          <a class="more-chip " href="/projects/road-preview-disparity/">
+            <span class="thumb">
+              
+                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/magic-carpet/badcase_vis_waterstains.mp4" type="video/mp4"></video>
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">Road Preview: Surface-Element Segmentation</span>
+              <span class="mc-meta">2023.05–2023.11</span>
+            </span>
+          </a>
+        
+          <a class="more-chip " href="/projects/graduation-intro-video/">
+            <span class="thumb">
+              
+                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/graduation-intro-video/cv_jck.mp4" type="video/mp4"></video>
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">Master's Graduation — Introduction Film</span>
+              <span class="mc-meta">2023.06</span>
+            </span>
+          </a>
+        
+          <a class="more-chip " href="/projects/autonomous-lawn-mower-robot/">
+            <span class="thumb">
+              
+                <img src="/assets/media/projects/lawn-mower/project_05_up_down_slope.gif" alt="" loading="lazy">
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">Autonomous Lawn-Mower Robot Perception</span>
+              <span class="mc-meta">2021.09–2023.03</span>
+            </span>
+          </a>
+        
+          <a class="more-chip " href="/projects/integrated-perception-planning-decision/">
+            <span class="thumb">
+              
+                <img src="/assets/media/projects/integrated-driving/project_11_simulation_exploration.gif" alt="" loading="lazy">
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">Integrated Perception, Planning, and Decision-Making Network</span>
+              <span class="mc-meta">2021.08–2022.10</span>
+            </span>
+          </a>
+        
+      </div>
+    </div>
+  </nav>
+  </div>
+  </div>
+</article>
+
+      </main>
+
+      
+    </div>
+
+    <footer class="site-footer">
+      <div>
+        <strong>Jiang Chaokang</strong>
+        <span>World Models Algorithm Engineer · Bosch (XC-CN)</span>
+      </div>
+      <div class="footer-links" aria-label="Profile links">
+        <a href="mailto:jck98@foxmail.com" aria-label="Email" title="Email · jck98@foxmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/></svg>
+        </a>
+        <a href="https://github.com/jiangchaokang" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.6a10.4 10.4 0 0 0-3.29 20.27c.52.1.71-.23.71-.5v-1.96c-2.9.63-3.51-1.23-3.51-1.23-.47-1.2-1.16-1.52-1.16-1.52-.95-.65.07-.64.07-.64 1.05.08 1.6 1.08 1.6 1.08.93 1.6 2.45 1.14 3.05.87.09-.68.36-1.14.66-1.4-2.32-.26-4.76-1.16-4.76-5.16 0-1.14.41-2.07 1.08-2.8-.11-.27-.47-1.33.1-2.78 0 0 .88-.28 2.88 1.07a9.96 9.96 0 0 1 5.24 0c2-1.35 2.87-1.07 2.87-1.07.57 1.45.21 2.51.1 2.78.67.73 1.08 1.66 1.08 2.8 0 4.01-2.45 4.9-4.78 5.16.38.32.71.95.71 1.92v2.85c0 .28.19.61.72.5A10.4 10.4 0 0 0 12 1.6Z"/></svg>
+        </a>
+        <a href="https://scholar.google.com/citations?user=6gZ8vloAAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Google Scholar" title="Google Scholar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4 2 9l10 5 8-4v6"/><path d="M6 11.5V16c0 1.2 2.7 3 6 3s6-1.8 6-3v-4.5"/></svg>
+        </a>
+        <a href="https://x.com/chaokangjiang1" target="_blank" rel="noopener" aria-label="X" title="X (Twitter)">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 3h3.1l-6.77 7.74L21.8 21h-6.2l-4.86-6.36L5.18 21H2.07l7.24-8.28L2.2 3h6.36l4.4 5.81L17.5 3Zm-1.09 16.13h1.72L7.66 4.78H5.82l10.59 14.35Z"/></svg>
+        </a>
+        <a href="/sitemap.xml" aria-label="Sitemap" title="Sitemap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="5" rx="1.2"/><rect x="3" y="16" width="6" height="5" rx="1.2"/><rect x="15" y="16" width="6" height="5" rx="1.2"/><path d="M12 8v4M6 16v-2.5a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1V16"/></svg>
+        </a>
+      </div>
+    </footer>
+  </div>
+
+  <div class="search-modal" data-search-modal data-search-url="/search.json" hidden>
+    <div class="search-backdrop" data-search-close></div>
+    <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search the site">
+      <div class="search-field">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle>
+          <path d="m20 20-3.2-3.2"></path>
+        </svg>
+        <input type="search" placeholder="Search publications, projects, notes…" autocomplete="off" spellcheck="false" aria-label="Search query" data-search-input>
+        <kbd data-search-close>Esc</kbd>
+      </div>
+      <ul class="search-results" data-search-results role="listbox" aria-label="Search results"></ul>
+      <p class="search-hint" data-search-hint>Type to search across publications, projects, and blog notes.</p>
+    </div>
+  </div>
+
+  <script src="/assets/js/main.js" defer></script>
+</body>
+</html>

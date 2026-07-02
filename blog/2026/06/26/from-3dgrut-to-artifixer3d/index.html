@@ -1,0 +1,667 @@
+<!doctype html>
+<html lang="en">
+<head>
+  
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem("theme");
+        var dark = stored === "dark" || stored === "light"
+          ? stored === "dark"
+          : window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+      } catch (e) {}
+    })();
+  </script>
+  
+    <title>从 3DGRUT 到 ArtiFixer3D：一个“先重建、再生成、再蒸馏回 3D”的闭环 — Jiang Chaokang</title>
+  
+  <meta name="description" content="Reading ArtiFixer (SIGGRAPH 2026, NVIDIA Toronto AI Lab) — an interactive 3D logic atlas of the reconstruct → generate → distill-back-to-3D loop.">
+  <meta name="author" content="Jiang Chaokang">
+  <meta name="theme-color" content="#101114">
+  <link rel="canonical" href="https://jiangchaokang.github.io/blog/2026/06/26/from-3dgrut-to-artifixer3d/">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/assets/img/chaokang_jiang/logo-mark.svg">
+  <link rel="icon" type="image/png" href="/assets/img/chaokang_jiang/favicon-dark.png">
+  <link rel="apple-touch-icon" href="/assets/img/chaokang_jiang/favicon-dark.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Jiang Chaokang">
+  <meta property="og:title" content="从 3DGRUT 到 ArtiFixer3D：一个“先重建、再生成、再蒸馏回 3D”的闭环">
+  <meta property="og:description" content="Reading ArtiFixer (SIGGRAPH 2026, NVIDIA Toronto AI Lab) — an interactive 3D logic atlas of the reconstruct → generate → distill-back-to-3D loop.">
+  <meta property="og:url" content="https://jiangchaokang.github.io/blog/2026/06/26/from-3dgrut-to-artifixer3d/">
+  <meta property="og:image" content="https://jiangchaokang.github.io/assets/img/chaokang_jiang/avatar.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="从 3DGRUT 到 ArtiFixer3D：一个“先重建、再生成、再蒸馏回 3D”的闭环">
+  <meta name="twitter:description" content="Reading ArtiFixer (SIGGRAPH 2026, NVIDIA Toronto AI Lab) — an interactive 3D logic atlas of the reconstruct → generate → distill-back-to-3D loop.">
+  <meta name="twitter:image" content="https://jiangchaokang.github.io/assets/img/chaokang_jiang/avatar.png">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Jiang Chaokang",
+    "jobTitle": "World Models Algorithm Engineer",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Bosch (XC-CN)"
+    },
+    "email": "jck98@foxmail.com",
+    "url": "https://jiangchaokang.github.io",
+    "sameAs": [
+      "https://github.com/jiangchaokang"
+    ],
+    "knowsAbout": [
+      "World Models",
+      "Generative Models",
+      "Vision-Language-Action",
+      "Autonomous Driving",
+      "3D Scene Flow",
+      "LiDAR Odometry",
+      "3D/4D Perception"
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <svg class="lg-svg" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="liquid-glass" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+        <feTurbulence type="fractalNoise" baseFrequency="0.009 0.013" numOctaves="2" seed="7" result="noise"/>
+        <feGaussianBlur in="noise" stdDeviation="1.4" result="soft"/>
+        <feDisplacementMap in="SourceGraphic" in2="soft" scale="42" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <div class="site-shell">
+    <header class="site-header" data-site-header>
+      <a class="brand" href="/" aria-label="Jiang Chaokang home">
+        <img src="/assets/img/chaokang_jiang/logo-mark.svg" alt="" width="49" height="38">
+        <span>
+          <strong>Jiang Chaokang</strong>
+          <small>World Models · Generative Driving · 3D/4D Perception</small>
+        </span>
+      </a>
+
+      <div class="header-right">
+        <nav class="site-nav" id="site-nav" aria-label="Primary navigation" data-site-nav>
+          
+            
+            
+
+            
+              <a class="nav-link" href="/" >Home</a>
+            
+          
+            
+            
+
+            
+              <div class="nav-item has-menu" data-nav-item>
+                <a class="nav-trigger" href="/publications/"  aria-haspopup="true" aria-expanded="false" data-nav-trigger>
+                  Publications
+                  <svg class="nav-caret" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </a>
+
+                <div class="nav-dropdown" data-nav-menu role="menu">
+                  <div class="liquid-glass" aria-hidden="true">
+                    <span class="lg-refract"></span>
+                    <span class="lg-tint"></span>
+                    <span class="lg-shine"></span>
+                  </div>
+                  <div class="nav-dropdown-inner">
+                    <p class="nav-dd-blurb">Peer-reviewed work on world models, generative driving, and 3D/4D perception.</p>
+
+                    
+                      
+                      <div class="nav-dd-pubs">
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#jiang2026vectorworld">
+                            <span class="ndp-venue venue-icml">ICML</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">VectorWorld: Efficient Streaming World Model via Diffusion Fl...</span>
+                              <span class="ndp-meta">2026 · Accepted · Spotlight</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#liu2026regformerpp">
+                            <span class="ndp-venue venue-arxiv">arXiv</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">RegFormer++: An Efficient Large-Scale 3D LiDAR Point Registra...</span>
+                              <span class="ndp-meta">2026 · Preprint</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#liu2026difflow3d">
+                            <span class="ndp-venue venue-t-pami">T-PAMI</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">DifFlow3D: Hierarchical Diffusion Models for Uncertainty-Awar...</span>
+                              <span class="ndp-meta">2026 · Published</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#liu2025mamba4d">
+                            <span class="ndp-venue venue-cvpr">CVPR</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">Mamba4D: Efficient 4D Point Cloud Video Understanding with Di...</span>
+                              <span class="ndp-meta">2025 · Published</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#jiang20243dsflabelling">
+                            <span class="ndp-venue venue-cvpr">CVPR</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">3DSFLabelling: Boosting 3D Scene Flow Estimation by Pseudo Au...</span>
+                              <span class="ndp-meta">2024 · Published</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#jiang2024neurogauss4d">
+                            <span class="ndp-venue venue-neurips">NeurIPS</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">NeuroGauss4D-PCI: 4D Neural Fields and Gaussian Deformation F...</span>
+                              <span class="ndp-meta">2024 · Published</span>
+                            </span>
+                          </a>
+                        
+                      </div>
+                      <a class="nav-dd-all" role="menuitem" href="/publications/">All publications<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+
+                    
+                  </div>
+                </div>
+              </div>
+            
+          
+            
+            
+
+            
+              <div class="nav-item has-menu" data-nav-item>
+                <a class="nav-trigger" href="/projects/"  aria-haspopup="true" aria-expanded="false" data-nav-trigger>
+                  Projects
+                  <svg class="nav-caret" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </a>
+
+                <div class="nav-dropdown" data-nav-menu role="menu">
+                  <div class="liquid-glass" aria-hidden="true">
+                    <span class="lg-refract"></span>
+                    <span class="lg-tint"></span>
+                    <span class="lg-shine"></span>
+                  </div>
+                  <div class="nav-dropdown-inner">
+                    <p class="nav-dd-blurb">Production systems and research platforms, shown as interactive logic maps.</p>
+
+                    
+                      
+                      <div class="nav-dd-projects">
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/generative-ad-simulation-platform/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/gen_ad_sim/ingolstadt_gen_video_grid.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">Generative Autonomous-Driving Simulation Platform</span>
+                              <span class="ddp-meta">Research Platform · 2025.03–Present</span>
+                            </span>
+                          </a>
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/traffic-sensor-level-ctrl/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/recon_gen_simulation/1.Gen_fg_bg_Diff_light.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">Vector Traffic Generation & Sensor-Level Closed-Loop Simulation</span>
+                              <span class="ddp-meta">Research Platform · 2025.05–Present</span>
+                            </span>
+                          </a>
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/phigent-gen-model/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/phigent_gen_model/phigent_gen_7V_video2.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">Controllable Surround-View Driving Generation</span>
+                              <span class="ddp-meta">Research Project · 2023.05–2024</span>
+                            </span>
+                          </a>
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/auto-labeling-4d-lidar/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/offline-4d-labeling/offline_visual_auto_labeling.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">4D Auto-Labeling & Pure LiDAR 3D Detection</span>
+                              <span class="ddp-meta">Production + Research Project · 2022.11–2024</span>
+                            </span>
+                          </a>
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/scene-flow-deployment/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/scene-flow-deployment/autoflow_vis.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">3D Scene Flow: Auto-Labeling & Production Deployment</span>
+                              <span class="ddp-meta">Research + Deployment Project · 2023.08–2023.12</span>
+                            </span>
+                          </a>
+                        
+                      </div>
+                      <a class="nav-dd-all" role="menuitem" href="/projects/">All projects<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+
+                    
+                  </div>
+                </div>
+              </div>
+            
+          
+            
+            
+
+            
+              <div class="nav-item has-menu" data-nav-item>
+                <a class="nav-trigger" href="/blog/" aria-current="page" aria-haspopup="true" aria-expanded="false" data-nav-trigger>
+                  Blog
+                  <svg class="nav-caret" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </a>
+
+                <div class="nav-dropdown" data-nav-menu role="menu">
+                  <div class="liquid-glass" aria-hidden="true">
+                    <span class="lg-refract"></span>
+                    <span class="lg-tint"></span>
+                    <span class="lg-shine"></span>
+                  </div>
+                  <div class="nav-dropdown-inner">
+                    <p class="nav-dd-blurb">Engineering notes and long-term practice.</p>
+
+                    
+                      <div class="nav-dd-list">
+                        
+                          <a class="nav-dd-link" role="menuitem" href="/blog/2026/07/01/ge-sim-2-closed-loop-simulator/">
+                            <span class="ddl-title">GE-Sim 2.0: a closed-loop video world simulator for manipulation</span>
+                            <span class="ddl-desc">Jul 1, 2026</span>
+                          </a>
+                        
+                          <a class="nav-dd-link" role="menuitem" href="/blog/2026/06/30/embodied-ai-full-stack/">
+                            <span class="ddl-title">Embodied AI, full stack: body, brain, and safety</span>
+                            <span class="ddl-desc">Jun 30, 2026</span>
+                          </a>
+                        
+                          <a class="nav-dd-link" role="menuitem" href="/blog/2026/06/29/full-stack-autonomous-driving/">
+                            <span class="ddl-title">Full-stack autonomous driving: from sensors to control</span>
+                            <span class="ddl-desc">Jun 29, 2026</span>
+                          </a>
+                        
+                      </div>
+                      <a class="nav-dd-all" role="menuitem" href="/blog/">All notes<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+
+                    
+                  </div>
+                </div>
+              </div>
+            
+          
+            
+            
+
+            
+              <div class="nav-item has-menu" data-nav-item>
+                <a class="nav-trigger" href="/contact/"  aria-haspopup="true" aria-expanded="false" data-nav-trigger>
+                  Contact
+                  <svg class="nav-caret" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </a>
+
+                <div class="nav-dropdown" data-nav-menu role="menu">
+                  <div class="liquid-glass" aria-hidden="true">
+                    <span class="lg-refract"></span>
+                    <span class="lg-tint"></span>
+                    <span class="lg-shine"></span>
+                  </div>
+                  <div class="nav-dropdown-inner">
+                    <p class="nav-dd-blurb">Collaboration, talks, and academic service.</p>
+
+                    
+                      <div class="nav-dd-list">
+                        <a class="nav-dd-link" role="menuitem" href="mailto:jck98@foxmail.com"><span class="ddl-title">Email</span><span class="ddl-desc">jck98@foxmail.com</span></a>
+                        <a class="nav-dd-link" role="menuitem" href="https://scholar.google.com/citations?user=6gZ8vloAAAAJ&hl=en" target="_blank" rel="noopener"><span class="ddl-title">Google Scholar</span><span class="ddl-desc">Publications & citations</span></a>
+                        <a class="nav-dd-link" role="menuitem" href="https://github.com/jiangchaokang" target="_blank" rel="noopener"><span class="ddl-title">GitHub</span><span class="ddl-desc">Open-source & code</span></a>
+                        <a class="nav-dd-link" role="menuitem" href="https://x.com/chaokangjiang1" target="_blank" rel="noopener"><span class="ddl-title">X</span><span class="ddl-desc">@chaokangjiang1</span></a>
+                      </div>
+                      <a class="nav-dd-all" role="menuitem" href="/contact/">Contact & service<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+
+                    
+                  </div>
+                </div>
+              </div>
+            
+          
+        </nav>
+
+        <button class="search-toggle" type="button" aria-label="Search the site" title="Search (⌘K)" data-search-open>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="m20 20-3.2-3.2"></path>
+          </svg>
+        </button>
+
+        <button class="theme-toggle" type="button" aria-label="Switch color theme" title="Switch color theme" data-theme-toggle>
+          <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+
+        <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <div class="page-grid no-news">
+      <main class="main-content" id="main" tabindex="-1">
+        <article class="bx reveal">
+  <header class="bx-hero">
+    <div class="bx-hero-media" aria-hidden="true">
+      <img src="/assets/media/blog/artifixer/teaser_v5-1.jpg" alt="" />
+    </div>
+    <div class="bx-hero-inner">
+      <p class="eyebrow">阅读 · ArtiFixer · SIGGRAPH 2026 · NVIDIA Toronto AI Lab</p>
+      <h1>从 3DGRUT 到 ArtiFixer3D：一个“先重建、再生成、再蒸馏回 3D”的闭环</h1>
+      <p class="bx-byline">显式 3D 重建负责一致，生成式先验负责想象，两者轮流出手——一个能闭环迭代的修复管线。</p>
+    </div>
+    <blockquote class="bx-lede">
+      我对这篇的兴趣不在“又一个修 artifact 的模型”，而在它把两个一直互相看不顺眼的东西——显式 3D 重建和生成式先验——用一个闭环缝在了一起。重建的强项是 3D 一致，弱项是没见过的地方只能瞎填；生成模型正好反过来，能脑补但帧间对不上。ArtiFixer 让它们轮流出手：重建出一个有瑕疵但一致的底，生成模型把它修干净，再把修过的帧蒸馏回一个新的 3D 表示里强行对齐，然后再修一遍。
+    </blockquote>
+  </header>
+
+  <div class="bx-shell" data-proj-shell="">
+    <nav class="proj-toc" data-proj-toc="" aria-label="On this page">
+      <button class="proj-toc-toggle" type="button" data-toc-toggle="" aria-expanded="true" aria-label="Toggle contents">
+        <span class="toc-title">Contents</span>
+        <svg class="toc-chevron" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+      </button>
+      <nav class="proj-toc-nav"><ol data-toc-list=""></ol></nav>
+    </nav>
+
+    <div class="project-body-main bx-body">
+
+      <section class="bx-section">
+        <h2>核心问题</h2>
+        <p class="bx-callout">
+          稀疏视角重建在训练视角附近好看，相机一走开就开始飘 floater、糊、破洞。原因很朴素：重建是拟合，没有“世界本来该长什么样”的先验。纯 3DGS/NeRF 是 3D 一致但不会脑补；纯逐帧 2D 修复会脑补但换个角度就闪。ArtiFixer 不二选一，让两者轮流。
+        </p>
+      </section>
+
+      <section class="bx-section">
+        <h2>推理闭环：重建 → 生成 → 蒸馏回 3D</h2>
+        <p class="bx-note-line">主轴 ①→⑥ 是一次推理；真正的题眼是 ⑤ 回到 ④ 的那条发光曲线——3D 与 2D 来回振荡，越修越干净。下面一排 ⑦→⑩ 是训练三阶段，把权重以虚线喂给 ④。</p>
+        <section class="atlas reveal is-noir" data-atlas="" style="--atlas-cols: 8" aria-label="Interactive logic map">
+  <div class="atlas-bar">
+    <div class="atlas-bar-head">
+      <p class="eyebrow">Reasoning loop · ArtiFixer</p>
+      <h2>重建出一个一致的底，生成把它修干净，再用 3D 强行对齐——然后再修一遍</h2>
+      <p class="atlas-caption">主轴 ①→⑥ 是推理闭环，⑤ 画一条发光曲线回 ④ 就是题眼；下面一排是训练三阶段，权重虚线汇入 ④。Hover 任一节点看四行细节与我的判断。</p>
+    </div>
+    <div class="atlas-tour" data-atlas-tour="" hidden="">
+      <button class="atlas-tour-btn" type="button" data-atlas-toggle="" aria-label="Toggle auto tour">
+        <svg class="ico-play" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+        <svg class="ico-pause" viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z" /></svg>
+        <span data-atlas-status="">Auto&nbsp;Tour</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="atlas-stage" data-atlas-stage="">
+    <div class="atlas-scene" data-atlas-scene="">
+    <svg class="atlas-edges" data-atlas-edges="" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"></svg>
+    <div class="atlas-grid" data-atlas-grid="">
+      
+        <button class="atlas-node acc-ink kind-input is-start" type="button" data-node="capture" style="grid-column: 2 / span 6; grid-row: 1;">
+          <span class="node-tag">Start</span>
+          <span class="node-title">① Capture / COLMAP</span>
+          <span class="node-desc">随手拍 → 接进 3D 流水线</span>
+          
+          <span class="node-spark" aria-hidden="true"></span>
+        </button>
+      
+        <button class="atlas-node acc-blue kind-process" type="button" data-node="grut" style="grid-column: 2 / span 6; grid-row: 2;">
+          <span class="node-tag">Base</span>
+          <span class="node-title">② 3DGRUT 重建（底座）</span>
+          <span class="node-desc">有瑕疵但 3D 一致</span>
+          
+          <span class="node-spark" aria-hidden="true"></span>
+        </button>
+      
+        <button class="atlas-node acc-cyan kind-process" type="button" data-node="cond" style="grid-column: 2 / span 6; grid-row: 3;">
+          <span class="node-tag">Condition</span>
+          <span class="node-title">③ Conditioning（条件）</span>
+          <span class="node-desc">几何 + 语义条件</span>
+          
+          <span class="node-spark" aria-hidden="true"></span>
+        </button>
+      
+        <button class="atlas-node acc-cyan kind-reason is-pulse" type="button" data-node="artifixer" style="grid-column: 2 / span 6; grid-row: 4;">
+          <span class="node-tag">Core · 2D Repair</span>
+          <span class="node-title">④ ArtiFixer（自回归扩散 · 2D 修复）</span>
+          <span class="node-desc">Wan2.1 14B 视频扩散</span>
+          
+          <span class="node-spark" aria-hidden="true"></span>
+        </button>
+      
+        <button class="atlas-node acc-purple kind-process" type="button" data-node="a3d" style="grid-column: 2 / span 6; grid-row: 5;">
+          <span class="node-tag">3D Arbiter</span>
+          <span class="node-title">⑤ ArtiFixer3D（蒸馏回 3D）</span>
+          <span class="node-desc">把生成帧揉进一个 3DGRUT</span>
+          
+          <span class="node-spark" aria-hidden="true"></span>
+        </button>
+      
+        <button class="atlas-node acc-green kind-contribution" type="button" data-node="output" style="grid-column: 1 / span 5; grid-row: 6;">
+          <span class="node-tag">Output</span>
+          <span class="node-title">⑥ ArtiFixer3D+ / Output</span>
+          <span class="node-desc">再修 → 一致漫游</span>
+          
+          <span class="node-spark" aria-hidden="true"></span>
+        </button>
+      
+        <button class="atlas-node acc-ink kind-output" type="button" data-node="eval" style="grid-column: 6 / span 3; grid-row: 6;">
+          <span class="node-tag">Eval</span>
+          <span class="node-title">⑪ Evaluation</span>
+          <span class="node-desc">四步逐一对比</span>
+          
+          <span class="node-spark" aria-hidden="true"></span>
+        </button>
+      
+        <button class="atlas-node acc-warn kind-input" type="button" data-node="dataengine" style="grid-column: 1 / span 2; grid-row: 7;">
+          <span class="node-tag">Data Engine</span>
+          <span class="node-title">⑦ 数据引擎</span>
+          <span class="node-desc">少视角造退化样本</span>
+          
+          <span class="node-spark" aria-hidden="true"></span>
+        </button>
+      
+        <button class="atlas-node acc-blue kind-process" type="button" data-node="sft" style="grid-column: 3 / span 2; grid-row: 7;">
+          <span class="node-tag">Train · S1</span>
+          <span class="node-title">⑧ Stage 1 SFT</span>
+          <span class="node-desc">render → clean</span>
+          
+          <span class="node-spark" aria-hidden="true"></span>
+        </button>
+      
+        <button class="atlas-node acc-purple kind-process" type="button" data-node="df" style="grid-column: 5 / span 2; grid-row: 7;">
+          <span class="node-tag">Train · S2</span>
+          <span class="node-title">⑨ Stage 2 Diffusion Forcing</span>
+          <span class="node-desc">每帧独立噪声</span>
+          
+          <span class="node-spark" aria-hidden="true"></span>
+        </button>
+      
+        <button class="atlas-node acc-cyan kind-process" type="button" data-node="dmd" style="grid-column: 7 / span 2; grid-row: 7;">
+          <span class="node-tag">Train · S3</span>
+          <span class="node-title">⑩ Stage 3 DMD 蒸馏</span>
+          <span class="node-desc">蒸馏成少步生成器</span>
+          
+          <span class="node-spark" aria-hidden="true"></span>
+        </button>
+      
+    </div>
+    </div>
+  </div>
+
+  <aside class="atlas-panel" data-atlas-panel="" aria-live="polite">
+    <div class="ap-head">
+      <span class="ap-dot" data-ap-dot=""></span>
+      <div>
+        <p class="ap-tag" data-ap-tag="">Logic map</p>
+        <h3 class="ap-title" data-ap-title="">主轴 ①→⑥ 是推理闭环，⑤ 画一条发光曲线回 ④ 就是题眼；下面一排是训练三阶段，权重虚线汇入 ④。Hover 任一节点看四行细节与我的判断。</h3>
+      </div>
+    </div>
+    <dl class="ap-io" data-ap-io="">
+      <div class="ap-row"><dt>Input</dt><dd data-ap-receives="">—</dd></div>
+      <div class="ap-row"><dt>Logic</dt><dd data-ap-logic="">—</dd></div>
+      <div class="ap-row"><dt>Output</dt><dd data-ap-sends="">—</dd></div>
+      <div class="ap-row ap-give"><dt>Gives</dt><dd data-ap-gives="">—</dd></div>
+    </dl>
+    <div class="ap-rel" data-ap-rel="" hidden="">
+      <span class="ap-rel-group" data-ap-up="" hidden=""><b>Upstream</b><span></span></span>
+      <span class="ap-rel-group" data-ap-down="" hidden=""><b>Downstream</b><span></span></span>
+    </div>
+    <p class="ap-note" data-ap-note="" hidden=""></p>
+    <figure class="ap-media" data-ap-media="" hidden=""></figure>
+  </aside>
+
+  <script type="application/json" data-atlas-data="">{"variant":"noir","eyebrow":"Reasoning loop · ArtiFixer","title":"重建出一个一致的底，生成把它修干净，再用 3D 强行对齐——然后再修一遍","caption":"主轴 ①→⑥ 是推理闭环，⑤ 画一条发光曲线回 ④ 就是题眼；下面一排是训练三阶段，权重虚线汇入 ④。Hover 任一节点看四行细节与我的判断。","cols":8,"nodes":[{"id":"capture","col":2,"span":6,"row":1,"kind":"input","accent":"ink","tag":"Start","title":"① Capture / COLMAP","desc":"随手拍 → 接进 3D 流水线","receives":"随手拍图像/视频，视角稀疏","logic":"COLMAP 跑稀疏位姿与点云","sends":"相机内外参 + 稀疏点","gives":"把“随手拍”接进 3D 流水线"},{"id":"grut","col":2,"span":6,"row":2,"kind":"process","accent":"blue","tag":"Base","title":"② 3DGRUT 重建（底座）","desc":"有瑕疵但 3D 一致","receives":"COLMAP 结果","logic":"3DGRUT/3DGUT 优化（MCMC，默认 10k 步）","sends":"有瑕疵但 3D 一致的渲染 + opacity + depth","gives":"提供“一致但不干净”的底","note":"选 3DGUT 不是随手选的——它用 unscented transform 直接吃带畸变的相机（OpenCV/鱼眼）和 rolling shutter，省掉去畸变重采样。底座越规整，后面要纠的偏差越少。"},{"id":"cond","col":2,"span":6,"row":3,"kind":"process","accent":"cyan","tag":"Condition","title":"③ Conditioning（条件）","desc":"几何 + 语义条件","receives":"渲染 + opacity + depth","logic":"MoGe 估单目深度做 metric scale，写 caption 文本嵌入","sends":"几何 + 语义条件","gives":"让生成“有据可依”","note":"opacity 这个条件容易被忽略却很关键——等于告诉模型“哪里重建有把握、哪里是空的”，别把有把握的地方也一起改了。metric scale 是为了让不同场景的深度条件落在同一尺度，否则条件本身就是病态的。"},{"id":"artifixer","col":2,"span":6,"row":4,"kind":"reason","accent":"cyan","pulse":true,"tag":"Core · 2D Repair","title":"④ ArtiFixer（自回归扩散 · 2D 修复）","desc":"Wan2.1 14B 视频扩散","media":"/assets/media/blog/artifixer/artifixer_overview_v2-1.jpg","media_type":"image","receives":"重建渲染 + 条件","logic":"Wan2.1 14B 视频扩散，沿相机轨迹自回归生成","sends":"干净且帧间一致的修复帧","gives":"给重建装上“想象力”","note":"最关键的一个判断是——把 NVS 当视频生成来做。沿轨迹看一个场景本质就是一段视频；视频模型天生管时序一致，挪到 NVS 上就是视角一致。用 14B 视频底模而不是图像底模，这步棋是整篇的地基。"},{"id":"a3d","col":2,"span":6,"row":5,"kind":"process","accent":"purple","tag":"3D Arbiter","title":"⑤ ArtiFixer3D（蒸馏回 3D）","desc":"把生成帧揉进一个 3DGRUT","receives":"真实锚点帧 + ArtiFixer 生成帧","logic":"重新优化一个 3DGRUT，把两者揉进同一个 3D","sends":"干净且 3D 一致的重建","gives":"用 3D 当“仲裁”，强行让 2D 生成自洽","note":"我觉得这步是题眼。2D 生成再好也会帧间打架，而一个 3D 表示只能有一个几何——把所有生成帧塞进一次重建，等于逼它们投票出一致解。锚点用真值、目标帧用生成，角色分工正好对上 diffusion forcing 里“已知 vs 待生成”。"},{"id":"output","col":1,"span":5,"row":6,"kind":"contribution","accent":"green","tag":"Output","title":"⑥ ArtiFixer3D+ / Output","desc":"再修 → 一致漫游","media":"/assets/media/blog/artifixer/teaser_v5-1.jpg","media_type":"image","receives":"ArtiFixer3D 的新渲染","logic":"把 ArtiFixer 再跑一次","sends":"进一步精修的漫游 / 一致 3D","gives":"闭环迭代，越修越干净","note":"闭环就是 3D→2D→3D→2D。底子干净了，生成要纠的就少，输出更稳。本质像一轮 EM——生成负责“提议”，3D 负责“对齐”。"},{"id":"eval","col":6,"span":3,"row":6,"kind":"output","accent":"ink","tag":"Eval","title":"⑪ Evaluation","desc":"四步逐一对比","media":"/assets/media/blog/artifixer/different-steps-1.jpg","media_type":"image","logic":"四行对比 3DGUT / ArtiFixer / ArtiFixer3D / ArtiFixer3D+","sends":"DL3DV + NerfBusters 上评测","gives":"把“每一步到底有没有用”拆开看"},{"id":"dataengine","col":1,"span":2,"row":7,"kind":"input","accent":"warn","tag":"Data Engine","title":"⑦ 数据引擎","desc":"少视角造退化样本","logic":"DL3DV 用少视角(2/3/6/12)重建造退化样本，留出视角当 GT；half-covisibility 切分","sends":"(有瑕疵渲染, 干净 GT) 配对","gives":"不用人工标注白嫖监督对","note":"这个自监督造数据思路能直接搬走——任何“重建增强”任务，都能用“少喂几张视角”人为制造退化、拿全量视角当监督。便宜、可扩展。"},{"id":"sft","col":3,"span":2,"row":7,"kind":"process","accent":"blue","tag":"Train · S1","title":"⑧ Stage 1 SFT","desc":"render → clean","logic":"监督微调，学 render→clean 的条件映射","sends":"会基本修复的底模"},{"id":"df","col":5,"span":2,"row":7,"kind":"process","accent":"purple","tag":"Train · S2","title":"⑨ Stage 2 Diffusion Forcing","desc":"每帧独立噪声","logic":"每帧独立噪声等级，自回归 rollout","sends":"能拉长轨迹、保持一致的模型","note":"选 diffusion forcing 而非普通视频扩散，因为每帧独立噪声天然能表达“这帧是给定锚点(低噪)、那帧要生成(高噪)”，正好对上推理时锚点/目标的分工。工具和问题是咬合的。"},{"id":"dmd","col":7,"span":2,"row":7,"kind":"process","accent":"cyan","tag":"Train · S3","title":"⑩ Stage 3 DMD 蒸馏","desc":"蒸馏成少步生成器","logic":"分布匹配蒸馏成少步生成器；s2 当 student、s1 当 critic","sends":"跑得快的生成器","note":"DMD 不只是为了部署快。闭环要把模型跑好几遍，几十步采样扛不住——是“闭环”这个算法设计反过来要求了“少步蒸馏”。算法和系统是一起设计的。"}],"edges":[{"from":"capture","to":"grut","kind":"flow"},{"from":"grut","to":"cond","kind":"flow"},{"from":"cond","to":"artifixer","kind":"flow"},{"from":"artifixer","to":"a3d","kind":"flow"},{"from":"a3d","to":"output","kind":"flow"},{"from":"a3d","to":"artifixer","kind":"loop"},{"from":"output","to":"eval","kind":"dashed"},{"from":"dataengine","to":"sft","kind":"dashed"},{"from":"sft","to":"df","kind":"dashed"},{"from":"df","to":"dmd","kind":"dashed"},{"from":"dmd","to":"artifixer","kind":"dashed"}]}</script>
+</section>
+      </section>
+
+      <section class="bx-section">
+        <h2>三条贡献</h2>
+        <div class="bx-contribs">
+          <article class="bx-contrib" tabindex="0" data-atlas-link="artifixer,a3d">
+            <span class="bx-cnum">01</span>
+            <h3>把生成先验装进 3D 重建</h3>
+            <p class="bx-src">来源 ④ + ⑤</p>
+            <p class="bx-res"><span aria-hidden="true">→</span> 没观测到的区域也能补出合理内容</p>
+          </article>
+          <article class="bx-contrib" tabindex="0" data-atlas-link="a3d">
+            <span class="bx-cnum">02</span>
+            <h3>3D 仲裁带来视角一致</h3>
+            <p class="bx-src">来源 ⑤</p>
+            <p class="bx-res"><span aria-hidden="true">→</span> 比逐帧 2D 修复更不闪、几何更稳</p>
+          </article>
+          <article class="bx-contrib" tabindex="0" data-atlas-link="a3d,artifixer,output">
+            <span class="bx-cnum">03</span>
+            <h3>闭环可迭代精修</h3>
+            <p class="bx-src">来源 ⑤ → ④ → ⑥</p>
+            <p class="bx-res"><span aria-hidden="true">→</span> ArtiFixer3D+ 在更干净的底上再修</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="bx-section">
+        <h2>结果</h2>
+        <p class="bx-note-line">只用三张原图，绑在对应模块上：teaser 是输出 ⑥，方法总览是核心 ④，去噪步骤挂在评测旁——悬停图里的节点也会浮出同一张图。</p>
+        <div class="bx-media">
+          <figure class="bx-fig">
+            <img src="/assets/media/blog/artifixer/teaser_v5-1.jpg" alt="ArtiFixer teaser — clean novel-view roaming" loading="lazy" />
+            <figcaption><strong>Fig.1 · ⑥ Output.</strong> 随手拍进去，干净一致的漫游出来。</figcaption>
+          </figure>
+          <figure class="bx-fig">
+            <img src="/assets/media/blog/artifixer/artifixer_overview_v2-1.jpg" alt="ArtiFixer method overview" loading="lazy" />
+            <figcaption><strong>Fig.2 · ④ ArtiFixer.</strong> 把 NVS 当视频生成：沿轨迹自回归修复，时序一致即视角一致。</figcaption>
+          </figure>
+          <figure class="bx-fig">
+            <img src="/assets/media/blog/artifixer/different-steps-1.jpg" alt="ArtiFixer denoising steps" loading="lazy" />
+            <figcaption><strong>Fig.11 · 去噪步骤.</strong> 一步步把瑕疵渲染收敛到干净帧。</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="bx-section">
+        <h2>我的判断 / 后续</h2>
+        <ul class="bx-takeaways">
+          <li>这套“想象力来自生成、一致性来自显式表示、两者轮流”的范式不止能修重建。任何“先有个粗结构、再补全/精修”的活都能套：粗 mesh → 生成贴图 → 烤回 mesh；粗动作 → 生成补全 → 约束回骨架。</li>
+          <li>要小心的地方：生成先验会“合理地编错”——纹理几何看着对、其实不是真值。3D 仲裁能压一部分，但压不干净。做数字孪生、检测这类要测量精度的活，得对这点有数。</li>
+          <li>我自己会怎么用：当成“随手拍 → 干净漫游”的工具链。COLMAP → prepare → ArtiFixer → ArtiFixer3D 这条线，基本就是一个 capture-to-clean-3D 的成品。</li>
+        </ul>
+      </section>
+
+    </div>
+  </div>
+</article>
+
+      </main>
+
+      
+    </div>
+
+    <footer class="site-footer">
+      <div>
+        <strong>Jiang Chaokang</strong>
+        <span>World Models Algorithm Engineer · Bosch (XC-CN)</span>
+      </div>
+      <div class="footer-links" aria-label="Profile links">
+        <a href="mailto:jck98@foxmail.com" aria-label="Email" title="Email · jck98@foxmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/></svg>
+        </a>
+        <a href="https://github.com/jiangchaokang" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.6a10.4 10.4 0 0 0-3.29 20.27c.52.1.71-.23.71-.5v-1.96c-2.9.63-3.51-1.23-3.51-1.23-.47-1.2-1.16-1.52-1.16-1.52-.95-.65.07-.64.07-.64 1.05.08 1.6 1.08 1.6 1.08.93 1.6 2.45 1.14 3.05.87.09-.68.36-1.14.66-1.4-2.32-.26-4.76-1.16-4.76-5.16 0-1.14.41-2.07 1.08-2.8-.11-.27-.47-1.33.1-2.78 0 0 .88-.28 2.88 1.07a9.96 9.96 0 0 1 5.24 0c2-1.35 2.87-1.07 2.87-1.07.57 1.45.21 2.51.1 2.78.67.73 1.08 1.66 1.08 2.8 0 4.01-2.45 4.9-4.78 5.16.38.32.71.95.71 1.92v2.85c0 .28.19.61.72.5A10.4 10.4 0 0 0 12 1.6Z"/></svg>
+        </a>
+        <a href="https://scholar.google.com/citations?user=6gZ8vloAAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Google Scholar" title="Google Scholar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4 2 9l10 5 8-4v6"/><path d="M6 11.5V16c0 1.2 2.7 3 6 3s6-1.8 6-3v-4.5"/></svg>
+        </a>
+        <a href="https://x.com/chaokangjiang1" target="_blank" rel="noopener" aria-label="X" title="X (Twitter)">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 3h3.1l-6.77 7.74L21.8 21h-6.2l-4.86-6.36L5.18 21H2.07l7.24-8.28L2.2 3h6.36l4.4 5.81L17.5 3Zm-1.09 16.13h1.72L7.66 4.78H5.82l10.59 14.35Z"/></svg>
+        </a>
+        <a href="/sitemap.xml" aria-label="Sitemap" title="Sitemap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="5" rx="1.2"/><rect x="3" y="16" width="6" height="5" rx="1.2"/><rect x="15" y="16" width="6" height="5" rx="1.2"/><path d="M12 8v4M6 16v-2.5a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1V16"/></svg>
+        </a>
+      </div>
+    </footer>
+  </div>
+
+  <div class="search-modal" data-search-modal data-search-url="/search.json" hidden>
+    <div class="search-backdrop" data-search-close></div>
+    <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search the site">
+      <div class="search-field">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle>
+          <path d="m20 20-3.2-3.2"></path>
+        </svg>
+        <input type="search" placeholder="Search publications, projects, notes…" autocomplete="off" spellcheck="false" aria-label="Search query" data-search-input>
+        <kbd data-search-close>Esc</kbd>
+      </div>
+      <ul class="search-results" data-search-results role="listbox" aria-label="Search results"></ul>
+      <p class="search-hint" data-search-hint>Type to search across publications, projects, and blog notes.</p>
+    </div>
+  </div>
+
+  <script src="/assets/js/main.js" defer></script>
+</body>
+</html>

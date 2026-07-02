@@ -1,0 +1,973 @@
+<!doctype html>
+<html lang="en">
+<head>
+  
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem("theme");
+        var dark = stored === "dark" || stored === "light"
+          ? stored === "dark"
+          : window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+      } catch (e) {}
+    })();
+  </script>
+  
+    <title>Road Preview: Surface-Element Segmentation — Jiang Chaokang</title>
+  
+  <meta name="description" content="Robust segmentation of manhole covers and speed bumps for a road-preview suspension feature, hardened against hard cases and INT8-quantized for TDA4 edge deployment.">
+  <meta name="author" content="Jiang Chaokang">
+  <meta name="theme-color" content="#101114">
+  <link rel="canonical" href="https://jiangchaokang.github.io/projects/road-preview-disparity/">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/assets/img/chaokang_jiang/logo-mark.svg">
+  <link rel="icon" type="image/png" href="/assets/img/chaokang_jiang/favicon-dark.png">
+  <link rel="apple-touch-icon" href="/assets/img/chaokang_jiang/favicon-dark.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Jiang Chaokang">
+  <meta property="og:title" content="Road Preview: Surface-Element Segmentation">
+  <meta property="og:description" content="Robust segmentation of manhole covers and speed bumps for a road-preview suspension feature, hardened against hard cases and INT8-quantized for TDA4 edge deployment.">
+  <meta property="og:url" content="https://jiangchaokang.github.io/projects/road-preview-disparity/">
+  <meta property="og:image" content="https://jiangchaokang.github.io/assets/img/chaokang_jiang/avatar.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Road Preview: Surface-Element Segmentation">
+  <meta name="twitter:description" content="Robust segmentation of manhole covers and speed bumps for a road-preview suspension feature, hardened against hard cases and INT8-quantized for TDA4 edge deployment.">
+  <meta name="twitter:image" content="https://jiangchaokang.github.io/assets/img/chaokang_jiang/avatar.png">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Jiang Chaokang",
+    "jobTitle": "World Models Algorithm Engineer",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Bosch (XC-CN)"
+    },
+    "email": "jck98@foxmail.com",
+    "url": "https://jiangchaokang.github.io",
+    "sameAs": [
+      "https://github.com/jiangchaokang"
+    ],
+    "knowsAbout": [
+      "World Models",
+      "Generative Models",
+      "Vision-Language-Action",
+      "Autonomous Driving",
+      "3D Scene Flow",
+      "LiDAR Odometry",
+      "3D/4D Perception"
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <svg class="lg-svg" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="liquid-glass" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+        <feTurbulence type="fractalNoise" baseFrequency="0.009 0.013" numOctaves="2" seed="7" result="noise"/>
+        <feGaussianBlur in="noise" stdDeviation="1.4" result="soft"/>
+        <feDisplacementMap in="SourceGraphic" in2="soft" scale="42" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <div class="site-shell">
+    <header class="site-header" data-site-header>
+      <a class="brand" href="/" aria-label="Jiang Chaokang home">
+        <img src="/assets/img/chaokang_jiang/logo-mark.svg" alt="" width="49" height="38">
+        <span>
+          <strong>Jiang Chaokang</strong>
+          <small>World Models · Generative Driving · 3D/4D Perception</small>
+        </span>
+      </a>
+
+      <div class="header-right">
+        <nav class="site-nav" id="site-nav" aria-label="Primary navigation" data-site-nav>
+          
+            
+            
+
+            
+              <a class="nav-link" href="/" >Home</a>
+            
+          
+            
+            
+
+            
+              <div class="nav-item has-menu" data-nav-item>
+                <a class="nav-trigger" href="/publications/"  aria-haspopup="true" aria-expanded="false" data-nav-trigger>
+                  Publications
+                  <svg class="nav-caret" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </a>
+
+                <div class="nav-dropdown" data-nav-menu role="menu">
+                  <div class="liquid-glass" aria-hidden="true">
+                    <span class="lg-refract"></span>
+                    <span class="lg-tint"></span>
+                    <span class="lg-shine"></span>
+                  </div>
+                  <div class="nav-dropdown-inner">
+                    <p class="nav-dd-blurb">Peer-reviewed work on world models, generative driving, and 3D/4D perception.</p>
+
+                    
+                      
+                      <div class="nav-dd-pubs">
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#jiang2026vectorworld">
+                            <span class="ndp-venue venue-icml">ICML</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">VectorWorld: Efficient Streaming World Model via Diffusion Fl...</span>
+                              <span class="ndp-meta">2026 · Accepted · Spotlight</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#liu2026regformerpp">
+                            <span class="ndp-venue venue-arxiv">arXiv</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">RegFormer++: An Efficient Large-Scale 3D LiDAR Point Registra...</span>
+                              <span class="ndp-meta">2026 · Preprint</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#liu2026difflow3d">
+                            <span class="ndp-venue venue-t-pami">T-PAMI</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">DifFlow3D: Hierarchical Diffusion Models for Uncertainty-Awar...</span>
+                              <span class="ndp-meta">2026 · Published</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#liu2025mamba4d">
+                            <span class="ndp-venue venue-cvpr">CVPR</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">Mamba4D: Efficient 4D Point Cloud Video Understanding with Di...</span>
+                              <span class="ndp-meta">2025 · Published</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#jiang20243dsflabelling">
+                            <span class="ndp-venue venue-cvpr">CVPR</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">3DSFLabelling: Boosting 3D Scene Flow Estimation by Pseudo Au...</span>
+                              <span class="ndp-meta">2024 · Published</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#jiang2024neurogauss4d">
+                            <span class="ndp-venue venue-neurips">NeurIPS</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">NeuroGauss4D-PCI: 4D Neural Fields and Gaussian Deformation F...</span>
+                              <span class="ndp-meta">2024 · Published</span>
+                            </span>
+                          </a>
+                        
+                      </div>
+                      <a class="nav-dd-all" role="menuitem" href="/publications/">All publications<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+
+                    
+                  </div>
+                </div>
+              </div>
+            
+          
+            
+            
+
+            
+              <div class="nav-item has-menu" data-nav-item>
+                <a class="nav-trigger" href="/projects/" aria-current="page" aria-haspopup="true" aria-expanded="false" data-nav-trigger>
+                  Projects
+                  <svg class="nav-caret" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </a>
+
+                <div class="nav-dropdown" data-nav-menu role="menu">
+                  <div class="liquid-glass" aria-hidden="true">
+                    <span class="lg-refract"></span>
+                    <span class="lg-tint"></span>
+                    <span class="lg-shine"></span>
+                  </div>
+                  <div class="nav-dropdown-inner">
+                    <p class="nav-dd-blurb">Production systems and research platforms, shown as interactive logic maps.</p>
+
+                    
+                      
+                      <div class="nav-dd-projects">
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/generative-ad-simulation-platform/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/gen_ad_sim/ingolstadt_gen_video_grid.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">Generative Autonomous-Driving Simulation Platform</span>
+                              <span class="ddp-meta">Research Platform · 2025.03–Present</span>
+                            </span>
+                          </a>
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/traffic-sensor-level-ctrl/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/recon_gen_simulation/1.Gen_fg_bg_Diff_light.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">Vector Traffic Generation & Sensor-Level Closed-Loop Simulation</span>
+                              <span class="ddp-meta">Research Platform · 2025.05–Present</span>
+                            </span>
+                          </a>
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/phigent-gen-model/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/phigent_gen_model/phigent_gen_7V_video2.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">Controllable Surround-View Driving Generation</span>
+                              <span class="ddp-meta">Research Project · 2023.05–2024</span>
+                            </span>
+                          </a>
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/auto-labeling-4d-lidar/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/offline-4d-labeling/offline_visual_auto_labeling.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">4D Auto-Labeling & Pure LiDAR 3D Detection</span>
+                              <span class="ddp-meta">Production + Research Project · 2022.11–2024</span>
+                            </span>
+                          </a>
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/scene-flow-deployment/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/scene-flow-deployment/autoflow_vis.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">3D Scene Flow: Auto-Labeling & Production Deployment</span>
+                              <span class="ddp-meta">Research + Deployment Project · 2023.08–2023.12</span>
+                            </span>
+                          </a>
+                        
+                      </div>
+                      <a class="nav-dd-all" role="menuitem" href="/projects/">All projects<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+
+                    
+                  </div>
+                </div>
+              </div>
+            
+          
+            
+            
+
+            
+              <div class="nav-item has-menu" data-nav-item>
+                <a class="nav-trigger" href="/blog/"  aria-haspopup="true" aria-expanded="false" data-nav-trigger>
+                  Blog
+                  <svg class="nav-caret" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </a>
+
+                <div class="nav-dropdown" data-nav-menu role="menu">
+                  <div class="liquid-glass" aria-hidden="true">
+                    <span class="lg-refract"></span>
+                    <span class="lg-tint"></span>
+                    <span class="lg-shine"></span>
+                  </div>
+                  <div class="nav-dropdown-inner">
+                    <p class="nav-dd-blurb">Engineering notes and long-term practice.</p>
+
+                    
+                      <div class="nav-dd-list">
+                        
+                          <a class="nav-dd-link" role="menuitem" href="/blog/2026/07/01/ge-sim-2-closed-loop-simulator/">
+                            <span class="ddl-title">GE-Sim 2.0: a closed-loop video world simulator for manipulation</span>
+                            <span class="ddl-desc">Jul 1, 2026</span>
+                          </a>
+                        
+                          <a class="nav-dd-link" role="menuitem" href="/blog/2026/06/30/embodied-ai-full-stack/">
+                            <span class="ddl-title">Embodied AI, full stack: body, brain, and safety</span>
+                            <span class="ddl-desc">Jun 30, 2026</span>
+                          </a>
+                        
+                          <a class="nav-dd-link" role="menuitem" href="/blog/2026/06/29/full-stack-autonomous-driving/">
+                            <span class="ddl-title">Full-stack autonomous driving: from sensors to control</span>
+                            <span class="ddl-desc">Jun 29, 2026</span>
+                          </a>
+                        
+                      </div>
+                      <a class="nav-dd-all" role="menuitem" href="/blog/">All notes<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+
+                    
+                  </div>
+                </div>
+              </div>
+            
+          
+            
+            
+
+            
+              <div class="nav-item has-menu" data-nav-item>
+                <a class="nav-trigger" href="/contact/"  aria-haspopup="true" aria-expanded="false" data-nav-trigger>
+                  Contact
+                  <svg class="nav-caret" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </a>
+
+                <div class="nav-dropdown" data-nav-menu role="menu">
+                  <div class="liquid-glass" aria-hidden="true">
+                    <span class="lg-refract"></span>
+                    <span class="lg-tint"></span>
+                    <span class="lg-shine"></span>
+                  </div>
+                  <div class="nav-dropdown-inner">
+                    <p class="nav-dd-blurb">Collaboration, talks, and academic service.</p>
+
+                    
+                      <div class="nav-dd-list">
+                        <a class="nav-dd-link" role="menuitem" href="mailto:jck98@foxmail.com"><span class="ddl-title">Email</span><span class="ddl-desc">jck98@foxmail.com</span></a>
+                        <a class="nav-dd-link" role="menuitem" href="https://scholar.google.com/citations?user=6gZ8vloAAAAJ&hl=en" target="_blank" rel="noopener"><span class="ddl-title">Google Scholar</span><span class="ddl-desc">Publications & citations</span></a>
+                        <a class="nav-dd-link" role="menuitem" href="https://github.com/jiangchaokang" target="_blank" rel="noopener"><span class="ddl-title">GitHub</span><span class="ddl-desc">Open-source & code</span></a>
+                        <a class="nav-dd-link" role="menuitem" href="https://x.com/chaokangjiang1" target="_blank" rel="noopener"><span class="ddl-title">X</span><span class="ddl-desc">@chaokangjiang1</span></a>
+                      </div>
+                      <a class="nav-dd-all" role="menuitem" href="/contact/">Contact & service<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+
+                    
+                  </div>
+                </div>
+              </div>
+            
+          
+        </nav>
+
+        <button class="search-toggle" type="button" aria-label="Search the site" title="Search (⌘K)" data-search-open>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="m20 20-3.2-3.2"></path>
+          </svg>
+        </button>
+
+        <button class="theme-toggle" type="button" aria-label="Switch color theme" title="Switch color theme" data-theme-toggle>
+          <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+
+        <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <div class="page-grid no-news">
+      <main class="main-content" id="main" tabindex="-1">
+        <article class="project-detail">
+  <header class="project-hero reveal">
+    <div class="project-hero-intro">
+      <p class="eyebrow">Production Project</p>
+      <h1>Road Preview: Surface-Element Segmentation</h1>
+      <p class="lead">Robust segmentation of small road elements — manhole covers and speed bumps — for the road-preview / 'magic-carpet' suspension feature, hardened against hard cases and quantized for TDA4 edge deployment.</p>
+    </div>
+
+    <figure class="project-cover project-banner spotlight-card">
+      
+        <video autoplay muted loop playsinline controls preload="auto" disablepictureinpicture disableremoteplayback>
+          <source src="/assets/media/projects/magic-carpet/badcase_vis_waterstains.mp4" type="video/mp4">
+        </video>
+      
+    </figure>
+
+    <dl class="project-meta-bar">
+      <div class="pm-item"><dt>Timeline</dt><dd>2023.05–2023.11</dd></div>
+      <div class="pm-item"><dt>Context</dt><dd>BYD</dd></div>
+      <div class="pm-item"><dt>Role</dt><dd>Perception Model Optimization Engineer</dd></div>
+      <div class="pm-item"><dt>Stage</dt><dd>Deployment-oriented · near-SOP</dd></div>
+    </dl>
+  </header>
+
+  <div class="project-body" data-proj-shell>
+    <aside class="proj-toc" data-proj-toc aria-label="On this page">
+      <button class="proj-toc-toggle" type="button" data-toc-toggle aria-expanded="true" aria-label="Toggle contents">
+        <span class="toc-title">Contents</span>
+        <svg class="toc-chevron" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <nav class="proj-toc-nav"><ol data-toc-list></ol></nav>
+    </aside>
+
+    <div class="project-body-main">
+
+  <section class="section reveal">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Overview</p>
+        <h2>What is this project about?</h2>
+      </div>
+    </div>
+    <p class="large-text">A road-surface perception project for the road-preview ('magic-carpet') suspension feature: segment safety-critical small road elements — manhole covers and speed bumps — reliably under hard real-world conditions (tiny targets, water and oil stains, textureless surfaces), then compress and quantize the model to INT8 for efficient TDA4 edge inference, reaching an initial mass-production quality bar.</p>
+    
+    <div class="tag-row project-tags">
+      
+        <span class="tag">production</span>
+      
+        <span class="tag">perception</span>
+      
+        <span class="tag">deployment</span>
+      
+    </div>
+    
+  </section>
+
+  
+
+  
+
+  <section class="section reveal ">
+    <div class="lawn-modules">
+
+  <!-- ===================== CHALLENGE ===================== -->
+  <div class="module-head">
+    <p class="eyebrow">The Challenge</p>
+    <h2>Why small road-element segmentation is hard</h2>
+    <p class="module-oneliner">
+      The road-preview feature looks ahead and segments small surface elements so the suspension can
+      pre-adjust. The targets are tiny and the visual conditions are adversarial — three failure modes
+      dominate.
+    </p>
+  </div>
+
+  <div class="challenge-row">
+    <figure>
+      <img src="/assets/media/projects/magic-carpet/seg_challenge_1_1.png" alt="Tiny road element in a full driving scene" loading="lazy" />
+      <figcaption>Full-scene context — the target is a small fraction of the frame.</figcaption>
+    </figure>
+    <figure>
+      <img src="/assets/media/projects/magic-carpet/seg_challenge_1.png" alt="Close-up of a manhole cover" loading="lazy" />
+      <figcaption>Manhole cover — often textureless or road-colored.</figcaption>
+    </figure>
+    <figure>
+      <img src="/assets/media/projects/magic-carpet/seg_challenge_2.png" alt="Water-stain patch on the road" loading="lazy" />
+      <figcaption>Water / oil stain — texture mimics a real cover.</figcaption>
+    </figure>
+    <figure>
+      <img src="/assets/media/projects/magic-carpet/seg_challenge_3.png" alt="Low-contrast road element" loading="lazy" />
+      <figcaption>Low contrast — element blends into the asphalt.</figcaption>
+    </figure>
+  </div>
+
+  <div class="info-table">
+    <table>
+      <thead>
+        <tr><th>#</th><th>Challenge</th><th>Why it breaks naive models</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>01</td>
+          <td>Extremely small targets</td>
+          <td>Manhole covers and speed bumps can occupy <strong>less than 1% of the image pixels</strong>, so the signal is easily lost to pooling and down-sampling.</td>
+        </tr>
+        <tr>
+          <td>02</td>
+          <td>Stain / texture confusion</td>
+          <td>Water and oil stains on the road produce textures <strong>highly similar to a real manhole cover</strong>, driving false positives.</td>
+        </tr>
+        <tr>
+          <td>03</td>
+          <td>Textureless / color-matched</td>
+          <td>Many covers are <strong>textureless or nearly the same color as the asphalt</strong>, driving missed detections.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ===================== TRAINING PIPELINE ===================== -->
+  <div class="module-head" style="margin-top:2.4rem">
+    <p class="eyebrow">Stage 1 · Train (FP32)</p>
+    <h2>Segmentation training pipeline</h2>
+    <p class="module-oneliner">
+      A classic <strong>Encoder–Decoder</strong> design, tuned end-to-end for TDA4 edge deployment.
+      The flow runs data → features → decoding → loss → optimization → evaluation, looped each epoch.
+    </p>
+    <div class="tool-chips">
+      <span class="chip">RegNet backbone</span>
+      <span class="chip">FPN EdgeAI-Lite decoder</span>
+      <span class="chip">OHEM · Lovász · Tversky · Focal</span>
+      <span class="chip">AdamW · mIoU</span>
+    </div>
+  </div>
+
+  <div class="proj-figure on-white is-narrow" style="margin-top:1.1rem">
+    <img src="/assets/media/projects/magic-carpet/seg_model_arch.png" alt="Segmentation training pipeline architecture" loading="lazy" />
+    <figcaption><strong>Training pipeline.</strong> Data loading → augmentation → RegNet backbone → FPN EdgeAI-Lite decoder → combined losses; AdamW optimizes and mIoU evaluates. The blue arcs are the per-epoch training loop. This stage produces a high-accuracy floating-point model.</figcaption>
+  </div>
+
+  <div class="sub-head"><span class="ver">Left</span><h4>Data → feature extraction</h4></div>
+  <div class="info-table">
+    <table>
+      <thead><tr><th>Module</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td>Data Loading</td><td>Reads images and their pixel-level annotation masks; supports multiple segmentation dataset formats.</td></tr>
+        <tr><td>Data Augmentation</td><td>The <strong>train</strong> pipeline applies strong augmentation (random crop / flip / color jitter); the <strong>test</strong> pipeline only normalizes. The two are strictly separated to avoid data leakage.</td></tr>
+        <tr><td>Backbone · RegNet</td><td>A regularized network found by design-space search — high compute efficiency and accuracy, ideal for edge deployment (low MAC, low memory). Emits multi-scale feature maps (C2–C5, ResNet-style).</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sub-head"><span class="ver v2">Center</span><h4>Decoding → losses</h4></div>
+  <div class="info-table">
+    <table>
+      <thead><tr><th>Module</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td>Decoder · FPNEdgeAILiteDecoder</td><td>A lightweight FPN-based decoder built for EdgeAI (TI EdgeAI Toolbox): fuses multi-scale features, upsamples back to full resolution, and outputs a per-pixel class-probability map.</td></tr>
+        <tr><td>Loss · OHEM</td><td>Online Hard Example Mining — dynamically selects high-loss hard samples for back-propagation to mitigate class imbalance.</td></tr>
+        <tr><td>Loss · Lovász</td><td>A differentiable surrogate that directly optimizes IoU, aligned with the mIoU metric; outperforms pure cross-entropy on segmentation.</td></tr>
+        <tr><td>Loss · Tversky</td><td>A generalization of Dice loss; α/β control the false-positive / false-negative trade-off — well suited to small and rare targets.</td></tr>
+        <tr><td>Loss · Focal</td><td>Down-weights easy samples and focuses on hard pixels; effective under extreme class imbalance.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="flow-note">The four losses are combined with weights so they complementarily cover the different failure modes above.</p>
+
+  <div class="sub-head"><span class="ver">Right</span><h4>Optimization → evaluation</h4></div>
+  <div class="info-table">
+    <table>
+      <thead><tr><th>Module</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td>Optimizer · AdamW</td><td>Adam with decoupled weight decay — fast convergence and good generalization, robust for CNN/Transformer-style architectures.</td></tr>
+        <tr><td>Evaluation · mIoU</td><td>Mean Intersection-over-Union — the standard segmentation metric, averaged over all classes for a fair view of long-tail performance.</td></tr>
+        <tr><td>Training loop (blue arcs)</td><td>The left arc re-enters Data Loading each epoch to stream new batches; the right arc feeds evaluation back to drive hyper-parameter tuning (LR scheduler) and early stopping.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ===================== QUANTIZATION / COMPILE ===================== -->
+  <div class="module-head" style="margin-top:2.4rem">
+    <p class="eyebrow">Stage 2 · Quantize &amp; Compile (INT8)</p>
+    <h2>From FP32 ONNX to a TDA4 TIDL binary</h2>
+    <p class="module-oneliner">
+      The trained floating-point model is compiled and quantized into a TDA4-runnable TIDL binary using
+      TI's <strong>TIDL Model Import</strong> toolchain — three inputs feed a containerized import step.
+    </p>
+  </div>
+
+  <div class="proj-figure on-white is-narrow" style="margin-top:1.1rem">
+    <img src="/assets/media/projects/magic-carpet/TDA4_QAT_flow.png" alt="TDA4 TIDL model import and quantization flow" loading="lazy" />
+    <figcaption><strong>Quantization &amp; compile flow.</strong> Float ONNX + import config + calibration set → TIDL model-import Docker container → quantized TIDL binary. This stage compresses the model to an edge-efficient form.</figcaption>
+  </div>
+
+  <div class="sub-head"><span class="ver">Inputs</span><h4>Three inputs to the import step</h4></div>
+  <div class="info-table">
+    <table>
+      <thead><tr><th>Input</th><th>Role</th></tr></thead>
+      <tbody>
+        <tr><td>float onnx</td><td>The exported FP32 ONNX model — full network structure and FP32 weights.</td></tr>
+        <tr><td>model import cfg</td><td>TIDL compile config: quantization bit-width (INT8/INT16), input size, target core (MMA / C7x DSP), and operator-mapping strategy.</td></tr>
+        <tr><td>calibration set</td><td>A small set of real images (~100–500) for <strong>Post-Training Quantization (PTQ)</strong> calibration — collects each layer's activation range (min/max or histogram) to set the quantization scale / zero-point.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sub-head"><span class="ver v2">Container</span><h4>Inside the model-import Docker container</h4></div>
+  <p class="module-oneliner" style="margin-top:.4rem">
+    <strong>Why Docker?</strong> The TIDL toolchain depends on a specific TI SDK environment; the container
+    guarantees consistency and avoids dependency conflicts. The dashed arrow means the Docker image is the
+    container's source — provided by TI and pulled on demand.
+  </p>
+  <div class="info-table">
+    <table>
+      <thead><tr><th>Step</th><th>What happens</th></tr></thead>
+      <tbody>
+        <tr><td>1 · Operator fusion</td><td>Merges <span class="mono">Conv + BN + ReLU</span> to cut memory traffic.</td></tr>
+        <tr><td>2 · Quant calibration</td><td>Uses the calibration set to estimate activation distributions and derive INT8 quantization parameters.</td></tr>
+        <tr><td>3 · Hardware-aware compile</td><td>Maps operators onto the TDA4 <strong>MMA</strong> (matrix accelerator) or <strong>C7x</strong> DSP; unsupported ops fall back to ARM.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="sub-head"><span class="ver">Output</span><h4>TIDL Model Bin</h4></div>
+  <div class="info-table">
+    <table>
+      <thead><tr><th>Property</th><th>Detail</th></tr></thead>
+      <tbody>
+        <tr><td>Contents</td><td>INT8 quantized weights, network topology, and hardware scheduling info.</td></tr>
+        <tr><td>Runtime</td><td>Loaded and executed directly by the TDA4 <strong>TIDL Runtime</strong>.</td></tr>
+        <tr><td>Efficiency</td><td>About <strong>4× smaller</strong> than the FP32 ONNX, with much faster inference and significantly lower power.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ===================== TRAIN → QUANTIZE → DEPLOY LOOP ===================== -->
+  <div class="module-head" style="margin-top:2.4rem">
+    <p class="eyebrow">The full loop</p>
+    <h2>Train → Quantize → Deploy</h2>
+    <p class="module-oneliner">
+      Stage 1 produces a high-accuracy FP32 model; Stage 2 compresses it into an edge-efficient quantized
+      binary. Together they form a complete closed loop from training to on-vehicle inference.
+    </p>
+  </div>
+
+  <div class="pipeline-loop">
+    <div class="stage">
+      <span class="step-tag">Train</span>
+      <span class="k">seg_model_arch</span>
+      <span class="v">FP32 segmentation training — RegNet + FPN decoder, combined losses, mIoU.</span>
+    </div>
+    <div class="arrow" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+    </div>
+    <div class="stage">
+      <span class="step-tag">Quantize</span>
+      <span class="k">TDA4 QAT flow</span>
+      <span class="v">Export ONNX → PTQ INT8 import &amp; compile → TIDL binary (~4× smaller).</span>
+    </div>
+    <div class="arrow" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+    </div>
+    <div class="stage">
+      <span class="step-tag">Deploy</span>
+      <span class="k">TDA4 on-board</span>
+      <span class="v">TIDL Runtime inference on the vehicle — efficient, low-power edge execution.</span>
+    </div>
+  </div>
+
+  <!-- ===================== EVALUATION ===================== -->
+  <div class="module-head" style="margin-top:2.4rem">
+    <p class="eyebrow">Evaluation</p>
+    <h2>Quantized model on bad cases</h2>
+    <p class="module-oneliner">
+      Per-scene evaluation of the quantized model on representative hard cases — water stains, far-range
+      targets, and complex multi-bump / night scenes.
+    </p>
+  </div>
+
+  <div class="proj-figstack">
+    <figure class="proj-figure on-white">
+      <img src="/assets/media/projects/magic-carpet/Example_indicator1.png" alt="Water-stain bad-case evaluation" loading="lazy" />
+      <figcaption><strong>Water-stain scene.</strong> Evaluation on a water-stain bad case — the prime source of false positives.</figcaption>
+    </figure>
+    <figure class="proj-figure on-white">
+      <img src="/assets/media/projects/magic-carpet/Example_indicator2.png" alt="Far-range target evaluation" loading="lazy" />
+      <figcaption><strong>Far-range targets.</strong> Evaluation on distant, small targets — the prime source of missed detections.</figcaption>
+    </figure>
+    <figure class="proj-figure on-white">
+      <img src="/assets/media/projects/magic-carpet/Example_indicator3.png" alt="Multi-bump and night-scene evaluation" loading="lazy" />
+      <figcaption><strong>Complex scenes.</strong> Evaluation on multi-speed-bump and night scenes — combined difficulty.</figcaption>
+    </figure>
+  </div>
+
+  <div class="eval-note">
+    Across both hard and easy scenes, the quantized model reaches an <strong>initial mass-production quality bar</strong>.
+  </div>
+
+  <!-- ===================== VISUALIZATIONS ===================== -->
+  <div class="module-head" style="margin-top:2.4rem">
+    <p class="eyebrow">Visualizations</p>
+    <h2>On-road inference replays</h2>
+    <p class="module-oneliner">Selected replay clips — all play automatically and loop.</p>
+  </div>
+
+  <div class="proj-figrow two">
+    <figure class="proj-figure">
+      <video autoplay="" muted="" loop="" playsinline="" preload="metadata" disablepictureinpicture="" disableremoteplayback="">
+        <source src="/assets/media/projects/magic-carpet/pred_4.7.17_vis.mp4" type="video/mp4" />
+      </video>
+      <figcaption><strong>Hard-failure replay.</strong> Re-injection test on complex failure scenes — resolving most false and missed detections.</figcaption>
+    </figure>
+    <figure class="proj-figure">
+      <video autoplay="" muted="" loop="" playsinline="" preload="metadata" disablepictureinpicture="" disableremoteplayback="">
+        <source src="/assets/media/projects/magic-carpet/pred_1280_case.mp4" type="video/mp4" />
+      </video>
+      <figcaption><strong>High-resolution stress test.</strong> Generalization under large 1280-input signals on complex, difficult scenes.</figcaption>
+    </figure>
+    <figure class="proj-figure">
+      <video autoplay="" muted="" loop="" playsinline="" preload="metadata" disablepictureinpicture="" disableremoteplayback="">
+        <source src="/assets/media/projects/magic-carpet/vis_seg2.mp4" type="video/mp4" />
+      </video>
+      <figcaption><strong>Joint post-processing.</strong> Combined post-processing that also outputs the target's elevation / height information.</figcaption>
+    </figure>
+    <figure class="proj-figure">
+      <video autoplay="" muted="" loop="" playsinline="" preload="metadata" disablepictureinpicture="" disableremoteplayback="">
+        <source src="/assets/media/projects/magic-carpet/badcase_vis_waterstains.mp4" type="video/mp4" />
+      </video>
+      <figcaption><strong>Night &amp; garage generalization.</strong> Generalization test on night and underground-garage scenes with heavy water stains.</figcaption>
+    </figure>
+  </div>
+
+</div>
+
+  </section>
+
+  
+  <section class="section reveal">
+    <div class="privacy-note">
+      <strong>Confidentiality note.</strong>
+      <span>Only high-level model and deployment information is shown. Internal datasets, exact metrics, customer-specific calibration data, and vehicle-integration details are omitted.</span>
+    </div>
+  </section>
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  <nav class="project-nav reveal" aria-label="Project navigation">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Keep exploring</p>
+        <h2>Jump to another project</h2>
+      </div>
+      <a class="tiny-link" href="/projects/">All projects</a>
+    </div>
+
+    <div class="project-nav-grid">
+      <a class="project-nav-card prev" href="/projects/scene-flow-deployment/">
+        <span class="dir">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+          Previous
+        </span>
+        <span class="t">3D Scene Flow: Auto-Labeling & Production Deployment</span>
+        <small>Research + Deployment Project · 2023.08–2023.12</small>
+      </a>
+      <a class="project-nav-card next" href="/projects/graduation-intro-video/">
+        <span class="dir">
+          Next
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+        <span class="t">Master's Graduation — Introduction Film</span>
+        <small>Profile Video · 2023.06</small>
+      </a>
+    </div>
+
+    <div class="more-projects">
+      <div class="more-strip reveal-stagger">
+        
+          <a class="more-chip " href="/projects/generative-ad-simulation-platform/">
+            <span class="thumb">
+              
+                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/gen_ad_sim/ingolstadt_gen_video_grid.mp4" type="video/mp4"></video>
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">Generative Autonomous-Driving Simulation Platform</span>
+              <span class="mc-meta">2025.03–Present</span>
+            </span>
+          </a>
+        
+          <a class="more-chip " href="/projects/traffic-sensor-level-ctrl/">
+            <span class="thumb">
+              
+                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/recon_gen_simulation/1.Gen_fg_bg_Diff_light.mp4" type="video/mp4"></video>
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">Vector Traffic Generation & Sensor-Level Closed-Loop Simulation</span>
+              <span class="mc-meta">2025.05–Present</span>
+            </span>
+          </a>
+        
+          <a class="more-chip " href="/projects/e2e-7v-vision/">
+            <span class="thumb">
+              
+                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/e2e_one_stage/E2E_vis.mp4" type="video/mp4"></video>
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">One-Stage End-to-End Driving — 8V Pure Vision</span>
+              <span class="mc-meta">2025.12–2026.04</span>
+            </span>
+          </a>
+        
+          <a class="more-chip " href="/projects/j6m-static-dynamic-perception/">
+            <span class="thumb">
+              
+                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/perception_onemodel/st_vis_single_fream.mp4" type="video/mp4"></video>
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">J6M Static & Dynamic Perception</span>
+              <span class="mc-meta">2025.04–2026.03</span>
+            </span>
+          </a>
+        
+          <a class="more-chip " href="/projects/e2e-lidar-11v-fusion/">
+            <span class="thumb">
+              
+                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/e2e/video_turn_around_e2e.mp4" type="video/mp4"></video>
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">End-to-End Driving: 11V + LiDAR Fusion</span>
+              <span class="mc-meta">2024 · Collaboration</span>
+            </span>
+          </a>
+        
+          <a class="more-chip " href="/projects/phigent-gen-model/">
+            <span class="thumb">
+              
+                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/phigent_gen_model/phigent_gen_7V_video2.mp4" type="video/mp4"></video>
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">Controllable Surround-View Driving Generation</span>
+              <span class="mc-meta">2023.05–2024</span>
+            </span>
+          </a>
+        
+          <a class="more-chip " href="/projects/auto-labeling-4d-lidar/">
+            <span class="thumb">
+              
+                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/offline-4d-labeling/offline_visual_auto_labeling.mp4" type="video/mp4"></video>
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">4D Auto-Labeling & Pure LiDAR 3D Detection</span>
+              <span class="mc-meta">2022.11–2024</span>
+            </span>
+          </a>
+        
+          <a class="more-chip " href="/projects/scene-flow-deployment/">
+            <span class="thumb">
+              
+                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/scene-flow-deployment/autoflow_vis.mp4" type="video/mp4"></video>
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">3D Scene Flow: Auto-Labeling & Production Deployment</span>
+              <span class="mc-meta">2023.08–2023.12</span>
+            </span>
+          </a>
+        
+          <a class="more-chip is-current" href="/projects/road-preview-disparity/" aria-current="page">
+            <span class="thumb">
+              
+                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/magic-carpet/badcase_vis_waterstains.mp4" type="video/mp4"></video>
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">Road Preview: Surface-Element Segmentation</span>
+              <span class="mc-meta">2023.05–2023.11</span>
+            </span>
+          </a>
+        
+          <a class="more-chip " href="/projects/graduation-intro-video/">
+            <span class="thumb">
+              
+                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/graduation-intro-video/cv_jck.mp4" type="video/mp4"></video>
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">Master's Graduation — Introduction Film</span>
+              <span class="mc-meta">2023.06</span>
+            </span>
+          </a>
+        
+          <a class="more-chip " href="/projects/autonomous-lawn-mower-robot/">
+            <span class="thumb">
+              
+                <img src="/assets/media/projects/lawn-mower/project_05_up_down_slope.gif" alt="" loading="lazy">
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">Autonomous Lawn-Mower Robot Perception</span>
+              <span class="mc-meta">2021.09–2023.03</span>
+            </span>
+          </a>
+        
+          <a class="more-chip " href="/projects/integrated-perception-planning-decision/">
+            <span class="thumb">
+              
+                <img src="/assets/media/projects/integrated-driving/project_11_simulation_exploration.gif" alt="" loading="lazy">
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">Integrated Perception, Planning, and Decision-Making Network</span>
+              <span class="mc-meta">2021.08–2022.10</span>
+            </span>
+          </a>
+        
+      </div>
+    </div>
+  </nav>
+  </div>
+  </div>
+</article>
+
+      </main>
+
+      
+    </div>
+
+    <footer class="site-footer">
+      <div>
+        <strong>Jiang Chaokang</strong>
+        <span>World Models Algorithm Engineer · Bosch (XC-CN)</span>
+      </div>
+      <div class="footer-links" aria-label="Profile links">
+        <a href="mailto:jck98@foxmail.com" aria-label="Email" title="Email · jck98@foxmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/></svg>
+        </a>
+        <a href="https://github.com/jiangchaokang" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.6a10.4 10.4 0 0 0-3.29 20.27c.52.1.71-.23.71-.5v-1.96c-2.9.63-3.51-1.23-3.51-1.23-.47-1.2-1.16-1.52-1.16-1.52-.95-.65.07-.64.07-.64 1.05.08 1.6 1.08 1.6 1.08.93 1.6 2.45 1.14 3.05.87.09-.68.36-1.14.66-1.4-2.32-.26-4.76-1.16-4.76-5.16 0-1.14.41-2.07 1.08-2.8-.11-.27-.47-1.33.1-2.78 0 0 .88-.28 2.88 1.07a9.96 9.96 0 0 1 5.24 0c2-1.35 2.87-1.07 2.87-1.07.57 1.45.21 2.51.1 2.78.67.73 1.08 1.66 1.08 2.8 0 4.01-2.45 4.9-4.78 5.16.38.32.71.95.71 1.92v2.85c0 .28.19.61.72.5A10.4 10.4 0 0 0 12 1.6Z"/></svg>
+        </a>
+        <a href="https://scholar.google.com/citations?user=6gZ8vloAAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Google Scholar" title="Google Scholar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4 2 9l10 5 8-4v6"/><path d="M6 11.5V16c0 1.2 2.7 3 6 3s6-1.8 6-3v-4.5"/></svg>
+        </a>
+        <a href="https://x.com/chaokangjiang1" target="_blank" rel="noopener" aria-label="X" title="X (Twitter)">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 3h3.1l-6.77 7.74L21.8 21h-6.2l-4.86-6.36L5.18 21H2.07l7.24-8.28L2.2 3h6.36l4.4 5.81L17.5 3Zm-1.09 16.13h1.72L7.66 4.78H5.82l10.59 14.35Z"/></svg>
+        </a>
+        <a href="/sitemap.xml" aria-label="Sitemap" title="Sitemap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="5" rx="1.2"/><rect x="3" y="16" width="6" height="5" rx="1.2"/><rect x="15" y="16" width="6" height="5" rx="1.2"/><path d="M12 8v4M6 16v-2.5a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1V16"/></svg>
+        </a>
+      </div>
+    </footer>
+  </div>
+
+  <div class="search-modal" data-search-modal data-search-url="/search.json" hidden>
+    <div class="search-backdrop" data-search-close></div>
+    <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search the site">
+      <div class="search-field">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle>
+          <path d="m20 20-3.2-3.2"></path>
+        </svg>
+        <input type="search" placeholder="Search publications, projects, notes…" autocomplete="off" spellcheck="false" aria-label="Search query" data-search-input>
+        <kbd data-search-close>Esc</kbd>
+      </div>
+      <ul class="search-results" data-search-results role="listbox" aria-label="Search results"></ul>
+      <p class="search-hint" data-search-hint>Type to search across publications, projects, and blog notes.</p>
+    </div>
+  </div>
+
+  <script src="/assets/js/main.js" defer></script>
+</body>
+</html>
