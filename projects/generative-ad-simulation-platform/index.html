@@ -1,0 +1,1648 @@
+<!doctype html>
+<html lang="en">
+<head>
+  
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem("theme");
+        var dark = stored === "dark" || stored === "light"
+          ? stored === "dark"
+          : window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+      } catch (e) {}
+    })();
+  </script>
+  
+    <title>Generative Autonomous-Driving Simulation Platform — Jiang Chaokang</title>
+  <meta name="description" content="A Cosmos-Transfer2.5-based generative simulation platform — 7V surround generation, real-map (OSM) scenarios, a WorldSim↔WorldModel gRPC bridge, 4-step video distillation for ~13.9× faster rollouts, and a unified OneModel.">
+  <meta name="author" content="Jiang Chaokang">
+  <meta name="theme-color" content="#101114">
+  <link rel="canonical" href="https://jiangchaokang.github.io/projects/generative-ad-simulation-platform/">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/assets/img/chaokang_jiang/logo-mark.svg">
+  <link rel="icon" type="image/png" href="/assets/img/chaokang_jiang/favicon-dark.png">
+  <link rel="apple-touch-icon" href="/assets/img/chaokang_jiang/favicon-dark.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Jiang Chaokang">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Generative Autonomous-Driving Simulation Platform">
+  <meta property="og:description" content="A Cosmos-Transfer2.5-based generative simulation platform — 7V surround generation, real-map (OSM) scenarios, a WorldSim↔WorldModel gRPC bridge, 4-step video distillation for ~13.9× faster rollouts, and a unified OneModel.">
+  <meta property="og:url" content="https://jiangchaokang.github.io/projects/generative-ad-simulation-platform/">
+  <meta property="og:image" content="https://jiangchaokang.github.io/assets/img/chaokang_jiang/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Generative Autonomous-Driving Simulation Platform — Jiang Chaokang">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Generative Autonomous-Driving Simulation Platform">
+  <meta name="twitter:description" content="A Cosmos-Transfer2.5-based generative simulation platform — 7V surround generation, real-map (OSM) scenarios, a WorldSim↔WorldModel gRPC bridge, 4-step video distillation for ~13.9× faster rollouts, and a unified OneModel.">
+  <meta name="twitter:image" content="https://jiangchaokang.github.io/assets/img/chaokang_jiang/og-card.png">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Jiang Chaokang",
+    "alternateName": ["Chaokang Jiang", "蒋超康"],
+    "jobTitle": "World Models Algorithm Engineer",
+    "image": "https://jiangchaokang.github.io/assets/img/chaokang_jiang/avatar.png",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Bosch (XC-CN)"
+    },
+    "alumniOf": [
+      { "@type": "CollegeOrUniversity", "name": "Shanghai Jiao Tong University" },
+      { "@type": "CollegeOrUniversity", "name": "China University of Mining and Technology" }
+    ],
+    "email": "jck98@foxmail.com",
+    "url": "https://jiangchaokang.github.io",
+    "sameAs": [
+      "https://github.com/jiangchaokang",
+      "https://scholar.google.com/citations?user=6gZ8vloAAAAJ&hl=en",
+      "https://x.com/chaokangjiang1",
+      "https://openreview.net/profile?id=~Chaokang_Jiang1"
+    ],
+    "knowsAbout": [
+      "World Models",
+      "Generative Models",
+      "Vision-Language-Action",
+      "Autonomous Driving",
+      "3D Scene Flow",
+      "LiDAR Odometry",
+      "3D/4D Perception"
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <svg class="lg-svg" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="liquid-glass" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+        <feTurbulence type="fractalNoise" baseFrequency="0.009 0.013" numOctaves="2" seed="7" result="noise"/>
+        <feGaussianBlur in="noise" stdDeviation="1.4" result="soft"/>
+        <feDisplacementMap in="SourceGraphic" in2="soft" scale="42" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <div class="site-shell">
+    <header class="site-header" data-site-header>
+      <a class="brand" href="/" aria-label="Jiang Chaokang home">
+        <img src="/assets/img/chaokang_jiang/logo-mark.svg" alt="" width="49" height="38">
+        <span>
+          <strong>Jiang Chaokang</strong>
+          <small>World Models · Generative Driving · 3D/4D Perception</small>
+        </span>
+      </a>
+
+      <div class="header-right">
+        <nav class="site-nav" id="site-nav" aria-label="Primary navigation" data-site-nav>
+          
+            
+            
+
+            
+              <a class="nav-link" href="/" >Home</a>
+            
+          
+            
+            
+
+            
+              <div class="nav-item has-menu" data-nav-item>
+                <a class="nav-trigger" href="/publications/"  aria-haspopup="true" aria-expanded="false" data-nav-trigger>
+                  Publications
+                  <svg class="nav-caret" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </a>
+
+                <div class="nav-dropdown" data-nav-menu role="menu">
+                  <div class="liquid-glass" aria-hidden="true">
+                    <span class="lg-refract"></span>
+                    <span class="lg-tint"></span>
+                    <span class="lg-shine"></span>
+                  </div>
+                  <div class="nav-dropdown-inner">
+                    <p class="nav-dd-blurb">Peer-reviewed work on world models, generative driving, and 3D/4D perception.</p>
+
+                    
+                      
+                      <div class="nav-dd-pubs">
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#jiang2026vectorworld">
+                            <span class="ndp-venue venue-icml">ICML</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">VectorWorld: Efficient Streaming World Model via Diffusion Fl...</span>
+                              <span class="ndp-meta">2026 · Accepted · Spotlight</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#liu2026regformerpp">
+                            <span class="ndp-venue venue-arxiv">arXiv</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">RegFormer++: An Efficient Large-Scale 3D LiDAR Point Registra...</span>
+                              <span class="ndp-meta">2026 · Preprint</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#liu2026difflow3d">
+                            <span class="ndp-venue venue-t-pami">T-PAMI</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">DifFlow3D: Hierarchical Diffusion Models for Uncertainty-Awar...</span>
+                              <span class="ndp-meta">2026 · Published</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#liu2025mamba4d">
+                            <span class="ndp-venue venue-cvpr">CVPR</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">Mamba4D: Efficient 4D Point Cloud Video Understanding with Di...</span>
+                              <span class="ndp-meta">2025 · Published</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#jiang20243dsflabelling">
+                            <span class="ndp-venue venue-cvpr">CVPR</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">3DSFLabelling: Boosting 3D Scene Flow Estimation by Pseudo Au...</span>
+                              <span class="ndp-meta">2024 · Published</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#jiang2024neurogauss4d">
+                            <span class="ndp-venue venue-neurips">NeurIPS</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">NeuroGauss4D-PCI: 4D Neural Fields and Gaussian Deformation F...</span>
+                              <span class="ndp-meta">2024 · Published</span>
+                            </span>
+                          </a>
+                        
+                      </div>
+                      <a class="nav-dd-all" role="menuitem" href="/publications/">All publications<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+
+                    
+                  </div>
+                </div>
+              </div>
+            
+          
+            
+            
+
+            
+              <div class="nav-item has-menu" data-nav-item>
+                <a class="nav-trigger" href="/projects/" aria-current="page" aria-haspopup="true" aria-expanded="false" data-nav-trigger>
+                  Projects
+                  <svg class="nav-caret" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </a>
+
+                <div class="nav-dropdown" data-nav-menu role="menu">
+                  <div class="liquid-glass" aria-hidden="true">
+                    <span class="lg-refract"></span>
+                    <span class="lg-tint"></span>
+                    <span class="lg-shine"></span>
+                  </div>
+                  <div class="nav-dropdown-inner">
+                    <p class="nav-dd-blurb">Production systems and research platforms, shown as interactive logic maps.</p>
+
+                    
+                      
+                      <div class="nav-dd-projects">
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/generative-world-model-7v-closed-loop-sim/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/7v_closed_loop_sim/steaming_wm_high_speed_raw.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">Generative World Model for 7V Closed-Loop Driving Simulation</span>
+                              <span class="ddp-meta">Generative World Models · 2025.06–Present</span>
+                            </span>
+                          </a>
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/generative-ad-simulation-platform/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/gen_ad_sim/ingolstadt_gen_video_grid.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">Generative Autonomous-Driving Simulation Platform</span>
+                              <span class="ddp-meta">Research Platform · 2025.03–Present</span>
+                            </span>
+                          </a>
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/traffic-sensor-level-ctrl/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/recon_gen_simulation/1.Gen_fg_bg_Diff_light.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">Vector Traffic Generation & Sensor-Level Closed-Loop Simulation</span>
+                              <span class="ddp-meta">Research Platform · 2025.05–Present</span>
+                            </span>
+                          </a>
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/phigent-gen-model/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/phigent_gen_model/phigent_gen_7V_video2.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">Controllable Surround-View Driving Generation</span>
+                              <span class="ddp-meta">Research Project · 2023.05–2024</span>
+                            </span>
+                          </a>
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/auto-labeling-4d-lidar/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/offline-4d-labeling/offline_visual_auto_labeling.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">4D Auto-Labeling & Pure LiDAR 3D Detection</span>
+                              <span class="ddp-meta">Production + Research Project · 2022.11–2024</span>
+                            </span>
+                          </a>
+                        
+                      </div>
+                      <a class="nav-dd-all" role="menuitem" href="/projects/">All projects<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+
+                    
+                  </div>
+                </div>
+              </div>
+            
+          
+            
+            
+
+            
+              <div class="nav-item has-menu" data-nav-item>
+                <a class="nav-trigger" href="/blog/"  aria-haspopup="true" aria-expanded="false" data-nav-trigger>
+                  Blog
+                  <svg class="nav-caret" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </a>
+
+                <div class="nav-dropdown" data-nav-menu role="menu">
+                  <div class="liquid-glass" aria-hidden="true">
+                    <span class="lg-refract"></span>
+                    <span class="lg-tint"></span>
+                    <span class="lg-shine"></span>
+                  </div>
+                  <div class="nav-dropdown-inner">
+                    <p class="nav-dd-blurb">Engineering notes and long-term practice.</p>
+
+                    
+                      <div class="nav-dd-list">
+                        
+                          <a class="nav-dd-link" role="menuitem" href="/blog/2026/08/28/generative-foundations-flowmatching-diffusion-rl/">
+                            <span class="ddl-title">Generative Foundations: Flow Matching, Score-based Diffusion & Reinforcement Learning</span>
+                            <span class="ddl-desc">Aug 28, 2026</span>
+                          </a>
+                        
+                          <a class="nav-dd-link" role="menuitem" href="/blog/2026/07/12/icml-2026-seoul-world-models/">
+                            <span class="ddl-title">ICML 2026 in Seoul: the shift toward real-time, closed-loop, verifiable world models</span>
+                            <span class="ddl-desc">Jul 12, 2026</span>
+                          </a>
+                        
+                          <a class="nav-dd-link" role="menuitem" href="/blog/2026/07/01/ge-sim-2-closed-loop-simulator/">
+                            <span class="ddl-title">GE-Sim 2.0: a closed-loop video world simulator for manipulation</span>
+                            <span class="ddl-desc">Jul 1, 2026</span>
+                          </a>
+                        
+                      </div>
+                      <a class="nav-dd-all" role="menuitem" href="/blog/">All notes<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+
+                    
+                  </div>
+                </div>
+              </div>
+            
+          
+            
+            
+
+            
+              <div class="nav-item has-menu" data-nav-item>
+                <a class="nav-trigger" href="/contact/"  aria-haspopup="true" aria-expanded="false" data-nav-trigger>
+                  Contact
+                  <svg class="nav-caret" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </a>
+
+                <div class="nav-dropdown" data-nav-menu role="menu">
+                  <div class="liquid-glass" aria-hidden="true">
+                    <span class="lg-refract"></span>
+                    <span class="lg-tint"></span>
+                    <span class="lg-shine"></span>
+                  </div>
+                  <div class="nav-dropdown-inner">
+                    <p class="nav-dd-blurb">Collaboration, talks, and academic service.</p>
+
+                    
+                      <div class="nav-dd-list">
+                        <a class="nav-dd-link" role="menuitem" href="mailto:jck98@foxmail.com"><span class="ddl-title">Email</span><span class="ddl-desc">jck98@foxmail.com</span></a>
+                        <a class="nav-dd-link" role="menuitem" href="https://scholar.google.com/citations?user=6gZ8vloAAAAJ&hl=en" target="_blank" rel="noopener"><span class="ddl-title">Google Scholar</span><span class="ddl-desc">Publications & citations</span></a>
+                        <a class="nav-dd-link" role="menuitem" href="https://github.com/jiangchaokang" target="_blank" rel="noopener"><span class="ddl-title">GitHub</span><span class="ddl-desc">Open-source & code</span></a>
+                        <a class="nav-dd-link" role="menuitem" href="https://x.com/chaokangjiang1" target="_blank" rel="noopener"><span class="ddl-title">X</span><span class="ddl-desc">@chaokangjiang1</span></a>
+                      </div>
+                      <a class="nav-dd-all" role="menuitem" href="/contact/">Contact & service<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+
+                    
+                  </div>
+                </div>
+              </div>
+            
+          
+        </nav>
+
+        <button class="search-toggle" type="button" aria-label="Search the site" title="Search (⌘K)" data-search-open>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="m20 20-3.2-3.2"></path>
+          </svg>
+        </button>
+
+        <button class="theme-toggle" type="button" aria-label="Switch color theme" title="Switch color theme" data-theme-toggle>
+          <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+
+        <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <div class="page-grid no-news">
+      <main class="main-content" id="main" tabindex="-1">
+        <article class="project-detail">
+  <header class="project-hero reveal">
+    <div class="project-hero-intro">
+      <p class="eyebrow">Research Platform</p>
+      <h1>Generative Autonomous-Driving Simulation Platform</h1>
+      <p class="lead">A Cosmos-Transfer2.5 world model turned into a production simulation platform: sensor-level 7V generation, real-map scenarios, a WorldSim↔WorldModel bridge, 4-step distillation of 7V surround video, and one denoiser that serves three jobs.</p>
+    </div>
+
+    <figure class="project-cover project-banner spotlight-card">
+      
+        <video autoplay muted loop playsinline controls preload="auto" disablepictureinpicture disableremoteplayback>
+          <source src="/assets/media/projects/gen_ad_sim/ingolstadt_gen_video_grid.mp4" type="video/mp4">
+        </video>
+      
+    </figure>
+
+    <dl class="project-meta-bar">
+      <div class="pm-item"><dt>Timeline</dt><dd>2025.03–Present</dd></div>
+      <div class="pm-item"><dt>Context</dt><dd>Bosch (XC-CN)</dd></div>
+      <div class="pm-item"><dt>Role</dt><dd>World Models Algorithm Engineer</dd></div>
+      <div class="pm-item"><dt>Stage</dt><dd>Ongoing</dd></div>
+    </dl>
+  </header>
+
+  <div class="project-body" data-proj-shell>
+    <aside class="proj-toc" data-proj-toc aria-label="On this page">
+      <button class="proj-toc-toggle" type="button" data-toc-toggle aria-expanded="true" aria-label="Toggle contents">
+        <span class="toc-title">Contents</span>
+        <svg class="toc-chevron" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </button>
+      <nav class="proj-toc-nav"><ol data-toc-list></ol></nav>
+    </aside>
+
+    <div class="project-body-main">
+
+  <section class="section reveal">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Overview</p>
+        <h2>What is this project about?</h2>
+      </div>
+    </div>
+
+    
+      <div class="proj-brief">
+        <div class="pb-row"><span class="pb-k">Problem</span><p>Real driving logs cannot cover the rare interactions that matter most, and collecting them is slow, expensive and unsafe. Generated video could fill the gap — but a 35-step surround-video diffusion model is far too slow to sit inside a closed simulation loop.</p></div>
+        <div class="pb-row"><span class="pb-k">What I built</span><p>A 7-camera surround world model on Cosmos-Transfer2.5, driven by real-map layouts (Ingolstadt OSM → BEV layout → 7V video) and connected to our closed-loop simulator over a semantic bridge, so a scenario can be authored, generated and edited rather than waited for.</p></div>
+        <div class="pb-row is-result"><span class="pb-k">Result</span><p>Four-step distillation (bridge consistency plus distribution matching) cut the sampler from 35 steps to 4 for up to <strong>~13.9× faster</strong> rollouts, and a single denoiser now serves layout generation, Gaussian-Splatting repair and harmonization instead of three separately trained models.</p></div>
+      </div>
+    
+
+    
+      <div class="term-row" aria-label="Key terms">
+        
+          <button class="term-chip" type="button" data-def="NVIDIA&#39;s video world-model backbone; the pretrained diffusion model this platform generates surround video with.">Cosmos-Transfer2.5</button>
+        
+          <button class="term-chip" type="button" data-def="Bridge-consistency distillation: the student must reproduce the teacher&#39;s average velocity across a whole span of denoising steps, so one big step stays on the teacher&#39;s trajectory.">rCM</button>
+        
+          <button class="term-chip" type="button" data-def="Distribution Matching Distillation: a trainable critic scores the student&#39;s current samples, pushing the few-step output back toward the real data distribution and restoring sharpness.">DMD2</button>
+        
+          <button class="term-chip" type="button" data-def="OpenStreetMap. Real road geometry is converted into a BEV layout so generated scenarios sit on a genuine map rather than an invented one.">OSM</button>
+        
+          <button class="term-chip" type="button" data-def="The semantic interface between the closed-loop simulator (WorldSim) and the world model, so simulation state and generated sensor frames can be exchanged per step.">gRPC bridge</button>
+        
+          <button class="term-chip" type="button" data-def="An explicit 3D representation optimised from real frames; used here to render photorealistic backgrounds from viewpoints the car never actually drove.">Gaussian Splatting</button>
+        
+      </div>
+    
+
+    
+      <p class="proj-role"><strong>My role.</strong> I own the distillation track end to end — schedule design, the alternating student/critic training loop, and the progressive 35→4→2→1 cascade — and the OneModel unification that collapsed three task-specific models into one. The platform itself is a team effort; scenario authoring and simulator integration are shared work.</p>
+    
+
+    
+      <p class="proj-relation">This platform is the parent effort. Vector Traffic Generation & Sensor-Level Closed-Loop Simulation is the track inside it that decides what the traffic does and how the result is re-rendered.</p>
+    
+
+    
+    <div class="tag-row project-tags">
+      
+        <span class="tag">research</span>
+      
+        <span class="tag">world-model</span>
+      
+        <span class="tag">generative</span>
+      
+        <span class="tag">e2e</span>
+      
+    </div>
+    
+  </section>
+
+  
+
+  
+
+  
+    <div class="section project-rich-body">
+      <div class="lawn-modules">
+
+  <div class="tool-chips">
+    <span class="chip">Cosmos-Transfer2.5 base</span>
+    <span class="chip">7V surround · sensor-level</span>
+    <span class="chip">OSM → layout → video</span>
+    <span class="chip">WorldSim ↔ model gRPC</span>
+    <span class="chip">First 7V 4-step distillation</span>
+    <span class="chip">Flux → 7V style transfer</span>
+    <span class="chip">All-in-one OneModel</span>
+  </div>
+
+  <div class="stat-band">
+    <div class="stat"><b>7V</b><span>Surround-view, multi-view consistent</span></div>
+    <div class="stat accent"><b>4-step</b><span>Distilled from a 35-step teacher</span></div>
+    <div class="stat good"><b>~13.9×</b><span>Peak measured inference speedup</span></div>
+    <div class="stat"><b>1 model</b><span>Layout gen · GS-fix · harmonizer</span></div>
+  </div>
+
+  <h2 class="lawn-h2">01 · Cosmos-Transfer2.5 on internal driving data</h2>
+  <p class="module-oneliner">A 7V generative world model, built on Cosmos-Transfer2.5 and validated on internal data.</p>
+  <div class="proj-figrow two">
+    <figure class="proj-figure">
+      <video autoplay="" muted="" loop="" playsinline="" preload="metadata" disablepictureinpicture="" disableremoteplayback=""><source src="/assets/media/projects/gen_ad_sim/transfer2.5_gen_vis_tsl0.mp4" type="video/mp4" /></video>
+    </figure>
+    <figure class="proj-figure">
+      <video autoplay="" muted="" loop="" playsinline="" preload="metadata" disablepictureinpicture="" disableremoteplayback=""><source src="/assets/media/projects/gen_ad_sim/transfer2.5_gen_vis_tsl1.mp4" type="video/mp4" /></video>
+    </figure>
+  </div>
+
+  <h2 class="lawn-h2">02 · Real maps → 7V video (Ingolstadt OSM)</h2>
+  <p class="module-oneliner">Download a real city map (OSM), convert it to the model's layout, and generate surround video — including a snow variant.</p>
+  <div class="proj-figrow three">
+    <figure class="proj-figure">
+      <video autoplay="" muted="" loop="" playsinline="" preload="metadata" disablepictureinpicture="" disableremoteplayback=""><source src="/assets/media/projects/gen_ad_sim/ingolstadt_control_grid.mp4" type="video/mp4" /></video>
+      <figcaption>Control layout from OSM.</figcaption>
+    </figure>
+    <figure class="proj-figure">
+      <video autoplay="" muted="" loop="" playsinline="" preload="metadata" disablepictureinpicture="" disableremoteplayback=""><source src="/assets/media/projects/gen_ad_sim/ingolstadt_gen_video_grid.mp4" type="video/mp4" /></video>
+      <figcaption>Generated 7V sensor video.</figcaption>
+    </figure>
+    <figure class="proj-figure">
+      <video autoplay="" muted="" loop="" playsinline="" preload="metadata" disablepictureinpicture="" disableremoteplayback=""><source src="/assets/media/projects/gen_ad_sim/ingolstadt_gen_video_grid2.mp4" type="video/mp4" /></video>
+      <figcaption>Same scene, snow weather.</figcaption>
+    </figure>
+  </div>
+
+  <h2 class="lawn-h2">03 · Flux → single-frame 7V: weather, season &amp; style transfer</h2>
+  <p class="module-oneliner">Lift a single-image Flux generator into a 7V surround model — one synchronized frame across every camera — then drive it with text to restyle the whole rig into new weather, seasons, and looks while the underlying geometry stays put.</p>
+  <div class="why-grid">
+    <div class="why-card"><span class="why-x">Single-camera Flux</span><span class="why-y">Extended to a 7V surround rig, one consistent frame</span></div>
+    <div class="why-card"><span class="why-x">One fixed look</span><span class="why-y">Text-driven weather / season / style swaps</span></div>
+    <div class="why-card"><span class="why-x">Per-view drift</span><span class="why-y">Cross-camera geometry held while appearance changes</span></div>
+  </div>
+  <div class="proj-figure" style="margin-top:1.1rem">
+    <video autoplay="" muted="" loop="" playsinline="" preload="metadata" disablepictureinpicture="" disableremoteplayback=""><source src="/assets/media/projects/gen_ad_sim/gen_model_style_transformation.mp4" type="video/mp4" /></video>
+    <figcaption><strong>Surround style transfer.</strong> A single synchronized 7V frame restyled across weather, season, and visual style — rain, snow, dusk and more — from one shared, text-controllable generator, with cross-camera consistency preserved.</figcaption>
+  </div>
+
+  <h2 class="lawn-h2">04 · WorldSim ↔ World Model gRPC bridge</h2>
+  <div class="proj-figure on-white">
+    <img src="/assets/media/projects/gen_ad_sim/WorldSim_gRPC_sys.png" alt="WorldSim to World Model gRPC system" loading="lazy" />
+    <figcaption>WorldSim serializes scene data (calibration, ego trajectory, dynamic obstacles, static map) over OSI semantics to the World Model server, which validates, caches, converts to Parquet, and asynchronously triggers Cosmos rendering — a semantic + async bridge between simulation and generation.</figcaption>
+  </div>
+
+  <h2 class="lawn-h2">05 · First 4-step distillation of 7V surround video</h2>
+  <section class="atlas reveal" data-atlas="" id="35-steps-4-compress-the-teacher-" style="--atlas-cols: 4" aria-label="35 steps → 4 — compress the teacher&#39;s path, keep the picture sharp — interactive logic map">
+  <div class="atlas-bar">
+    <div class="atlas-bar-head">
+      <p class="eyebrow">Logic map · distillation</p>
+      <h2>35 steps → 4 — compress the teacher's path, keep the picture sharp</h2>
+      <p class="atlas-caption">Everything except the student is scaffolding: the teacher is frozen, the critic and both losses exist only during training, and only the student ships. Two losses because a big step can go wrong in two different ways — off the path, or off the data distribution.</p>
+    </div>
+
+    <div class="atlas-tools">
+      <div class="atlas-tour" data-atlas-tour="" hidden="">
+        <button class="atlas-chip-btn" type="button" data-atlas-toggle="">
+          <svg class="ico-play" viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+          <svg class="ico-pause" viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z" /></svg>
+          <span data-atlas-status="">Auto&nbsp;tour</span>
+        </button>
+      </div>
+      <button class="atlas-chip-btn" type="button" data-atlas-export="" hidden="">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M8 11.5 12 15.5l4-4M5 19h14" /></svg>
+        <span data-atlas-export-label="">SVG</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="atlas-stage" data-atlas-stage="">
+    <div class="atlas-scene" data-atlas-scene="">
+      <svg class="atlas-edges" data-atlas-edges="" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"></svg>
+      <div class="atlas-grid" data-atlas-grid="">
+        <button class="atlas-node acc-ink kind-input lane-prior is-start" type="button" id="35-steps-4-compress-the-teacher---teacher" data-node="teacher" aria-expanded="false" aria-controls="35-steps-4-compress-the-teacher--panel" style="grid-column: 1 / span 2; grid-row: 1;">
+            <span class="node-head">
+              <span class="node-tag">Teacher</span>
+              <span class="node-lane is-lock"><svg viewBox="0 0 24 24" width="9" height="9" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.4" /><path d="M8.5 10.5V7.6a3.5 3.5 0 0 1 7 0v2.9" /></svg>frozen</span>
+              
+            </span>
+            <span class="node-title">35-step Teacher</span>
+            <span class="node-desc">Defines the trajectory to imitate</span>
+            <span class="node-spec">35 steps · never updated</span>
+            
+            <span class="node-spark" aria-hidden="true"></span>
+          </button>
+        <button class="atlas-node acc-blue kind-process lane-main is-core" type="button" id="35-steps-4-compress-the-teacher---student" data-node="student" aria-expanded="false" aria-controls="35-steps-4-compress-the-teacher--panel" style="grid-column: 3 / span 2; grid-row: 1;">
+            <span class="node-head">
+              <span class="node-tag">Student</span>
+              
+            </span>
+            <span class="node-title">4-step Student</span>
+            <span class="node-desc">The only model that ships</span>
+            <span class="node-spec">4 steps · CFG baked in</span>
+            
+            <span class="node-spark" aria-hidden="true"></span>
+          </button>
+        <button class="atlas-node acc-cyan kind-reason lane-aux" type="button" id="35-steps-4-compress-the-teacher---schedule" data-node="schedule" aria-expanded="false" aria-controls="35-steps-4-compress-the-teacher--panel" style="grid-column: 1 / span 2; grid-row: 2;">
+            <span class="node-head">
+              <span class="node-tag">Schedule</span>
+              <span class="node-lane">train-only</span>
+              
+            </span>
+            <span class="node-title">Sparsify Timesteps</span>
+            <span class="node-desc">Choose the four landing points</span>
+            
+            
+            <span class="node-spark" aria-hidden="true"></span>
+          </button>
+        <button class="atlas-node acc-purple kind-process lane-aux" type="button" id="35-steps-4-compress-the-teacher---critic" data-node="critic" aria-expanded="false" aria-controls="35-steps-4-compress-the-teacher--panel" style="grid-column: 3 / span 2; grid-row: 2;">
+            <span class="node-head">
+              <span class="node-tag">Critic</span>
+              <span class="node-lane">train-only</span>
+              
+            </span>
+            <span class="node-title">Dynamic Critic</span>
+            <span class="node-desc">Scores the student as it is now</span>
+            
+            
+            <span class="node-spark" aria-hidden="true"></span>
+          </button>
+        <button class="atlas-node acc-blue kind-process lane-aux" type="button" id="35-steps-4-compress-the-teacher---bridge" data-node="bridge" aria-expanded="false" aria-controls="35-steps-4-compress-the-teacher--panel" style="grid-column: 1 / span 2; grid-row: 3;">
+            <span class="node-head">
+              <span class="node-tag">Loss · path</span>
+              <span class="node-lane">train-only</span>
+              
+            </span>
+            <span class="node-title">Bridge Consistency</span>
+            <span class="node-desc">Is the big step still on the path?</span>
+            
+            
+            <span class="node-spark" aria-hidden="true"></span>
+          </button>
+        <button class="atlas-node acc-purple kind-process lane-aux" type="button" id="35-steps-4-compress-the-teacher---dmd" data-node="dmd" aria-expanded="false" aria-controls="35-steps-4-compress-the-teacher--panel" style="grid-column: 3 / span 2; grid-row: 3;">
+            <span class="node-head">
+              <span class="node-tag">Loss · look</span>
+              <span class="node-lane">train-only</span>
+              
+            </span>
+            <span class="node-title">Distribution Matching</span>
+            <span class="node-desc">Does it still look real?</span>
+            
+            
+            <span class="node-spark" aria-hidden="true"></span>
+          </button>
+        <button class="atlas-node acc-warn kind-process lane-aux" type="button" id="35-steps-4-compress-the-teacher---alt" data-node="alt" aria-expanded="false" aria-controls="35-steps-4-compress-the-teacher--panel" style="grid-column: 1 / span 4; grid-row: 4;">
+            <span class="node-head">
+              <span class="node-tag">Loop</span>
+              <span class="node-lane">train-only</span>
+              
+            </span>
+            <span class="node-title">Alternating Optimisation</span>
+            <span class="node-desc">Freeze one, train the other</span>
+            
+            
+            <span class="node-spark" aria-hidden="true"></span>
+          </button>
+        <button class="atlas-node acc-green kind-process lane-aux" type="button" id="35-steps-4-compress-the-teacher---cascade" data-node="cascade" aria-expanded="false" aria-controls="35-steps-4-compress-the-teacher--panel" style="grid-column: 1 / span 2; grid-row: 5;">
+            <span class="node-head">
+              <span class="node-tag">Cascade</span>
+              <span class="node-lane">train-only</span>
+              
+            </span>
+            <span class="node-title">Progressive Compression</span>
+            <span class="node-desc">35 → 4 → 2 → 1</span>
+            
+            
+            <span class="node-spark" aria-hidden="true"></span>
+          </button>
+        <button class="atlas-node acc-green kind-contribution lane-main is-core" type="button" id="35-steps-4-compress-the-teacher---fourstep" data-node="fourstep" aria-expanded="false" aria-controls="35-steps-4-compress-the-teacher--panel" style="grid-column: 3 / span 2; grid-row: 5;">
+            <span class="node-head">
+              <span class="node-tag">Result</span>
+              
+            </span>
+            <span class="node-title">4-step 7V Model</span>
+            <span class="node-desc">Fast enough for a closed loop</span>
+            <span class="node-spec">up to ~13.9× faster</span>
+            
+            <span class="node-spark" aria-hidden="true"></span>
+          </button>
+        
+      </div>
+    </div>
+  </div>
+
+  <aside class="atlas-panel" data-atlas-panel="" id="35-steps-4-compress-the-teacher--panel" aria-live="polite">
+    <div class="ap-head">
+      <span class="ap-dot" data-ap-dot=""></span>
+      <div class="ap-head-body">
+        <p class="ap-tag" data-ap-tag="">Logic map</p>
+        <h3 class="ap-title" data-ap-title="">Pick a node</h3>
+      </div>
+      <button class="ap-copy" type="button" data-ap-copy="" hidden="" aria-label="Copy a link to this node" title="Copy link to this node">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.5 13.5a3.6 3.6 0 0 0 5.1 0l2.6-2.6a3.6 3.6 0 0 0-5.1-5.1l-1.3 1.3" /><path d="M13.5 10.5a3.6 3.6 0 0 0-5.1 0l-2.6 2.6a3.6 3.6 0 0 0 5.1 5.1l1.3-1.3" /></svg>
+      </button>
+    </div>
+
+    <p class="ap-hint" data-ap-hint="">Hover or tap a node to see what it takes in, what it decides, and what it hands on.</p>
+
+    <dl class="ap-io" data-ap-io="" hidden="">
+      <div class="ap-row"><dt>Input</dt><dd data-ap-receives="">—</dd></div>
+      <div class="ap-row"><dt>Logic</dt><dd data-ap-logic="">—</dd></div>
+      <div class="ap-row"><dt>Output</dt><dd data-ap-sends="">—</dd></div>
+      <div class="ap-row ap-why" data-ap-why-row="" hidden=""><dt>Why</dt><dd data-ap-why="">—</dd></div>
+      <div class="ap-row ap-trade" data-ap-trade-row="" hidden=""><dt>Trade-off</dt><dd data-ap-tradeoff="">—</dd></div>
+      <div class="ap-row ap-role" data-ap-role-row="" hidden=""><dt>My role</dt><dd data-ap-role="">—</dd></div>
+    </dl>
+
+    <p class="ap-note" data-ap-note="" hidden=""></p>
+    <figure class="ap-media" data-ap-media="" hidden=""></figure>
+  </aside>
+
+  <div class="atlas-legend" data-atlas-legend="">
+    
+      <div class="al-group">
+        <span class="al-label">Stages</span>
+        
+          <span class="al-item acc-ink"><i class="al-dot"></i>Frozen teacher</span>
+        
+          <span class="al-item acc-cyan"><i class="al-dot"></i>Step schedule</span>
+        
+          <span class="al-item acc-blue"><i class="al-dot"></i>Student · path loss</span>
+        
+          <span class="al-item acc-purple"><i class="al-dot"></i>Critic · distribution loss</span>
+        
+          <span class="al-item acc-warn"><i class="al-dot"></i>Training loop</span>
+        
+          <span class="al-item acc-green"><i class="al-dot"></i>Shipped result</span>
+        
+      </div>
+    
+
+    
+      <div class="al-group">
+        <span class="al-label">Path</span>
+        <span class="al-item"><i class="al-lane lane-main"></i>Runs at inference</span>
+        <span class="al-item"><i class="al-lane lane-aux"></i>Train-time only</span>
+        <span class="al-item"><i class="al-lane lane-prior"></i>Frozen / pretrained</span>
+      </div>
+    
+
+    <div class="al-group">
+      <span class="al-label">Links</span>
+      
+      <span class="al-item"><i class="al-line k-cond"></i>Conditioning / structural</span>
+      <span class="al-item"><i class="al-line k-train"></i>Train-time only</span>
+      
+      
+    </div>
+  </div>
+
+  <details class="atlas-table">
+    <summary>View as table<span class="at-sub">same content, no interaction needed</span></summary>
+    <div class="atlas-table-scroll">
+      <table>
+        <caption class="visually-hidden">35 steps → 4 — compress the teacher's path, keep the picture sharp — every node with its input, logic and output.</caption>
+        <colgroup>
+          <col class="c-stage" /><col class="c-in" /><col class="c-logic" /><col class="c-out" /><col class="c-why" />
+        </colgroup>
+        <thead>
+          <tr><th scope="col">Stage</th><th scope="col">Input</th><th scope="col">Logic</th><th scope="col">Output</th><th scope="col">Why / role</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+              <th scope="row">
+                <b>35-step Teacher</b>
+                <span class="atr-tag">Teacher</span>
+                <span class="atr-tag">frozen</span>
+              </th>
+              <td>Real frames and their conditions</td>
+              <td>Run the slow, exact denoising trajectory</td>
+              <td>Reference path plus the student's initial weights</td>
+              <td>
+                Freezing the teacher gives the student a target that cannot drift; if both moved, there would be nothing anchoring the compression to reality.
+                
+                
+                
+              </td>
+            </tr>
+          <tr>
+              <th scope="row">
+                <b>4-step Student</b>
+                <span class="atr-tag">Student</span>
+                
+              </th>
+              <td>Teacher weights as initialisation</td>
+              <td>Take four large denoising steps, with classifier-free guidance folded into a single forward</td>
+              <td>Few-step samples</td>
+              <td>
+                Baking guidance into the weights removes the second forward pass per step — the speedup compounds with the step reduction rather than fighting it.
+                
+                <span class="atr-sub"><b>My role.</b> Designed and trained the student; owned the distillation track end to end.</span>
+                
+              </td>
+            </tr>
+          <tr>
+              <th scope="row">
+                <b>Sparsify Timesteps</b>
+                <span class="atr-tag">Schedule</span>
+                <span class="atr-tag">train-only</span>
+              </th>
+              <td>The teacher's noise-level schedule</td>
+              <td>Index-mapped sub-sampling of the teacher's timesteps</td>
+              <td>Four student steps, each covering a teacher span</td>
+              <td>
+                Where the four steps land matters more than how many there are — a bad schedule wastes a step on a range where almost nothing changes.
+                
+                
+                
+              </td>
+            </tr>
+          <tr>
+              <th scope="row">
+                <b>Dynamic Critic</b>
+                <span class="atr-tag">Critic</span>
+                <span class="atr-tag">train-only</span>
+              </th>
+              <td>The student's current samples</td>
+              <td>Learn a score for the student's evolving output distribution</td>
+              <td>A direction back toward the real distribution</td>
+              <td>
+                A fixed critic goes stale the moment the student improves; retraining it alongside keeps the supervision meaningful for the whole run.
+                <span class="atr-sub"><b>Trade-off.</b> A trainable critic doubles the moving parts — the price is the alternating loop below.</span>
+                
+                
+              </td>
+            </tr>
+          <tr>
+              <th scope="row">
+                <b>Bridge Consistency</b>
+                <span class="atr-tag">Loss · path</span>
+                <span class="atr-tag">train-only</span>
+              </th>
+              <td>A teacher span and the matching student step</td>
+              <td>Match the average velocity across the bridged span</td>
+              <td>Path gradient</td>
+              <td>
+                Matching average velocity over a span, rather than the endpoint, is what lets one student step legitimately replace many teacher steps.
+                
+                
+                
+              </td>
+            </tr>
+          <tr>
+              <th scope="row">
+                <b>Distribution Matching</b>
+                <span class="atr-tag">Loss · look</span>
+                <span class="atr-tag">train-only</span>
+              </th>
+              <td>Teacher and critic scores</td>
+              <td>Push the student's output distribution toward the real one</td>
+              <td>Distribution gradient</td>
+              <td>
+                Path correctness alone yields blurry frames; this is the loss that buys back the sharpness few-step sampling normally loses.
+                
+                
+                
+              </td>
+            </tr>
+          <tr>
+              <th scope="row">
+                <b>Alternating Optimisation</b>
+                <span class="atr-tag">Loop</span>
+                <span class="atr-tag">train-only</span>
+              </th>
+              <td>Student and critic</td>
+              <td>Update the critic and the student in alternation, never in one graph</td>
+              <td>A stable training loop</td>
+              <td>
+                Two adversarial-style networks in one backward graph is where 7-view video distillation runs out of memory; alternating keeps the graph small enough to fit.
+                <span class="atr-sub"><b>Trade-off.</b> Alternating costs wall-clock steps, but it is the difference between training and not training at all at this resolution.</span>
+                
+                
+              </td>
+            </tr>
+          <tr>
+              <th scope="row">
+                <b>Progressive Compression</b>
+                <span class="atr-tag">Cascade</span>
+                <span class="atr-tag">train-only</span>
+              </th>
+              <td>The model from the previous level</td>
+              <td>Halve the step count, initialise from the level above</td>
+              <td>The next-level student</td>
+              <td>
+                Jumping straight to one step diverges; halving keeps every level close enough to its teacher that the optimisation stays well-behaved.
+                
+                
+                
+              </td>
+            </tr>
+          <tr>
+              <th scope="row">
+                <b>4-step 7V Model</b>
+                <span class="atr-tag">Result</span>
+                
+              </th>
+              <td>Path and distribution gradients</td>
+              <td>Four forward passes, seven views kept mutually consistent</td>
+              <td>Surround video at interactive speed</td>
+              <td>
+                Speed is not a vanity metric here: below a certain rollout time the world model simply cannot sit inside the simulation loop at all.
+                
+                <span class="atr-sub"><b>My role.</b> Measured the speedup and integrated the distilled sampler into the platform.</span>
+                
+              </td>
+            </tr>
+          
+        </tbody>
+      </table>
+    </div>
+  </details>
+
+  <script type="application/json" data-atlas-data="">{"eyebrow":"Logic map · distillation","title":"35 steps → 4 — compress the teacher's path, keep the picture sharp","caption":"Everything except the student is scaffolding: the teacher is frozen, the critic and both losses exist only during training, and only the student ships. Two losses because a big step can go wrong in two different ways — off the path, or off the data distribution.","cols":4,"legend":[{"accent":"ink","label":"Frozen teacher"},{"accent":"cyan","label":"Step schedule"},{"accent":"blue","label":"Student · path loss"},{"accent":"purple","label":"Critic · distribution loss"},{"accent":"warn","label":"Training loop"},{"accent":"green","label":"Shipped result"}],"nodes":[{"id":"teacher","col":1,"span":2,"row":1,"kind":"input","accent":"ink","lane":"prior","tag":"Teacher","title":"35-step Teacher","desc":"Defines the trajectory to imitate","spec":"35 steps · never updated","receives":"Real frames and their conditions","logic":"Run the slow, exact denoising trajectory","sends":"Reference path plus the student's initial weights","why":"Freezing the teacher gives the student a target that cannot drift; if both moved, there would be nothing anchoring the compression to reality."},{"id":"student","col":3,"span":2,"row":1,"kind":"process","accent":"blue","lane":"main","core":true,"tag":"Student","title":"4-step Student","desc":"The only model that ships","spec":"4 steps · CFG baked in","receives":"Teacher weights as initialisation","logic":"Take four large denoising steps, with classifier-free guidance folded into a single forward","sends":"Few-step samples","why":"Baking guidance into the weights removes the second forward pass per step — the speedup compounds with the step reduction rather than fighting it.","role":"Designed and trained the student; owned the distillation track end to end."},{"id":"schedule","col":1,"span":2,"row":2,"kind":"reason","accent":"cyan","lane":"aux","tag":"Schedule","title":"Sparsify Timesteps","desc":"Choose the four landing points","receives":"The teacher's noise-level schedule","logic":"Index-mapped sub-sampling of the teacher's timesteps","sends":"Four student steps, each covering a teacher span","why":"Where the four steps land matters more than how many there are — a bad schedule wastes a step on a range where almost nothing changes."},{"id":"critic","col":3,"span":2,"row":2,"kind":"process","accent":"purple","lane":"aux","tag":"Critic","title":"Dynamic Critic","desc":"Scores the student as it is now","receives":"The student's current samples","logic":"Learn a score for the student's evolving output distribution","sends":"A direction back toward the real distribution","why":"A fixed critic goes stale the moment the student improves; retraining it alongside keeps the supervision meaningful for the whole run.","tradeoff":"A trainable critic doubles the moving parts — the price is the alternating loop below."},{"id":"bridge","col":1,"span":2,"row":3,"kind":"process","accent":"blue","lane":"aux","tag":"Loss · path","title":"Bridge Consistency","desc":"Is the big step still on the path?","receives":"A teacher span and the matching student step","logic":"Match the average velocity across the bridged span","sends":"Path gradient","why":"Matching average velocity over a span, rather than the endpoint, is what lets one student step legitimately replace many teacher steps."},{"id":"dmd","col":3,"span":2,"row":3,"kind":"process","accent":"purple","lane":"aux","tag":"Loss · look","title":"Distribution Matching","desc":"Does it still look real?","receives":"Teacher and critic scores","logic":"Push the student's output distribution toward the real one","sends":"Distribution gradient","why":"Path correctness alone yields blurry frames; this is the loss that buys back the sharpness few-step sampling normally loses."},{"id":"alt","col":1,"span":4,"row":4,"kind":"process","accent":"warn","lane":"aux","tag":"Loop","title":"Alternating Optimisation","desc":"Freeze one, train the other","receives":"Student and critic","logic":"Update the critic and the student in alternation, never in one graph","sends":"A stable training loop","why":"Two adversarial-style networks in one backward graph is where 7-view video distillation runs out of memory; alternating keeps the graph small enough to fit.","tradeoff":"Alternating costs wall-clock steps, but it is the difference between training and not training at all at this resolution."},{"id":"cascade","col":1,"span":2,"row":5,"kind":"process","accent":"green","lane":"aux","tag":"Cascade","title":"Progressive Compression","desc":"35 → 4 → 2 → 1","receives":"The model from the previous level","logic":"Halve the step count, initialise from the level above","sends":"The next-level student","why":"Jumping straight to one step diverges; halving keeps every level close enough to its teacher that the optimisation stays well-behaved."},{"id":"fourstep","col":3,"span":2,"row":5,"kind":"contribution","accent":"green","lane":"main","core":true,"tag":"Result","title":"4-step 7V Model","desc":"Fast enough for a closed loop","spec":"up to ~13.9× faster","media":"/assets/media/projects/gen_ad_sim/7v_distil_vis.mp4","media_type":"video","receives":"Path and distribution gradients","logic":"Four forward passes, seven views kept mutually consistent","sends":"Surround video at interactive speed","why":"Speed is not a vanity metric here: below a certain rollout time the world model simply cannot sit inside the simulation loop at all.","role":"Measured the speedup and integrated the distilled sampler into the platform."}],"edges":[{"from":"teacher","to":"student","kind":"cond","label":"init weights"},{"from":"teacher","to":"schedule","kind":"cond"},{"from":"schedule","to":"bridge","kind":"train","label":"4 spans"},{"from":"teacher","to":"bridge","kind":"train"},{"from":"student","to":"bridge","kind":"train"},{"from":"student","to":"critic","kind":"train"},{"from":"student","to":"dmd","kind":"train"},{"from":"teacher","to":"dmd","kind":"train"},{"from":"critic","to":"dmd","kind":"train"},{"from":"student","to":"alt","kind":"cond"},{"from":"critic","to":"alt","kind":"cond"},{"from":"bridge","to":"fourstep","kind":"train","label":"∇ path"},{"from":"dmd","to":"fourstep","kind":"train","label":"∇ look"},{"from":"fourstep","to":"cascade","kind":"train","label":"next level"}]}</script>
+</section>
+
+  <div class="ablation wrap">
+    <table>
+      <thead><tr><th>Mode</th><th>Spec</th><th>Original</th><th>Distilled</th><th>Speedup</th></tr></thead>
+      <tbody>
+        <tr><td>Single clip (first)</td><td>29 / 203 frames</td><td>796.76 s</td><td>106.32 s</td><td><strong>7.49×</strong></td></tr>
+        <tr><td>Single clip (steady)</td><td>29 / 203 frames</td><td>744.16 s</td><td>53.68 s</td><td><strong>13.86×</strong></td></tr>
+        <tr><td>Auto-regressive (long)</td><td>57 / 399 frames</td><td>1546.87 s</td><td>165.87 s</td><td><strong>9.33×</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="module-oneliner">Distilled 4-step model — surround generation at a fraction of the cost.</p>
+  <div class="proj-figrow two">
+    <figure class="proj-figure">
+      <video autoplay="" muted="" loop="" playsinline="" preload="metadata" disablepictureinpicture="" disableremoteplayback=""><source src="/assets/media/projects/gen_ad_sim/7v_distil_vis.mp4" type="video/mp4" /></video>
+    </figure>
+    <figure class="proj-figure">
+      <video autoplay="" muted="" loop="" playsinline="" preload="metadata" disablepictureinpicture="" disableremoteplayback=""><source src="/assets/media/projects/gen_ad_sim/7v_distil_vis2.mp4" type="video/mp4" /></video>
+    </figure>
+  </div>
+
+  <h2 class="lawn-h2">Editable platform — rare interaction scenarios</h2>
+  <p class="module-oneliner">Edit the layout on a real clip, then regenerate with the 4-step model to produce hard-to-collect interaction data.</p>
+  <div class="proj-figrow three">
+    <figure class="proj-figure">
+      <video autoplay="" muted="" loop="" playsinline="" preload="metadata" disablepictureinpicture="" disableremoteplayback=""><source src="/assets/media/projects/gen_ad_sim/1942452852756152320_raw_rgb.mp4" type="video/mp4" /></video>
+      <figcaption>Raw captured clip.</figcaption>
+    </figure>
+    <figure class="proj-figure">
+      <video autoplay="" muted="" loop="" playsinline="" preload="metadata" disablepictureinpicture="" disableremoteplayback=""><source src="/assets/media/projects/gen_ad_sim/1942452852756152320_edit_layout.mp4" type="video/mp4" /></video>
+      <figcaption>Edited control layout.</figcaption>
+    </figure>
+    <figure class="proj-figure">
+      <video autoplay="" muted="" loop="" playsinline="" preload="metadata" disablepictureinpicture="" disableremoteplayback=""><source src="/assets/media/projects/gen_ad_sim/1942452852756152320_4step_rgb.mp4" type="video/mp4" /></video>
+      <figcaption>4-step regenerated result.</figcaption>
+    </figure>
+  </div>
+
+  <h2 class="lawn-h2">06 · All-in-one OneModel — three modes, one denoiser</h2>
+  <section class="atlas reveal" data-atlas="" id="three-jobs-one-denoiser" style="--atlas-cols: 3" aria-label="Three jobs, one denoiser — interactive logic map">
+  <div class="atlas-bar">
+    <div class="atlas-bar-head">
+      <p class="eyebrow">Logic map · OneModel</p>
+      <h2>Three jobs, one denoiser</h2>
+      <p class="atlas-caption">Layout generation, Gaussian-Splatting repair and harmonization look like three different problems. They differ only in what the sampler starts from and what it is conditioned on — so they can share one backbone.</p>
+    </div>
+
+    <div class="atlas-tools">
+      <div class="atlas-tour" data-atlas-tour="" hidden="">
+        <button class="atlas-chip-btn" type="button" data-atlas-toggle="">
+          <svg class="ico-play" viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z" /></svg>
+          <svg class="ico-pause" viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z" /></svg>
+          <span data-atlas-status="">Auto&nbsp;tour</span>
+        </button>
+      </div>
+      <button class="atlas-chip-btn" type="button" data-atlas-export="" hidden="">
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M8 11.5 12 15.5l4-4M5 19h14" /></svg>
+        <span data-atlas-export-label="">SVG</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="atlas-stage" data-atlas-stage="">
+    <div class="atlas-scene" data-atlas-scene="">
+      <svg class="atlas-edges" data-atlas-edges="" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"></svg>
+      <div class="atlas-grid" data-atlas-grid="">
+        <button class="atlas-node acc-purple kind-input lane-main is-core is-start" type="button" id="three-jobs-one-denoiser--backbone" data-node="backbone" aria-expanded="false" aria-controls="three-jobs-one-denoiser-panel" style="grid-column: 1 / span 3; grid-row: 1;">
+            <span class="node-head">
+              <span class="node-tag">Backbone</span>
+              
+            </span>
+            <span class="node-title">Shared Backbone</span>
+            <span class="node-desc">Cosmos-Transfer2.5</span>
+            <span class="node-spec">1 set of weights · 3 tasks</span>
+            
+            <span class="node-spark" aria-hidden="true"></span>
+          </button>
+        <button class="atlas-node acc-blue kind-process lane-main" type="button" id="three-jobs-one-denoiser--mode1" data-node="mode1" aria-expanded="false" aria-controls="three-jobs-one-denoiser-panel" style="grid-column: 1 / span 1; grid-row: 2;">
+            <span class="node-head">
+              <span class="node-tag">Mode 1</span>
+              
+            </span>
+            <span class="node-title">Layout Generation</span>
+            <span class="node-desc">Controllable scene</span>
+            
+            
+            <span class="node-spark" aria-hidden="true"></span>
+          </button>
+        <button class="atlas-node acc-cyan kind-process lane-main" type="button" id="three-jobs-one-denoiser--mode2" data-node="mode2" aria-expanded="false" aria-controls="three-jobs-one-denoiser-panel" style="grid-column: 2 / span 1; grid-row: 2;">
+            <span class="node-head">
+              <span class="node-tag">Mode 2</span>
+              
+            </span>
+            <span class="node-title">GS Fix</span>
+            <span class="node-desc">Repair reconstruction</span>
+            
+            
+            <span class="node-spark" aria-hidden="true"></span>
+          </button>
+        <button class="atlas-node acc-green kind-process lane-main" type="button" id="three-jobs-one-denoiser--mode3" data-node="mode3" aria-expanded="false" aria-controls="three-jobs-one-denoiser-panel" style="grid-column: 3 / span 1; grid-row: 2;">
+            <span class="node-head">
+              <span class="node-tag">Mode 3</span>
+              
+            </span>
+            <span class="node-title">Harmonizer</span>
+            <span class="node-desc">Blend inserted assets</span>
+            
+            
+            <span class="node-spark" aria-hidden="true"></span>
+          </button>
+        <button class="atlas-node acc-blue kind-reason lane-main" type="button" id="three-jobs-one-denoiser--start1" data-node="start1" aria-expanded="false" aria-controls="three-jobs-one-denoiser-panel" style="grid-column: 1 / span 1; grid-row: 3;">
+            <span class="node-head">
+              <span class="node-tag">Start</span>
+              
+            </span>
+            <span class="node-title">Pure Noise</span>
+            <span class="node-desc">Generate from scratch</span>
+            
+            
+            <span class="node-spark" aria-hidden="true"></span>
+          </button>
+        <button class="atlas-node acc-cyan kind-reason lane-main" type="button" id="three-jobs-one-denoiser--start2" data-node="start2" aria-expanded="false" aria-controls="three-jobs-one-denoiser-panel" style="grid-column: 2 / span 1; grid-row: 3;">
+            <span class="node-head">
+              <span class="node-tag">Start</span>
+              
+            </span>
+            <span class="node-title">Degraded GS Latent</span>
+            <span class="node-desc">Start from the flaw</span>
+            
+            
+            <span class="node-spark" aria-hidden="true"></span>
+          </button>
+        <button class="atlas-node acc-green kind-reason lane-main" type="button" id="three-jobs-one-denoiser--start3" data-node="start3" aria-expanded="false" aria-controls="three-jobs-one-denoiser-panel" style="grid-column: 3 / span 1; grid-row: 3;">
+            <span class="node-head">
+              <span class="node-tag">Start</span>
+              
+            </span>
+            <span class="node-title">Disharmonized Video</span>
+            <span class="node-desc">Condition on the clash</span>
+            
+            
+            <span class="node-spark" aria-hidden="true"></span>
+          </button>
+        <button class="atlas-node acc-warn kind-process lane-main" type="button" id="three-jobs-one-denoiser--adapter" data-node="adapter" aria-expanded="false" aria-controls="three-jobs-one-denoiser-panel" style="grid-column: 1 / span 3; grid-row: 4;">
+            <span class="node-head">
+              <span class="node-tag">Control</span>
+              
+            </span>
+            <span class="node-title">Unified Condition Adapter</span>
+            <span class="node-desc">One injection path</span>
+            
+            
+            <span class="node-spark" aria-hidden="true"></span>
+          </button>
+        <button class="atlas-node acc-purple kind-process lane-main" type="button" id="three-jobs-one-denoiser--denoiser" data-node="denoiser" aria-expanded="false" aria-controls="three-jobs-one-denoiser-panel" style="grid-column: 1 / span 3; grid-row: 5;">
+            <span class="node-head">
+              <span class="node-tag">Denoise</span>
+              
+            </span>
+            <span class="node-title">Shared Denoiser</span>
+            <span class="node-desc">Temporal + multi-view</span>
+            
+            
+            <span class="node-spark" aria-hidden="true"></span>
+          </button>
+        <button class="atlas-node acc-green kind-contribution lane-main" type="button" id="three-jobs-one-denoiser--out" data-node="out" aria-expanded="false" aria-controls="three-jobs-one-denoiser-panel" style="grid-column: 1 / span 3; grid-row: 6;">
+            <span class="node-head">
+              <span class="node-tag">Output</span>
+              
+            </span>
+            <span class="node-title">7V Video Output</span>
+            <span class="node-desc">Three results, one model</span>
+            
+            
+            <span class="node-spark" aria-hidden="true"></span>
+          </button>
+        
+      </div>
+    </div>
+  </div>
+
+  <aside class="atlas-panel" data-atlas-panel="" id="three-jobs-one-denoiser-panel" aria-live="polite">
+    <div class="ap-head">
+      <span class="ap-dot" data-ap-dot=""></span>
+      <div class="ap-head-body">
+        <p class="ap-tag" data-ap-tag="">Logic map</p>
+        <h3 class="ap-title" data-ap-title="">Pick a node</h3>
+      </div>
+      <button class="ap-copy" type="button" data-ap-copy="" hidden="" aria-label="Copy a link to this node" title="Copy link to this node">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.5 13.5a3.6 3.6 0 0 0 5.1 0l2.6-2.6a3.6 3.6 0 0 0-5.1-5.1l-1.3 1.3" /><path d="M13.5 10.5a3.6 3.6 0 0 0-5.1 0l-2.6 2.6a3.6 3.6 0 0 0 5.1 5.1l1.3-1.3" /></svg>
+      </button>
+    </div>
+
+    <p class="ap-hint" data-ap-hint="">Hover or tap a node to see what it takes in, what it decides, and what it hands on.</p>
+
+    <dl class="ap-io" data-ap-io="" hidden="">
+      <div class="ap-row"><dt>Input</dt><dd data-ap-receives="">—</dd></div>
+      <div class="ap-row"><dt>Logic</dt><dd data-ap-logic="">—</dd></div>
+      <div class="ap-row"><dt>Output</dt><dd data-ap-sends="">—</dd></div>
+      <div class="ap-row ap-why" data-ap-why-row="" hidden=""><dt>Why</dt><dd data-ap-why="">—</dd></div>
+      <div class="ap-row ap-trade" data-ap-trade-row="" hidden=""><dt>Trade-off</dt><dd data-ap-tradeoff="">—</dd></div>
+      <div class="ap-row ap-role" data-ap-role-row="" hidden=""><dt>My role</dt><dd data-ap-role="">—</dd></div>
+    </dl>
+
+    <p class="ap-note" data-ap-note="" hidden=""></p>
+    <figure class="ap-media" data-ap-media="" hidden=""></figure>
+  </aside>
+
+  <div class="atlas-legend" data-atlas-legend="">
+    
+      <div class="al-group">
+        <span class="al-label">Stages</span>
+        
+          <span class="al-item acc-purple"><i class="al-dot"></i>Shared backbone</span>
+        
+          <span class="al-item acc-blue"><i class="al-dot"></i>Mode 1 · layout generation</span>
+        
+          <span class="al-item acc-cyan"><i class="al-dot"></i>Mode 2 · GS repair</span>
+        
+          <span class="al-item acc-green"><i class="al-dot"></i>Mode 3 · harmonization</span>
+        
+          <span class="al-item acc-warn"><i class="al-dot"></i>Shared control path</span>
+        
+      </div>
+    
+
+    
+
+    <div class="al-group">
+      <span class="al-label">Links</span>
+      <span class="al-item"><i class="al-line k-flow"></i>Data flow (inference)</span>
+      <span class="al-item"><i class="al-line k-cond"></i>Conditioning / structural</span>
+      
+      
+      
+    </div>
+  </div>
+
+  <details class="atlas-table">
+    <summary>View as table<span class="at-sub">same content, no interaction needed</span></summary>
+    <div class="atlas-table-scroll">
+      <table>
+        <caption class="visually-hidden">Three jobs, one denoiser — every node with its input, logic and output.</caption>
+        <colgroup>
+          <col class="c-stage" /><col class="c-in" /><col class="c-logic" /><col class="c-out" /><col class="c-why" />
+        </colgroup>
+        <thead>
+          <tr><th scope="col">Stage</th><th scope="col">Input</th><th scope="col">Logic</th><th scope="col">Output</th><th scope="col">Why / role</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+              <th scope="row">
+                <b>Shared Backbone</b>
+                <span class="atr-tag">Backbone</span>
+                
+              </th>
+              <td>Conditions and a start latent</td>
+              <td>One 7-view video diffusion model</td>
+              <td>The same weights, driven three ways</td>
+              <td>
+                Three task-specific models meant three trainings, three checkpoints and three sets of drift. One backbone means an improvement anywhere lands everywhere.
+                <span class="atr-sub"><b>Trade-off.</b> A shared backbone cannot be tuned to death for any single task — worth it while all three tasks are still moving.</span>
+                <span class="atr-sub"><b>My role.</b> Designed and owned the OneModel unification.</span>
+                
+              </td>
+            </tr>
+          <tr>
+              <th scope="row">
+                <b>Layout Generation</b>
+                <span class="atr-tag">Mode 1</span>
+                
+              </th>
+              <td>Layout video + camera/time/7V</td>
+              <td>Generate from pure noise</td>
+              <td>Driving-scene video</td>
+              <td>
+                Controllable surround generation
+                
+                
+                
+              </td>
+            </tr>
+          <tr>
+              <th scope="row">
+                <b>GS Fix</b>
+                <span class="atr-tag">Mode 2</span>
+                
+              </th>
+              <td>Degraded GS video + optional layout</td>
+              <td>Denoise from degraded start</td>
+              <td>Clean video</td>
+              <td>
+                Fills holes / artifacts
+                
+                
+                
+              </td>
+            </tr>
+          <tr>
+              <th scope="row">
+                <b>Harmonizer</b>
+                <span class="atr-tag">Mode 3</span>
+                
+              </th>
+              <td>Disharmonized video + mask</td>
+              <td>ControlNet harmonization</td>
+              <td>Harmonized video</td>
+              <td>
+                Natural fg/bg lighting
+                
+                
+                
+              </td>
+            </tr>
+          <tr>
+              <th scope="row">
+                <b>Pure Noise</b>
+                <span class="atr-tag">Start</span>
+                
+              </th>
+              <td>Gaussian noise</td>
+              <td>Standard diffusion start</td>
+              <td>Latent to adapter</td>
+              <td>
+                Maximum freedom
+                
+                
+                
+              </td>
+            </tr>
+          <tr>
+              <th scope="row">
+                <b>Degraded GS Latent</b>
+                <span class="atr-tag">Start</span>
+                
+              </th>
+              <td>Low-quality GS render</td>
+              <td>Noise = the degradation itself</td>
+              <td>Latent to adapter</td>
+              <td>
+                Keeps the real structure
+                
+                
+                
+              </td>
+            </tr>
+          <tr>
+              <th scope="row">
+                <b>Disharmonized Video</b>
+                <span class="atr-tag">Start</span>
+                
+              </th>
+              <td>Inserted-asset video</td>
+              <td>Disharmony as the condition</td>
+              <td>Latent to adapter</td>
+              <td>
+                Targets only the mismatch
+                
+                
+                
+              </td>
+            </tr>
+          <tr>
+              <th scope="row">
+                <b>Unified Condition Adapter</b>
+                <span class="atr-tag">Control</span>
+                
+              </th>
+              <td>Layout / GS / disharmony / mask</td>
+              <td>Encode + inject into denoiser</td>
+              <td>Conditioned features</td>
+              <td>
+                Three tasks, one control path
+                
+                
+                
+              </td>
+            </tr>
+          <tr>
+              <th scope="row">
+                <b>Shared Denoiser</b>
+                <span class="atr-tag">Denoise</span>
+                
+              </th>
+              <td>Conditioned latent</td>
+              <td>Predict clean, consistent 7V</td>
+              <td>Denoised latent</td>
+              <td>
+                One model holds all consistency
+                
+                
+                
+              </td>
+            </tr>
+          <tr>
+              <th scope="row">
+                <b>7V Video Output</b>
+                <span class="atr-tag">Output</span>
+                
+              </th>
+              <td>Decoded latent</td>
+              <td>Layout · GS-fix · harmonized</td>
+              <td>High-quality surround video</td>
+              <td>
+                One model serves three tasks
+                
+                
+                
+              </td>
+            </tr>
+          
+        </tbody>
+      </table>
+    </div>
+  </details>
+
+  <script type="application/json" data-atlas-data="">{"eyebrow":"Logic map · OneModel","title":"Three jobs, one denoiser","caption":"Layout generation, Gaussian-Splatting repair and harmonization look like three different problems. They differ only in what the sampler starts from and what it is conditioned on — so they can share one backbone.","cols":3,"legend":[{"accent":"purple","label":"Shared backbone"},{"accent":"blue","label":"Mode 1 · layout generation"},{"accent":"cyan","label":"Mode 2 · GS repair"},{"accent":"green","label":"Mode 3 · harmonization"},{"accent":"warn","label":"Shared control path"}],"nodes":[{"id":"backbone","col":1,"span":3,"row":1,"kind":"input","accent":"purple","core":true,"tag":"Backbone","title":"Shared Backbone","desc":"Cosmos-Transfer2.5","spec":"1 set of weights · 3 tasks","receives":"Conditions and a start latent","logic":"One 7-view video diffusion model","sends":"The same weights, driven three ways","why":"Three task-specific models meant three trainings, three checkpoints and three sets of drift. One backbone means an improvement anywhere lands everywhere.","tradeoff":"A shared backbone cannot be tuned to death for any single task — worth it while all three tasks are still moving.","role":"Designed and owned the OneModel unification."},{"id":"mode1","col":1,"span":1,"row":2,"kind":"process","accent":"blue","tag":"Mode 1","title":"Layout Generation","desc":"Controllable scene","receives":"Layout video + camera/time/7V","logic":"Generate from pure noise","sends":"Driving-scene video","gives":"Controllable surround generation"},{"id":"mode2","col":2,"span":1,"row":2,"kind":"process","accent":"cyan","tag":"Mode 2","title":"GS Fix","desc":"Repair reconstruction","receives":"Degraded GS video + optional layout","logic":"Denoise from degraded start","sends":"Clean video","gives":"Fills holes / artifacts"},{"id":"mode3","col":3,"span":1,"row":2,"kind":"process","accent":"green","tag":"Mode 3","title":"Harmonizer","desc":"Blend inserted assets","receives":"Disharmonized video + mask","logic":"ControlNet harmonization","sends":"Harmonized video","gives":"Natural fg/bg lighting"},{"id":"start1","col":1,"span":1,"row":3,"kind":"reason","accent":"blue","tag":"Start","title":"Pure Noise","desc":"Generate from scratch","receives":"Gaussian noise","logic":"Standard diffusion start","sends":"Latent to adapter","gives":"Maximum freedom"},{"id":"start2","col":2,"span":1,"row":3,"kind":"reason","accent":"cyan","tag":"Start","title":"Degraded GS Latent","desc":"Start from the flaw","receives":"Low-quality GS render","logic":"Noise = the degradation itself","sends":"Latent to adapter","gives":"Keeps the real structure"},{"id":"start3","col":3,"span":1,"row":3,"kind":"reason","accent":"green","tag":"Start","title":"Disharmonized Video","desc":"Condition on the clash","receives":"Inserted-asset video","logic":"Disharmony as the condition","sends":"Latent to adapter","gives":"Targets only the mismatch"},{"id":"adapter","col":1,"span":3,"row":4,"kind":"process","accent":"warn","tag":"Control","title":"Unified Condition Adapter","desc":"One injection path","receives":"Layout / GS / disharmony / mask","logic":"Encode + inject into denoiser","sends":"Conditioned features","gives":"Three tasks, one control path"},{"id":"denoiser","col":1,"span":3,"row":5,"kind":"process","accent":"purple","tag":"Denoise","title":"Shared Denoiser","desc":"Temporal + multi-view","receives":"Conditioned latent","logic":"Predict clean, consistent 7V","sends":"Denoised latent","gives":"One model holds all consistency"},{"id":"out","col":1,"span":3,"row":6,"kind":"contribution","accent":"green","tag":"Output","title":"7V Video Output","desc":"Three results, one model","receives":"Decoded latent","logic":"Layout · GS-fix · harmonized","sends":"High-quality surround video","gives":"One model serves three tasks"}],"edges":[{"from":"backbone","to":"mode1","kind":"cond"},{"from":"backbone","to":"mode2","kind":"cond","label":"same weights"},{"from":"backbone","to":"mode3","kind":"cond"},{"from":"mode1","to":"start1","kind":"flow"},{"from":"mode2","to":"start2","kind":"flow"},{"from":"mode3","to":"start3","kind":"flow"},{"from":"start1","to":"adapter","kind":"flow"},{"from":"start2","to":"adapter","kind":"flow","label":"one control path"},{"from":"start3","to":"adapter","kind":"flow"},{"from":"adapter","to":"denoiser","kind":"flow"},{"from":"denoiser","to":"out","kind":"flow"}]}</script>
+</section>
+
+  <h3 class="sub-head"><span class="ver">Data</span> Training-set construction</h3>
+  <div class="why-grid">
+    <div class="why-card">
+      <span class="why-x">GS-fix needs paired GT</span>
+      <span class="why-y">Same trajectory: degraded GS render → input, original real video → GT (~35W clips)</span>
+    </div>
+    <div class="why-card">
+      <span class="why-x">Harmonizer needs disharmony pairs</span>
+      <span class="why-y">SAM3 vehicle masks → match by object ID/IoU → build (disharmonized → harmonized) pairs</span>
+    </div>
+  </div>
+
+  <h3 class="sub-head"><span class="ver v2">Vis</span> The two new modes</h3>
+  <div class="proj-figrow two">
+    <figure class="proj-figure">
+      <video autoplay="" muted="" loop="" playsinline="" preload="metadata" disablepictureinpicture="" disableremoteplayback=""><source src="/assets/media/projects/gen_ad_sim/Gaussian_fix_vis.mp4" type="video/mp4" /></video>
+      <figcaption><strong>GS-fix.</strong> Bottom: input · top: single-frame baseline · middle: our video result · then GT.</figcaption>
+    </figure>
+    <figure class="proj-figure">
+      <video autoplay="" muted="" loop="" playsinline="" preload="metadata" disablepictureinpicture="" disableremoteplayback=""><source src="/assets/media/projects/gen_ad_sim/harmonization_combined_top10_vstack.mp4" type="video/mp4" /></video>
+      <figcaption><strong>Harmonizer.</strong> Third column — our Cosmos-based result blends inserted assets most naturally.</figcaption>
+    </figure>
+  </div>
+
+  <div class="ref-note">
+    <strong>My role.</strong>
+    <span>Built the platform end-to-end: the 7V world model on Cosmos-Transfer2.5, the OSM→layout→7V pipeline, the WorldSim↔model gRPC bridge, the 4-step distillation of 7-camera surround video (rCM + DMD2) — to our knowledge the first in our setting — the editable data platform, and the all-in-one OneModel. Numbers are the author's own measurements; details are sanitized.</span>
+  </div>
+
+</div>
+
+    </div>
+  
+
+  
+  <section class="section reveal">
+    <div class="privacy-note">
+      <strong>Confidentiality note.</strong>
+      <span>Bosch (XC-CN) ongoing platform. Architecture, method, and the acceleration results the author measured are shown at a portfolio level; customer data, calibration, and product details are intentionally omitted or sanitized.</span>
+    </div>
+  </section>
+  
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+  <nav class="project-nav reveal" aria-label="Project navigation">
+    <div class="section-heading">
+      <div>
+        <p class="eyebrow">Keep exploring</p>
+        <h2>Jump to another project</h2>
+      </div>
+      <a class="tiny-link" href="/projects/">All projects</a>
+    </div>
+
+    <div class="project-nav-grid">
+      <a class="project-nav-card prev" href="/projects/generative-world-model-7v-closed-loop-sim/">
+        <span class="dir">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+          Previous
+        </span>
+        <span class="t">Generative World Model for 7V Closed-Loop Driving Simulation</span>
+        <small>Generative World Models · 2025.06–Present</small>
+      </a>
+      <a class="project-nav-card next" href="/projects/traffic-sensor-level-ctrl/">
+        <span class="dir">
+          Next
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+        <span class="t">Vector Traffic Generation & Sensor-Level Closed-Loop Simulation</span>
+        <small>Research Platform · 2025.05–Present</small>
+      </a>
+    </div>
+
+    <div class="more-projects">
+      <div class="more-strip reveal-stagger">
+        
+          <a class="more-chip " href="/projects/generative-world-model-7v-closed-loop-sim/">
+            <span class="thumb">
+              
+                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/7v_closed_loop_sim/steaming_wm_high_speed_raw.mp4" type="video/mp4"></video>
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">Generative World Model for 7V Closed-Loop Driving Simulation</span>
+              <span class="mc-meta">2025.06–Present</span>
+            </span>
+          </a>
+        
+          <a class="more-chip is-current" href="/projects/generative-ad-simulation-platform/" aria-current="page">
+            <span class="thumb">
+              
+                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/gen_ad_sim/ingolstadt_gen_video_grid.mp4" type="video/mp4"></video>
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">Generative Autonomous-Driving Simulation Platform</span>
+              <span class="mc-meta">2025.03–Present</span>
+            </span>
+          </a>
+        
+          <a class="more-chip " href="/projects/traffic-sensor-level-ctrl/">
+            <span class="thumb">
+              
+                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/recon_gen_simulation/1.Gen_fg_bg_Diff_light.mp4" type="video/mp4"></video>
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">Vector Traffic Generation & Sensor-Level Closed-Loop Simulation</span>
+              <span class="mc-meta">2025.05–Present</span>
+            </span>
+          </a>
+        
+          <a class="more-chip " href="/projects/e2e-7v-vision/">
+            <span class="thumb">
+              
+                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/e2e_one_stage/E2E_vis.mp4" type="video/mp4"></video>
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">One-Stage End-to-End Driving — 8V Pure Vision</span>
+              <span class="mc-meta">2025.12–2026.04</span>
+            </span>
+          </a>
+        
+          <a class="more-chip " href="/projects/j6m-static-dynamic-perception/">
+            <span class="thumb">
+              
+                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/perception_onemodel/st_vis_single_fream.mp4" type="video/mp4"></video>
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">J6M Static & Dynamic Perception</span>
+              <span class="mc-meta">2025.04–2026.03</span>
+            </span>
+          </a>
+        
+          <a class="more-chip " href="/projects/e2e-lidar-11v-fusion/">
+            <span class="thumb">
+              
+                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/e2e/video_turn_around_e2e.mp4" type="video/mp4"></video>
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">End-to-End Driving: 11V + LiDAR Fusion</span>
+              <span class="mc-meta">2024 · Collaboration</span>
+            </span>
+          </a>
+        
+          <a class="more-chip " href="/projects/phigent-gen-model/">
+            <span class="thumb">
+              
+                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/phigent_gen_model/phigent_gen_7V_video2.mp4" type="video/mp4"></video>
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">Controllable Surround-View Driving Generation</span>
+              <span class="mc-meta">2023.05–2024</span>
+            </span>
+          </a>
+        
+          <a class="more-chip " href="/projects/auto-labeling-4d-lidar/">
+            <span class="thumb">
+              
+                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/offline-4d-labeling/offline_visual_auto_labeling.mp4" type="video/mp4"></video>
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">4D Auto-Labeling & Pure LiDAR 3D Detection</span>
+              <span class="mc-meta">2022.11–2024</span>
+            </span>
+          </a>
+        
+          <a class="more-chip " href="/projects/scene-flow-deployment/">
+            <span class="thumb">
+              
+                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/scene-flow-deployment/autoflow_vis.mp4" type="video/mp4"></video>
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">3D Scene Flow: Auto-Labeling & Production Deployment</span>
+              <span class="mc-meta">2023.08–2023.12</span>
+            </span>
+          </a>
+        
+          <a class="more-chip " href="/projects/road-preview-disparity/">
+            <span class="thumb">
+              
+                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/magic-carpet/badcase_vis_waterstains.mp4" type="video/mp4"></video>
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">Road Preview: Surface-Element Segmentation</span>
+              <span class="mc-meta">2023.05–2023.11</span>
+            </span>
+          </a>
+        
+          <a class="more-chip " href="/projects/graduation-intro-video/">
+            <span class="thumb">
+              
+                <img src="/assets/media/projects/graduation-intro-cover.svg" alt="" loading="lazy">
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">Master's Graduation — Introduction Film</span>
+              <span class="mc-meta">2023.06</span>
+            </span>
+          </a>
+        
+          <a class="more-chip " href="/projects/autonomous-lawn-mower-robot/">
+            <span class="thumb">
+              
+                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/lawn-mower/project_05_up_down_slope.mp4" type="video/mp4"></video>
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">Autonomous Lawn-Mower Robot Perception</span>
+              <span class="mc-meta">2021.09–2023.03</span>
+            </span>
+          </a>
+        
+          <a class="more-chip " href="/projects/integrated-perception-planning-decision/">
+            <span class="thumb">
+              
+                <img src="/assets/media/projects/integrated-driving/project_11_simulation_exploration.gif" alt="" loading="lazy">
+              
+            </span>
+            <span class="mc-body">
+              <span class="mc-title">Integrated Perception, Planning, and Decision-Making Network</span>
+              <span class="mc-meta">2021.08–2022.10</span>
+            </span>
+          </a>
+        
+      </div>
+    </div>
+  </nav>
+  </div>
+  </div>
+</article>
+
+      </main>
+
+      
+    </div>
+
+    <footer class="site-footer">
+      <div>
+        <strong>Jiang Chaokang</strong>
+        <span>World Models Algorithm Engineer · Bosch (XC-CN)</span>
+      </div>
+      <div class="footer-links" aria-label="Profile links">
+        <a href="mailto:jck98@foxmail.com" aria-label="Email" title="Email · jck98@foxmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/></svg>
+        </a>
+        <a href="https://github.com/jiangchaokang" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.6a10.4 10.4 0 0 0-3.29 20.27c.52.1.71-.23.71-.5v-1.96c-2.9.63-3.51-1.23-3.51-1.23-.47-1.2-1.16-1.52-1.16-1.52-.95-.65.07-.64.07-.64 1.05.08 1.6 1.08 1.6 1.08.93 1.6 2.45 1.14 3.05.87.09-.68.36-1.14.66-1.4-2.32-.26-4.76-1.16-4.76-5.16 0-1.14.41-2.07 1.08-2.8-.11-.27-.47-1.33.1-2.78 0 0 .88-.28 2.88 1.07a9.96 9.96 0 0 1 5.24 0c2-1.35 2.87-1.07 2.87-1.07.57 1.45.21 2.51.1 2.78.67.73 1.08 1.66 1.08 2.8 0 4.01-2.45 4.9-4.78 5.16.38.32.71.95.71 1.92v2.85c0 .28.19.61.72.5A10.4 10.4 0 0 0 12 1.6Z"/></svg>
+        </a>
+        <a href="https://scholar.google.com/citations?user=6gZ8vloAAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Google Scholar" title="Google Scholar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4 2 9l10 5 8-4v6"/><path d="M6 11.5V16c0 1.2 2.7 3 6 3s6-1.8 6-3v-4.5"/></svg>
+        </a>
+        <a href="https://x.com/chaokangjiang1" target="_blank" rel="noopener" aria-label="X" title="X (Twitter)">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 3h3.1l-6.77 7.74L21.8 21h-6.2l-4.86-6.36L5.18 21H2.07l7.24-8.28L2.2 3h6.36l4.4 5.81L17.5 3Zm-1.09 16.13h1.72L7.66 4.78H5.82l10.59 14.35Z"/></svg>
+        </a>
+        <a href="/sitemap.xml" aria-label="Sitemap" title="Sitemap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="5" rx="1.2"/><rect x="3" y="16" width="6" height="5" rx="1.2"/><rect x="15" y="16" width="6" height="5" rx="1.2"/><path d="M12 8v4M6 16v-2.5a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1V16"/></svg>
+        </a>
+      </div>
+    </footer>
+  </div>
+
+  <div class="search-modal" data-search-modal data-search-url="/search.json" hidden>
+    <div class="search-backdrop" data-search-close></div>
+    <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search the site">
+      <div class="search-field">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle>
+          <path d="m20 20-3.2-3.2"></path>
+        </svg>
+        <input type="search" placeholder="Search publications, projects, notes…" autocomplete="off" spellcheck="false" aria-label="Search query" data-search-input>
+        <kbd data-search-close>Esc</kbd>
+      </div>
+      <ul class="search-results" data-search-results role="listbox" aria-label="Search results"></ul>
+      <p class="search-hint" data-search-hint>Type to search across publications, projects, and blog notes.</p>
+    </div>
+  </div>
+
+  <script src="/assets/js/main.js" defer></script>
+</body>
+</html>

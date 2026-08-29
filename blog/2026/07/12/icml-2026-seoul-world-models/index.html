@@ -1,0 +1,593 @@
+<!doctype html>
+<html lang="en">
+<head>
+  
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <script>
+    (function () {
+      try {
+        var stored = localStorage.getItem("theme");
+        var dark = stored === "dark" || stored === "light"
+          ? stored === "dark"
+          : window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+      } catch (e) {}
+    })();
+  </script>
+  
+    <title>ICML 2026 in Seoul: the shift toward real-time, closed-loop, verifiable world models — Jiang Chaokang</title>
+  <meta name="description" content="Notes from ICML 2026 in Seoul, where our VectorWorld paper was a Spotlight — five signals on one-step generation, explicit structure, reward design, control theory, and automating research.">
+  <meta name="author" content="Jiang Chaokang">
+  <meta name="theme-color" content="#101114">
+  <link rel="canonical" href="https://jiangchaokang.github.io/blog/2026/07/12/icml-2026-seoul-world-models/">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" type="image/svg+xml" href="/assets/img/chaokang_jiang/logo-mark.svg">
+  <link rel="icon" type="image/png" href="/assets/img/chaokang_jiang/favicon-dark.png">
+  <link rel="apple-touch-icon" href="/assets/img/chaokang_jiang/favicon-dark.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Jiang Chaokang">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="ICML 2026 in Seoul: the shift toward real-time, closed-loop, verifiable world models">
+  <meta property="og:description" content="Notes from ICML 2026 in Seoul, where our VectorWorld paper was a Spotlight — five signals on one-step generation, explicit structure, reward design, control theory, and automating research.">
+  <meta property="og:url" content="https://jiangchaokang.github.io/blog/2026/07/12/icml-2026-seoul-world-models/">
+  <meta property="og:image" content="https://jiangchaokang.github.io/assets/img/chaokang_jiang/og-card.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="ICML 2026 in Seoul: the shift toward real-time, closed-loop, verifiable world models — Jiang Chaokang">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="ICML 2026 in Seoul: the shift toward real-time, closed-loop, verifiable world models">
+  <meta name="twitter:description" content="Notes from ICML 2026 in Seoul, where our VectorWorld paper was a Spotlight — five signals on one-step generation, explicit structure, reward design, control theory, and automating research.">
+  <meta name="twitter:image" content="https://jiangchaokang.github.io/assets/img/chaokang_jiang/og-card.png">
+  <link rel="stylesheet" href="/assets/css/main.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Jiang Chaokang",
+    "alternateName": ["Chaokang Jiang", "蒋超康"],
+    "jobTitle": "World Models Algorithm Engineer",
+    "image": "https://jiangchaokang.github.io/assets/img/chaokang_jiang/avatar.png",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Bosch (XC-CN)"
+    },
+    "alumniOf": [
+      { "@type": "CollegeOrUniversity", "name": "Shanghai Jiao Tong University" },
+      { "@type": "CollegeOrUniversity", "name": "China University of Mining and Technology" }
+    ],
+    "email": "jck98@foxmail.com",
+    "url": "https://jiangchaokang.github.io",
+    "sameAs": [
+      "https://github.com/jiangchaokang",
+      "https://scholar.google.com/citations?user=6gZ8vloAAAAJ&hl=en",
+      "https://x.com/chaokangjiang1",
+      "https://openreview.net/profile?id=~Chaokang_Jiang1"
+    ],
+    "knowsAbout": [
+      "World Models",
+      "Generative Models",
+      "Vision-Language-Action",
+      "Autonomous Driving",
+      "3D Scene Flow",
+      "LiDAR Odometry",
+      "3D/4D Perception"
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <svg class="lg-svg" width="0" height="0" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="liquid-glass" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+        <feTurbulence type="fractalNoise" baseFrequency="0.009 0.013" numOctaves="2" seed="7" result="noise"/>
+        <feGaussianBlur in="noise" stdDeviation="1.4" result="soft"/>
+        <feDisplacementMap in="SourceGraphic" in2="soft" scale="42" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+    </defs>
+  </svg>
+
+  <div class="site-shell">
+    <header class="site-header" data-site-header>
+      <a class="brand" href="/" aria-label="Jiang Chaokang home">
+        <img src="/assets/img/chaokang_jiang/logo-mark.svg" alt="" width="49" height="38">
+        <span>
+          <strong>Jiang Chaokang</strong>
+          <small>World Models · Generative Driving · 3D/4D Perception</small>
+        </span>
+      </a>
+
+      <div class="header-right">
+        <nav class="site-nav" id="site-nav" aria-label="Primary navigation" data-site-nav>
+          
+            
+            
+
+            
+              <a class="nav-link" href="/" >Home</a>
+            
+          
+            
+            
+
+            
+              <div class="nav-item has-menu" data-nav-item>
+                <a class="nav-trigger" href="/publications/"  aria-haspopup="true" aria-expanded="false" data-nav-trigger>
+                  Publications
+                  <svg class="nav-caret" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </a>
+
+                <div class="nav-dropdown" data-nav-menu role="menu">
+                  <div class="liquid-glass" aria-hidden="true">
+                    <span class="lg-refract"></span>
+                    <span class="lg-tint"></span>
+                    <span class="lg-shine"></span>
+                  </div>
+                  <div class="nav-dropdown-inner">
+                    <p class="nav-dd-blurb">Peer-reviewed work on world models, generative driving, and 3D/4D perception.</p>
+
+                    
+                      
+                      <div class="nav-dd-pubs">
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#jiang2026vectorworld">
+                            <span class="ndp-venue venue-icml">ICML</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">VectorWorld: Efficient Streaming World Model via Diffusion Fl...</span>
+                              <span class="ndp-meta">2026 · Accepted · Spotlight</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#liu2026regformerpp">
+                            <span class="ndp-venue venue-arxiv">arXiv</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">RegFormer++: An Efficient Large-Scale 3D LiDAR Point Registra...</span>
+                              <span class="ndp-meta">2026 · Preprint</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#liu2026difflow3d">
+                            <span class="ndp-venue venue-t-pami">T-PAMI</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">DifFlow3D: Hierarchical Diffusion Models for Uncertainty-Awar...</span>
+                              <span class="ndp-meta">2026 · Published</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#liu2025mamba4d">
+                            <span class="ndp-venue venue-cvpr">CVPR</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">Mamba4D: Efficient 4D Point Cloud Video Understanding with Di...</span>
+                              <span class="ndp-meta">2025 · Published</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#jiang20243dsflabelling">
+                            <span class="ndp-venue venue-cvpr">CVPR</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">3DSFLabelling: Boosting 3D Scene Flow Estimation by Pseudo Au...</span>
+                              <span class="ndp-meta">2024 · Published</span>
+                            </span>
+                          </a>
+                        
+                          
+                          <a class="nav-dd-pub" role="menuitem" href="/publications/#jiang2024neurogauss4d">
+                            <span class="ndp-venue venue-neurips">NeurIPS</span>
+                            <span class="ndp-body">
+                              <span class="ndp-title">NeuroGauss4D-PCI: 4D Neural Fields and Gaussian Deformation F...</span>
+                              <span class="ndp-meta">2024 · Published</span>
+                            </span>
+                          </a>
+                        
+                      </div>
+                      <a class="nav-dd-all" role="menuitem" href="/publications/">All publications<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+
+                    
+                  </div>
+                </div>
+              </div>
+            
+          
+            
+            
+
+            
+              <div class="nav-item has-menu" data-nav-item>
+                <a class="nav-trigger" href="/projects/"  aria-haspopup="true" aria-expanded="false" data-nav-trigger>
+                  Projects
+                  <svg class="nav-caret" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </a>
+
+                <div class="nav-dropdown" data-nav-menu role="menu">
+                  <div class="liquid-glass" aria-hidden="true">
+                    <span class="lg-refract"></span>
+                    <span class="lg-tint"></span>
+                    <span class="lg-shine"></span>
+                  </div>
+                  <div class="nav-dropdown-inner">
+                    <p class="nav-dd-blurb">Production systems and research platforms, shown as interactive logic maps.</p>
+
+                    
+                      
+                      <div class="nav-dd-projects">
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/generative-world-model-7v-closed-loop-sim/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/7v_closed_loop_sim/steaming_wm_high_speed_raw.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">Generative World Model for 7V Closed-Loop Driving Simulation</span>
+                              <span class="ddp-meta">Generative World Models · 2025.06–Present</span>
+                            </span>
+                          </a>
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/generative-ad-simulation-platform/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/gen_ad_sim/ingolstadt_gen_video_grid.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">Generative Autonomous-Driving Simulation Platform</span>
+                              <span class="ddp-meta">Research Platform · 2025.03–Present</span>
+                            </span>
+                          </a>
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/traffic-sensor-level-ctrl/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/recon_gen_simulation/1.Gen_fg_bg_Diff_light.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">Vector Traffic Generation & Sensor-Level Closed-Loop Simulation</span>
+                              <span class="ddp-meta">Research Platform · 2025.05–Present</span>
+                            </span>
+                          </a>
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/phigent-gen-model/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/phigent_gen_model/phigent_gen_7V_video2.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">Controllable Surround-View Driving Generation</span>
+                              <span class="ddp-meta">Research Project · 2023.05–2024</span>
+                            </span>
+                          </a>
+                        
+                          <a class="nav-dd-proj" role="menuitem" href="/projects/auto-labeling-4d-lidar/">
+                            <span class="ddp-thumb">
+                              
+                                <video muted playsinline preload="metadata" tabindex="-1"><source src="/assets/media/projects/offline-4d-labeling/offline_visual_auto_labeling.mp4" type="video/mp4"></video>
+                              
+                            </span>
+                            <span class="ddp-body">
+                              <span class="ddp-title">4D Auto-Labeling & Pure LiDAR 3D Detection</span>
+                              <span class="ddp-meta">Production + Research Project · 2022.11–2024</span>
+                            </span>
+                          </a>
+                        
+                      </div>
+                      <a class="nav-dd-all" role="menuitem" href="/projects/">All projects<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+
+                    
+                  </div>
+                </div>
+              </div>
+            
+          
+            
+            
+
+            
+              <div class="nav-item has-menu" data-nav-item>
+                <a class="nav-trigger" href="/blog/" aria-current="page" aria-haspopup="true" aria-expanded="false" data-nav-trigger>
+                  Blog
+                  <svg class="nav-caret" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </a>
+
+                <div class="nav-dropdown" data-nav-menu role="menu">
+                  <div class="liquid-glass" aria-hidden="true">
+                    <span class="lg-refract"></span>
+                    <span class="lg-tint"></span>
+                    <span class="lg-shine"></span>
+                  </div>
+                  <div class="nav-dropdown-inner">
+                    <p class="nav-dd-blurb">Engineering notes and long-term practice.</p>
+
+                    
+                      <div class="nav-dd-list">
+                        
+                          <a class="nav-dd-link" role="menuitem" href="/blog/2026/08/28/generative-foundations-flowmatching-diffusion-rl/">
+                            <span class="ddl-title">Generative Foundations: Flow Matching, Score-based Diffusion & Reinforcement Learning</span>
+                            <span class="ddl-desc">Aug 28, 2026</span>
+                          </a>
+                        
+                          <a class="nav-dd-link" role="menuitem" href="/blog/2026/07/12/icml-2026-seoul-world-models/">
+                            <span class="ddl-title">ICML 2026 in Seoul: the shift toward real-time, closed-loop, verifiable world models</span>
+                            <span class="ddl-desc">Jul 12, 2026</span>
+                          </a>
+                        
+                          <a class="nav-dd-link" role="menuitem" href="/blog/2026/07/01/ge-sim-2-closed-loop-simulator/">
+                            <span class="ddl-title">GE-Sim 2.0: a closed-loop video world simulator for manipulation</span>
+                            <span class="ddl-desc">Jul 1, 2026</span>
+                          </a>
+                        
+                      </div>
+                      <a class="nav-dd-all" role="menuitem" href="/blog/">All notes<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+
+                    
+                  </div>
+                </div>
+              </div>
+            
+          
+            
+            
+
+            
+              <div class="nav-item has-menu" data-nav-item>
+                <a class="nav-trigger" href="/contact/"  aria-haspopup="true" aria-expanded="false" data-nav-trigger>
+                  Contact
+                  <svg class="nav-caret" viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                </a>
+
+                <div class="nav-dropdown" data-nav-menu role="menu">
+                  <div class="liquid-glass" aria-hidden="true">
+                    <span class="lg-refract"></span>
+                    <span class="lg-tint"></span>
+                    <span class="lg-shine"></span>
+                  </div>
+                  <div class="nav-dropdown-inner">
+                    <p class="nav-dd-blurb">Collaboration, talks, and academic service.</p>
+
+                    
+                      <div class="nav-dd-list">
+                        <a class="nav-dd-link" role="menuitem" href="mailto:jck98@foxmail.com"><span class="ddl-title">Email</span><span class="ddl-desc">jck98@foxmail.com</span></a>
+                        <a class="nav-dd-link" role="menuitem" href="https://scholar.google.com/citations?user=6gZ8vloAAAAJ&hl=en" target="_blank" rel="noopener"><span class="ddl-title">Google Scholar</span><span class="ddl-desc">Publications & citations</span></a>
+                        <a class="nav-dd-link" role="menuitem" href="https://github.com/jiangchaokang" target="_blank" rel="noopener"><span class="ddl-title">GitHub</span><span class="ddl-desc">Open-source & code</span></a>
+                        <a class="nav-dd-link" role="menuitem" href="https://x.com/chaokangjiang1" target="_blank" rel="noopener"><span class="ddl-title">X</span><span class="ddl-desc">@chaokangjiang1</span></a>
+                      </div>
+                      <a class="nav-dd-all" role="menuitem" href="/contact/">Contact & service<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+
+                    
+                  </div>
+                </div>
+              </div>
+            
+          
+        </nav>
+
+        <button class="search-toggle" type="button" aria-label="Search the site" title="Search (⌘K)" data-search-open>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="m20 20-3.2-3.2"></path>
+          </svg>
+        </button>
+
+        <button class="theme-toggle" type="button" aria-label="Switch color theme" title="Switch color theme" data-theme-toggle>
+          <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path>
+          </svg>
+          <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+
+        <button class="nav-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </header>
+
+    <div class="page-grid no-news">
+      <main class="main-content" id="main" tabindex="-1">
+        <article class="bx reveal">
+  <header class="bx-hero">
+    <div class="bx-hero-media" aria-hidden="true">
+      <img src="/assets/media/blog/icml2026_seoul/VectorWorld_Spotlight_Poster_LiveExchange.jpg" alt="" />
+    </div>
+    <div class="bx-hero-inner">
+      <p class="eyebrow">Conference Notes · ICML 2026 · Seoul</p>
+      <h1>ICML 2026 in Seoul: the shift toward real-time, closed-loop, verifiable world models</h1>
+      <p class="bx-byline">A week at COEX with our Spotlight paper, VectorWorld — and five signals worth carrying home, from one-step generation to the first real AI-scientist tools.</p>
+    </div>
+    <blockquote class="bx-lede">
+      I spent July 6–11 at COEX for the 43rd ICML, showing our Spotlight paper, VectorWorld. Between poster sessions, the more interesting question was what generative models, world models, and ML systems are actually optimizing for now. The clearest answer: less for a better single sample, more for a system that is faster, steadier, easier to control, and easier to verify.
+    </blockquote>
+  </header>
+
+  <div class="bx-shell" data-proj-shell="">
+    <nav class="proj-toc" data-proj-toc="" aria-label="On this page">
+      <button class="proj-toc-toggle" type="button" data-toc-toggle="" aria-expanded="true" aria-label="Toggle contents">
+        <span class="toc-title">Contents</span>
+        <svg class="toc-chevron" viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+      </button>
+      <nav class="proj-toc-nav"><ol data-toc-list=""></ol></nav>
+    </nav>
+
+    <div class="project-body-main bx-body">
+
+      <figure class="bx-fig">
+        <img src="/assets/media/blog/icml2026_seoul/ICML2026_COEX_Entrance.jpg" alt="Welcome to COEX banner for ICML 2026 in Seoul" loading="lazy" />
+        <figcaption><strong>COEX, Seoul.</strong> Main conference, tutorials, expo, and workshops, all under one roof, July 6–11.</figcaption>
+      </figure>
+
+      <section class="bx-section">
+        <h2>1. One-step generation becomes closed-loop infrastructure</h2>
+        <p>MeanFlow reframes the learning target from an instantaneous velocity to an average velocity over an interval, so a single forward pass replaces what used to take dozens of denoising steps — I covered that line of work in more depth in <a href="/blog/2026/06/28/one-step-generative-models/">a paper-by-paper walkthrough</a>. <a href="/publications/#jiang2026vectorworld">VectorWorld</a> applies the same idea to streaming vector-scene completion: roughly 5.6&nbsp;ms per tile for one-step inference, holding up over kilometer-scale closed-loop rollouts. PointDiT pushes the same one-step instinct into dense 3D geometry. Once a system runs closed-loop, latency stops being an engineering footnote — it becomes part of what the model can actually do.</p>
+      </section>
+
+      <section class="bx-section">
+        <h2>2. Explicit structure still earns its keep</h2>
+        <p>PointDiT skips the Point VAE and the usual two-stage latent pipeline entirely: a plain ViT runs pixel-space diffusion directly on raw 3D point-map patches, conditioned on DINOv3 features, and keeps sharper boundaries around ambiguous regions like transparent objects. VectorWorld makes the same bet at the scene level — an explicit lane-agent vector graph in place of a fully implicit visual latent. For geometry, traffic, and physical worlds, explicit structure is still one of the more reliable paths to controllability, interpretability, and verifiability.</p>
+      </section>
+
+      <section class="bx-section">
+        <h2>3. Generation, reward, and evaluation have to be designed together</h2>
+        <p><a href="https://arxiv.org/abs/2602.01624" target="_blank" rel="noopener">PISCES</a> uses optimal transport to align text and video representations, then builds two separate rewards on that alignment — one for overall quality, one for fine-grained semantics — and post-trains video generation with no human preference labels at all. <a href="https://arxiv.org/abs/2606.28322" target="_blank" rel="noopener">PerceptionRubrics</a> does the equivalent for evaluation: it splits multimodal understanding into atomic "must-right" facts and "easy-wrong" details, then gates the score so one missed must-right fact can't be smoothed over by everything else being fine. The same instinct showed up outside vision-language work, too, in a medical-imaging poster (<a href="https://openreview.net/pdf?id=wWl4AE7KXS" target="_blank" rel="noopener">IPOD</a>) that learns a reusable INR initialization for MRI reconstruction straight from undersampled k-space, with no clean reference scan in sight.</p>
+        <p>None of this is just "a bigger generator." Progress here depends as much on getting the reward and the rubric right as on making the generator itself bigger. For driving world models specifically, visual realism was never the bar — topology, collisions, feasible motion, and long-rollout drift deserve to be independent, hard checks, not folded into one aggregate score.</p>
+      </section>
+
+      <section class="bx-section">
+        <h2>4. Control theory and generative models are converging again</h2>
+        <p><a href="https://arxiv.org/abs/2601.23231" target="_blank" rel="noopener">MPC-Flow</a> reframes conditional generation with a flow model as a sequence of model-predictive-control sub-problems — plan over a short horizon, act, observe, replan — with no need to back-propagate through the full generative trajectory. VectorWorld's ΔSim leans on the same idea, constraining NPC behavior with differentiable kinematics to cut down physical drift over long closed loops. Learning and control were never really competing approaches: the generative model supplies the prior, and control plus physical constraints are what make that prior something you can deploy.</p>
+      </section>
+
+      <section class="bx-section">
+        <h2>On the show floor</h2>
+        <p class="bx-note-line">Five more posters that stuck with me — each one a different bet on the same shift.</p>
+        <div class="bx-media">
+          <figure class="bx-fig">
+            <img src="/assets/media/blog/icml2026_seoul/PointDiT_poster.jpg" alt="PointDiT poster at ICML 2026" loading="lazy" />
+            <figcaption><strong>PointDiT.</strong> A simpler pixel-space diffusion recipe still yields sharper, more robust monocular 3D geometry.</figcaption>
+          </figure>
+          <figure class="bx-fig">
+            <img src="/assets/media/blog/icml2026_seoul/PISCES_poster.jpg" alt="PISCES poster at ICML 2026" loading="lazy" />
+            <figcaption><strong>PISCES.</strong> Align the reward space first, then post-train text-to-video generation without human labels.</figcaption>
+          </figure>
+          <figure class="bx-fig">
+            <img src="/assets/media/blog/icml2026_seoul/PerceptionRubrics.jpg" alt="PerceptionRubrics poster at ICML 2026" loading="lazy" />
+            <figcaption><strong>PerceptionRubrics.</strong> From a fuzzy overall similarity score to an auditable checklist of visual facts.</figcaption>
+          </figure>
+          <figure class="bx-fig">
+            <img src="/assets/media/blog/icml2026_seoul/MPC-Flow.jpg" alt="MPC-Flow poster at ICML 2026" loading="lazy" />
+            <figcaption><strong>MPC-Flow.</strong> Treat conditional generation as closed-loop control — plan, act, and replan inside every short horizon.</figcaption>
+          </figure>
+          <figure class="bx-fig">
+            <img src="/assets/media/blog/icml2026_seoul/Reference-Free-Meta-Learning-MRI.jpg" alt="Reference-free meta-learning for MRI reconstruction poster at ICML 2026" loading="lazy" />
+            <figcaption><strong>IPOD.</strong> A generalizable INR initialization learned straight from undersampled MRI scans, no clean reference required.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="bx-section">
+        <h2>5. The AI-scientist bottleneck isn't just code</h2>
+        <p>Google's <a href="https://arxiv.org/abs/2601.23265" target="_blank" rel="noopener">PaperBanana</a> — since renamed PaperVizAgent — turns five agents loose on one job: a retriever, a planner, a stylist, a renderer, and a critic, working together to draft and revise method figures and result plots. A companion Google poster, on why machine-learning engineering (MLE) is the harder half of automating research, made the sharper point: ordinary software fails loudly and reproduces in seconds, while a machine-learning experiment can take hours or days to fail, and the regression could be the data, a hyperparameter, the random seed, or the training run itself — the root cause is genuinely harder to pin down. <a href="https://research.google/pubs/mle-star-machine-learning-engineering-agent-via-search-and-targeted-refinement/" target="_blank" rel="noopener">MLE-STAR</a> answers with web-search-seeded starting points and targeted, ablation-guided refinement of individual pipeline components, instead of rewriting the whole thing at once.</p>
+        <p>Automating research was never only about generating a plausible-looking method. It's whether you can run the experiment reliably, trace why performance actually moved, and keep the evidence to prove it.</p>
+        <div class="bx-media cols-2">
+          <figure class="bx-fig">
+            <img src="/assets/media/blog/icml2026_seoul/PaperBanana.jpg" alt="Google PaperBanana poster at ICML 2026" loading="lazy" />
+            <figcaption><strong>PaperBanana.</strong> Five agents — retrieve, plan, style, render, critique — collaborating to draft and revise research figures.</figcaption>
+          </figure>
+          <figure class="bx-fig">
+            <img src="/assets/media/blog/icml2026_seoul/MLE.jpg" alt="Google MLE poster at ICML 2026" loading="lazy" />
+            <figcaption><strong>MLE.</strong> Automating research means executing costly experiments, not only generating code that looks right.</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      <section class="bx-section">
+        <h2>The most striking demo on the floor</h2>
+        <p>My own footage, from the <a href="https://mira-wm.com/" target="_blank" rel="noopener">MIRA</a> booth: a real-time, four-player world model by General Intuition, Kyutai, and Epic Games, generating a driving game live from nothing but controller input — no engine, no renderer, just a model predicting what comes next, smoothly enough that you forget it is being generated at all. It was the clearest proof on the floor that "real-time, interactive world model" is no longer a future-tense claim.</p>
+        <figure class="bx-video is-wide">
+          <video muted="" loop="" playsinline="" preload="none" disablepictureinpicture="" disableremoteplayback="" data-autoplay-in-view=""><source src="/assets/media/blog/icml2026_seoul/mira-wm.mp4" type="video/mp4" /></video>
+          <figcaption><strong>MIRA.</strong> Four players, one neural network — a playable driving world generated live, frame by frame, no game engine involved.</figcaption>
+        </figure>
+      </section>
+
+      <section class="bx-section">
+        <h2>VectorWorld at the poster</h2>
+        <p>The valuable part of a poster session was never finishing the walkthrough — it was explaining one system, in a few minutes, clearly enough that a stranger could restate what problem it solves, why it works, where its edges are, and how it might fail. In front of the VectorWorld poster, I kept boiling the system down to three steps:</p>
+        <p class="bx-eq">History-compatible warm start <span class="eq-arrow">→</span> one-step frontier completion <span class="eq-arrow">→</span> <b>physics-aligned closed loop</b></p>
+        <figure class="bx-fig">
+          <img src="/assets/media/blog/icml2026_seoul/VectorWorld_Poster.jpg" alt="VectorWorld Spotlight poster at ICML 2026" loading="lazy" />
+          <figcaption><strong>VectorWorld.</strong> A streaming vector-graph world model — one-step diffusion flow completes the map frontier as the vehicle moves, closed by physics-aligned NPC behavior.</figcaption>
+        </figure>
+        <p>The conversations sharpened what I think a world model still has to answer before it earns a place in a production loop: a valid initialization, topological consistency, real-time inference, safe agent behavior, and stability over long rollouts.</p>
+      </section>
+
+      <section class="bx-section">
+        <h2>One more lens: from least action to score and flow</h2>
+        <p>A personal aside I keep coming back to: classical mechanics, stochastic processes, score-based diffusion, and flow matching all read, in spirit, as the same question — what is the right evolution law over a space of paths.</p>
+        <p class="bx-note-line">Read the poster below as a conceptual throughline, not a rigorous derivation chain: a score model learns the gradient of a probability density, while flow matching learns a deterministic velocity field that transports noise to data directly. They rhyme more than they reduce to one another.</p>
+        <figure class="bx-fig">
+          <img src="/assets/media/blog/icml2026_seoul/min_power.jpg" alt="A conceptual diagram connecting least action, Euler-Lagrange, Fokker-Planck, score matching, and flow matching" loading="lazy" />
+          <figcaption><strong>From least action to probability transport.</strong> One way to read diffusion and flow models: both search for the right evolution law over a space of paths.</figcaption>
+        </figure>
+      </section>
+
+      <section class="bx-section">
+        <h2>What I'm taking home</h2>
+        <p>ICML 2026 mostly confirmed a direction I was already leaning toward:</p>
+        <ul class="bx-takeaways">
+          <li>Move world models from offline generation toward real-time, interactive closed loops.</li>
+          <li>Connect vector-world priors to sensor-level video generation.</li>
+          <li>Build atomic evaluation for structure, physics, and safety — not just an aggregate visual score.</li>
+          <li>Automate the experiment loop, but keep the evidence, the reproduction steps, and a human check at the end of it.</li>
+        </ul>
+        <p class="bx-callout">Bigger models still matter. But what actually moves a system forward is a shorter generation path, more explicit structure, a more reliable closed loop, and stricter verification.</p>
+        <figure class="bx-fig">
+          <img src="/assets/media/blog/icml2026_seoul/VectorWorld_Spotlight_Poster_LiveExchange2.jpg" alt="Chaokang Jiang with a fellow researcher at the VectorWorld poster, ICML 2026" loading="lazy" />
+          <figcaption>ICML is more than papers — it's the researchers a shared question connects you to.</figcaption>
+        </figure>
+      </section>
+
+    </div>
+  </div>
+</article>
+
+      </main>
+
+      
+    </div>
+
+    <footer class="site-footer">
+      <div>
+        <strong>Jiang Chaokang</strong>
+        <span>World Models Algorithm Engineer · Bosch (XC-CN)</span>
+      </div>
+      <div class="footer-links" aria-label="Profile links">
+        <a href="mailto:jck98@foxmail.com" aria-label="Email" title="Email · jck98@foxmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/></svg>
+        </a>
+        <a href="https://github.com/jiangchaokang" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 1.6a10.4 10.4 0 0 0-3.29 20.27c.52.1.71-.23.71-.5v-1.96c-2.9.63-3.51-1.23-3.51-1.23-.47-1.2-1.16-1.52-1.16-1.52-.95-.65.07-.64.07-.64 1.05.08 1.6 1.08 1.6 1.08.93 1.6 2.45 1.14 3.05.87.09-.68.36-1.14.66-1.4-2.32-.26-4.76-1.16-4.76-5.16 0-1.14.41-2.07 1.08-2.8-.11-.27-.47-1.33.1-2.78 0 0 .88-.28 2.88 1.07a9.96 9.96 0 0 1 5.24 0c2-1.35 2.87-1.07 2.87-1.07.57 1.45.21 2.51.1 2.78.67.73 1.08 1.66 1.08 2.8 0 4.01-2.45 4.9-4.78 5.16.38.32.71.95.71 1.92v2.85c0 .28.19.61.72.5A10.4 10.4 0 0 0 12 1.6Z"/></svg>
+        </a>
+        <a href="https://scholar.google.com/citations?user=6gZ8vloAAAAJ&hl=en" target="_blank" rel="noopener" aria-label="Google Scholar" title="Google Scholar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4 2 9l10 5 8-4v6"/><path d="M6 11.5V16c0 1.2 2.7 3 6 3s6-1.8 6-3v-4.5"/></svg>
+        </a>
+        <a href="https://x.com/chaokangjiang1" target="_blank" rel="noopener" aria-label="X" title="X (Twitter)">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.5 3h3.1l-6.77 7.74L21.8 21h-6.2l-4.86-6.36L5.18 21H2.07l7.24-8.28L2.2 3h6.36l4.4 5.81L17.5 3Zm-1.09 16.13h1.72L7.66 4.78H5.82l10.59 14.35Z"/></svg>
+        </a>
+        <a href="/sitemap.xml" aria-label="Sitemap" title="Sitemap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="5" rx="1.2"/><rect x="3" y="16" width="6" height="5" rx="1.2"/><rect x="15" y="16" width="6" height="5" rx="1.2"/><path d="M12 8v4M6 16v-2.5a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1V16"/></svg>
+        </a>
+      </div>
+    </footer>
+  </div>
+
+  <div class="search-modal" data-search-modal data-search-url="/search.json" hidden>
+    <div class="search-backdrop" data-search-close></div>
+    <div class="search-panel" role="dialog" aria-modal="true" aria-label="Search the site">
+      <div class="search-field">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle>
+          <path d="m20 20-3.2-3.2"></path>
+        </svg>
+        <input type="search" placeholder="Search publications, projects, notes…" autocomplete="off" spellcheck="false" aria-label="Search query" data-search-input>
+        <kbd data-search-close>Esc</kbd>
+      </div>
+      <ul class="search-results" data-search-results role="listbox" aria-label="Search results"></ul>
+      <p class="search-hint" data-search-hint>Type to search across publications, projects, and blog notes.</p>
+    </div>
+  </div>
+
+  <script src="/assets/js/main.js" defer></script>
+</body>
+</html>
